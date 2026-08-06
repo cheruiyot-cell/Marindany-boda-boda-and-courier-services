@@ -3,47 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <!-- --- Core SEO Architecture --- -->
   <title>Marindany Boda Boda and Courier Services — Trusted Imara Daima Logistics</title>
-  <meta name="description" content="Need a parcel delivery today? Looking for a trusted Boda Boda rider in Imara Daima? Get fast delivery services with direct WhatsApp communication across Nairobi." />
-  <meta name="keywords" content="Marindany Boda Boda, trusted rider Imara Daima, same day parcel delivery Nairobi, fast delivery services Kenya, WhatsApp courier Nairobi" />
+  <meta name="description" content="Fast, reliable parcel delivery and boda boda rides in Imara Daima and across Nairobi. Direct WhatsApp booking, transparent rates, and real‑time human updates." />
+  <meta name="keywords" content="Marindany Boda Boda, trusted rider Imara Daima, same day parcel delivery Nairobi, fast delivery services Kenya, WhatsApp courier Nairobi, M‑Pesa delivery Nairobi" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://marindany-boda-boda-and-courier-ser.vercel.app/" />
 
-  <!-- --- Open Graph / Social Media Visibility --- -->
+  <!-- --- Open Graph / Social Media --- -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Marindany Boda Boda and Courier Services" />
-  <meta property="og:description" content="Fast, reliable, and completely stress-free rides and deliveries in Nairobi. No automated bots—just direct human updates." />
+  <meta property="og:description" content="Fast, reliable, and completely stress‑free rides and deliveries in Nairobi. Direct human updates via WhatsApp." />
   <meta property="og:image" content="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1200&auto=format&fit=crop" />
   <meta property="og:url" content="https://marindany-boda-boda-and-courier-ser.vercel.app/" />
 
-  <!-- --- Google Rich Snippets Schema --- -->
+  <!-- --- Schema.org Structured Data --- -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": "DeliveryService",
       "name": "Marindany Boda Boda and Courier Services",
       "image": "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1200&auto=format&fit=crop",
       "telephone": "+254725351381",
       "url": "https://marindany-boda-boda-and-courier-ser.vercel.app/",
-      "priceRange": "$$",
+      "priceRange": "KSh 150 - KSh 2000",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Imara Daima Estate",
         "addressLocality": "Nairobi",
         "addressRegion": "Nairobi County",
         "addressCountry": "KE"
-      }
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -1.3323,
+        "longitude": 36.8778
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "06:00",
+          "closes": "22:00"
+        }
+      ],
+      "areaServed": ["Imara Daima", "Syokimau", "South B", "South C", "Industrial Area", "Nairobi CBD", "Westlands", "Kilimani"]
     }
   </script>
 
-  <!-- High-Speed Preconnect Framework for Core Web Vitals -->
+  <!-- --- Preconnect & Web Fonts --- -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS Engine -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- --- Tailwind CSS (with custom config) --- -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -62,25 +76,19 @@
     }
   </script>
 
-  <style>
-    body { background-color: #050505; color: #ffffff; -webkit-font-smoothing: antialiased; }
-    ::selection { background-color: #84cc16; color: #000000; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #050505; }
-    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #84cc16; }
-    .img-placeholder { background: linear-gradient(110deg, #09090b 8%, #18181b 18%, #09090b 33%); background-size: 200% 100%; animation: shine 1.5s infinite linear; }
-    @keyframes shine { to { background-position-x: -200%; } }
-  </style>
-</head>
-<body class="min-h-screen text-white font-sans selection:bg-brandLime-500 selection:text-black">
+  <!-- --- External CSS (custom overrides & enhancements) --- -->
+  <link rel="stylesheet" href="styles.css" />
 
-  <!-- --- Header / Navigation Core --- -->
+  <!-- --- External JavaScript (deferred) --- -->
+  <script src="script.js" defer></script>
+</head>
+<body class="min-h-screen bg-black text-white font-sans antialiased">
+
+  <!-- --- Header / Navigation --- -->
   <header>
-    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-xl border-b border-zinc-900 transition-all duration-300">
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-xl border-b border-zinc-900 transition-all duration-300" aria-label="Main Navigation">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20 items-center">
-          
           <a href="#" class="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-brandLime-500 rounded-lg p-1" aria-label="Marindany Home">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-7 h-7 text-brandGold-400 group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -92,14 +100,16 @@
           
           <!-- Desktop Nav Links -->
           <div class="hidden md:flex items-center space-x-8">
-            <a href="#problems" class="text-zinc-400 hover:text-brandLime-400 text-sm font-medium transition-colors duration-200">Our Solutions</a>
-            <a href="#services" class="text-zinc-400 hover:text-brandLime-400 text-sm font-medium transition-colors duration-200">Services</a>
-            <a href="https://wa.me/254725351381" target="_blank" rel="noopener noreferrer" class="bg-brandLime-500 hover:bg-brandLime-400 active:scale-95 text-black px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 shadow-[0_0_20px_rgba(132,204,22,0.15)]">
+            <a href="#services" class="text-zinc-400 hover:text-brandLime-400 text-sm font-medium transition-colors">Services</a>
+            <a href="#rates" class="text-zinc-400 hover:text-brandLime-400 text-sm font-medium transition-colors">Rates & Pricing</a>
+            <a href="#coverage" class="text-zinc-400 hover:text-brandLime-400 text-sm font-medium transition-colors">Coverage Areas</a>
+            <a href="#faq" class="text-zinc-400 hover:text-brandLime-400 text-sm font-medium transition-colors">FAQ</a>
+            <a href="https://wa.me/254725351381" target="_blank" rel="noopener noreferrer" class="bg-brandLime-500 hover:bg-brandLime-400 text-black px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-[0_0_20px_rgba(132,204,22,0.15)]">
               Chat on WhatsApp
             </a>
           </div>
 
-          <!-- Interactive Hamburger Trigger -->
+          <!-- Mobile Hamburger -->
           <div class="md:hidden flex items-center">
             <button id="mobile-menu-btn" type="button" class="text-zinc-400 hover:text-white focus:outline-none p-2 rounded-lg" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle Navigation Menu">
               <svg id="hamburger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-6 h-6 transition-transform duration-200">
@@ -110,12 +120,14 @@
         </div>
       </div>
 
-      <!-- Mobile Dropdown Panel -->
-      <div id="mobile-menu" class="hidden md:hidden bg-black/95 backdrop-blur-2xl border-b border-zinc-900 transition-all duration-300 transform origin-top opacity-0 scale-95">
+      <!-- Mobile Dropdown -->
+      <div id="mobile-menu" class="hidden md:hidden bg-black/95 backdrop-blur-2xl border-b border-zinc-900 transition-all duration-300" role="navigation" aria-label="Mobile Navigation">
         <div class="px-4 pt-2 pb-6 space-y-2">
-          <a href="#problems" class="block text-zinc-300 hover:text-brandLime-400 py-3 text-base font-medium border-b border-zinc-900 transition-colors">Our Solutions</a>
-          <a href="#services" class="block text-zinc-300 hover:text-brandLime-400 py-3 text-base font-medium border-b border-zinc-900 transition-colors">Services</a>
-          <a href="https://wa.me/254725351381" target="_blank" rel="noopener noreferrer" class="block text-center bg-brandLime-500 text-black py-3.5 rounded-xl font-semibold text-base shadow-md mt-4 active:scale-[0.99] transition-transform">
+          <a href="#services" class="mobile-nav-link block text-zinc-300 hover:text-brandLime-400 py-3 text-base font-medium border-b border-zinc-900">Services</a>
+          <a href="#rates" class="mobile-nav-link block text-zinc-300 hover:text-brandLime-400 py-3 text-base font-medium border-b border-zinc-900">Rates & Pricing</a>
+          <a href="#coverage" class="mobile-nav-link block text-zinc-300 hover:text-brandLime-400 py-3 text-base font-medium border-b border-zinc-900">Coverage Areas</a>
+          <a href="#faq" class="mobile-nav-link block text-zinc-300 hover:text-brandLime-400 py-3 text-base font-medium border-b border-zinc-900">FAQ</a>
+          <a href="https://wa.me/254725351381" target="_blank" rel="noopener noreferrer" class="block text-center bg-brandLime-500 text-black py-3.5 rounded-xl font-semibold text-base shadow-md mt-4">
             Chat on WhatsApp
           </a>
         </div>
@@ -124,340 +136,286 @@
   </header>
 
   <main>
-    <!-- --- Hero Section (Problem-Oriented & Lightning Fast Layout) --- -->
-    <section class="relative pt-24 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-      
-      <!-- Narrative Content targeting Nairobi Frustrations -->
+    <!-- --- Hero + Booking --- -->
+    <section class="relative pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
       <div class="lg:col-span-7 space-y-6 z-10">
         <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-sm">
           <span class="flex w-2 h-2 rounded-full bg-brandLime-500 animate-pulse" aria-hidden="true"></span>
-          <span class="text-xs font-semibold text-zinc-300 uppercase tracking-widest">No More Slow Apps Or Hidden Fees</span>
+          <span class="text-xs font-semibold text-zinc-300 uppercase tracking-widest">Operating Daily: 6:00 AM – 10:00 PM</span>
         </div>
-        
-        <h1 class="font-display text-3xl sm:text-5xl lg:text-5xl font-bold tracking-tight leading-[1.2]">
+        <h1 class="font-display text-3xl sm:text-5xl lg:text-5xl font-bold tracking-tight leading-[1.2] text-shadow-sm">
           Need a Parcel Delivered <span class="text-brandLime-400">Today</span>?<br />
           Looking for a <span class="text-brandGold-400">Trusted Rider</span> in Imara Daima?
         </h1>
-        
         <p class="text-base sm:text-lg text-zinc-400 max-w-xl leading-relaxed">
-          Stop stressing over riders who accept your request and then disappear, cancel last minute, or switch off their phones. <strong>Marindany Boda Boda and Courier Services</strong> gives you fast, honest, and completely reliable transport without the headaches.
+          Stop stressing over riders who accept requests and cancel last minute. <strong>Marindany Boda Boda and Courier Services</strong> delivers fast, honest, and accountable transport across Imara Daima and Nairobi.
         </p>
-
-        <!-- Dynamic Feature Highlight Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div class="flex items-center gap-3 bg-zinc-900/40 p-3.5 rounded-xl border border-zinc-800">
-            <span class="text-2xl">⚡</span>
-            <span class="text-sm font-medium text-zinc-200">Fast service, zero delays</span>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+          <div class="flex items-center gap-2 bg-zinc-900/60 p-3 rounded-xl border border-zinc-800">
+            <span class="text-xl" aria-hidden="true">⚡</span>
+            <span class="text-xs sm:text-sm font-medium text-zinc-200">Express Pickup</span>
           </div>
-          <div class="flex items-center gap-3 bg-zinc-900/40 p-3.5 rounded-xl border border-zinc-800">
-            <span class="text-2xl">📲</span>
-            <span class="text-sm font-medium text-zinc-200">Direct WhatsApp communication</span>
+          <div class="flex items-center gap-2 bg-zinc-900/60 p-3 rounded-xl border border-zinc-800">
+            <span class="text-xl" aria-hidden="true">📲</span>
+            <span class="text-xs sm:text-sm font-medium text-zinc-200">Direct WhatsApp</span>
+          </div>
+          <div class="flex items-center gap-2 bg-zinc-900/60 p-3 rounded-xl border border-zinc-800 col-span-2 sm:col-span-1">
+            <span class="text-xl" aria-hidden="true">🛡️</span>
+            <span class="text-xs sm:text-sm font-medium text-zinc-200">Verified Riders</span>
           </div>
         </div>
-        
-        <!-- Premium Live Unsplash Visual Asset — Completely Unbroken & Eager Loaded -->
-        <div class="relative w-full aspect-[16/9] lg:aspect-[21/10] rounded-2xl overflow-hidden border border-zinc-800/80 img-placeholder shadow-2xl">
-          <img 
-            src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=85&w=1000&auto=format&fit=crop" 
-            alt="Reliable motorcycle rider moving fast and securely through city logistics lanes" 
-            loading="eager"
-            decoding="async"
-            width="1000"
-            height="476"
-            class="w-full h-full object-cover contrast-115 transition-transform duration-500 hover:scale-102"
-          />
+        <div class="relative w-full aspect-[16/9] lg:aspect-[21/10] rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl img-placeholder">
+          <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=85&w=1000&auto=format&fit=crop" alt="Reliable motorcycle courier rider moving fast through city logistics lanes" loading="eager" decoding="async" width="1000" height="476" class="w-full h-full object-cover contrast-115 transition-transform duration-500 hover:scale-105" />
           <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" aria-hidden="true"></div>
         </div>
       </div>
 
-      <!-- Instant Simple Booking Panel Tool -->
-      <div class="lg:col-span-5 bg-zinc-950 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 shadow-2xl relative transition-all duration-300 hover:border-zinc-700/50">
+      <!-- Booking Form -->
+      <div class="lg:col-span-5 bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative">
         <div class="absolute -top-16 -right-16 w-48 h-48 bg-brandLime-500/10 rounded-full blur-[64px] pointer-events-none" aria-hidden="true"></div>
+        <h2 class="font-display text-2xl font-semibold mb-1 tracking-tight">Instant Dispatch Form</h2>
+        <p class="text-xs text-zinc-400 mb-6">Fill in route details below to launch a structured booking on WhatsApp.</p>
         
-        <h2 class="font-display text-2xl font-semibold mb-1 tracking-tight">Skip the App Drama</h2>
-        <p class="text-xs text-zinc-500 mb-6">Enter your route below to instantly send a well-formatted booking text directly to our WhatsApp link.</p>
-        
-        <div class="flex bg-black p-1 rounded-xl mb-6 border border-zinc-900" role="tablist">
-          <button id="tab-send" type="button" role="tab" aria-selected="true" aria-controls="booking-form" class="flex-1 py-3 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm bg-zinc-900 text-white shadow-sm focus:outline-none">
-            📦 Deliver a Parcel
+        <div class="flex bg-black p-1 rounded-xl mb-6 border border-zinc-900" role="tablist" aria-label="Service Type Selector">
+          <button id="tab-send" type="button" role="tab" aria-selected="true" aria-controls="booking-form" class="flex-1 py-3 rounded-lg font-medium transition-all text-xs sm:text-sm bg-zinc-900 text-white shadow-sm focus:outline-none focus:ring-1 focus:ring-brandLime-500">
+            📦 Deliver Parcel
           </button>
-          <button id="tab-ride" type="button" role="tab" aria-selected="false" aria-controls="booking-form" class="flex-1 py-3 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm text-zinc-500 hover:text-zinc-300 focus:outline-none">
-            🏍️ Book a Safe Ride
+          <button id="tab-ride" type="button" role="tab" aria-selected="false" aria-controls="booking-form" class="flex-1 py-3 rounded-lg font-medium transition-all text-xs sm:text-sm text-zinc-500 hover:text-zinc-300 focus:outline-none focus:ring-1 focus:ring-brandLime-500">
+            🏍️ Passenger Ride
           </button>
         </div>
 
         <form class="space-y-4" id="booking-form" novalidate>
-          <div class="space-y-3.5">
-            <div>
-              <label for="input-pickup" class="sr-only">Pickup Location</label>
-              <input id="input-pickup" type="text" required autocomplete="off" placeholder="Where are we picking up? (e.g., Imara Daima Phase 1)" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-brandLime-500 focus:ring-1 focus:ring-brandLime-500 transition-all text-sm" />
-            </div>
-            <div>
-              <label for="input-dropoff" class="sr-only">Drop-off Destination</label>
-              <input id="input-dropoff" type="text" required autocomplete="off" placeholder="Where is it going? (e.g., CBD / Westlands / Industrial Area)" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white placeholder-zinc-600 focus:outline-none focus:border-brandLime-500 focus:ring-1 focus:ring-brandLime-500 transition-all text-sm" />
-            </div>
+          <div>
+            <label for="input-pickup" class="block text-xs font-medium text-zinc-400 mb-1">Pickup Location</label>
+            <input id="input-pickup" type="text" required autocomplete="off" placeholder="e.g., Imara Daima Phase 1 / Villa Franca" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-brandLime-500 focus:ring-1 focus:ring-brandLime-500 text-sm" />
           </div>
-
-          <div id="send-options" class="pt-2 space-y-4 animate-fadeIn">
+          <div>
+            <label for="input-dropoff" class="block text-xs font-medium text-zinc-400 mb-1">Destination</label>
+            <input id="input-dropoff" type="text" required autocomplete="off" placeholder="e.g., Industrial Area / CBD / Westlands" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-brandLime-500 focus:ring-1 focus:ring-brandLime-500 text-sm" />
+          </div>
+          <div id="parcel-type-container">
+            <label for="input-package-type" class="block text-xs font-medium text-zinc-400 mb-1">Item Description</label>
             <div class="relative">
-              <label for="input-package-type" class="sr-only">Select Package Type</label>
-              <select id="input-package-type" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brandLime-500 focus:ring-1 focus:ring-brandLime-500 transition-all appearance-none text-sm cursor-pointer">
-                <option value="Standard Parcel">What kind of package is it?</option>
-                <option value="Important Documents 📁">📁 Important Business Documents</option>
-                <option value="Food / Restaurant Order 🍔">🍔 Fresh Food / Lunch Delivery</option>
-                <option value="Fragile / High-Value Item 📦">📦 High-Value / Fragile Package</option>
+              <select id="input-package-type" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brandLime-500 focus:ring-1 focus:ring-brandLime-500 appearance-none text-sm cursor-pointer">
+                <option value="Standard Parcel 📦">Standard Parcel / Box</option>
+                <option value="Important Documents 📁">Important Business Documents</option>
+                <option value="Food / Restaurant Order 🍔">Fresh Food / Lunch Delivery</option>
+                <option value="Fragile / High-Value Item 💎">Fragile / Electronics</option>
               </select>
               <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-zinc-500">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </div>
             </div>
           </div>
-
-          <button type="submit" id="submit-btn" class="w-full mt-2 bg-brandLime-500 hover:bg-brandLime-400 active:scale-[0.98] text-black text-sm sm:text-base font-semibold py-4 rounded-xl transition-all duration-200 shadow-[0_4px_20px_rgba(132,204,22,0.2)] flex items-center justify-center gap-2">
-            Send Order via WhatsApp
+          <div>
+            <label for="input-notes" class="block text-xs font-medium text-zinc-400 mb-1">Special Instructions (Optional)</label>
+            <input id="input-notes" type="text" placeholder="e.g., Handle with care, Call on arrival" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:border-brandLime-500 focus:ring-1 focus:ring-brandLime-500 text-sm" />
+          </div>
+          <button type="submit" id="submit-btn" class="w-full mt-2 bg-brandLime-500 hover:bg-brandLime-400 active:scale-[0.98] text-black text-sm sm:text-base font-semibold py-3.5 rounded-xl transition-all shadow-[0_4px_20px_rgba(132,204,22,0.2)] flex items-center justify-center gap-2 group">
+            <span>Send Dispatch via WhatsApp</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </button>
+          <div id="form-feedback" class="text-xs text-center text-brandLime-400 hidden" aria-live="polite"></div>
         </form>
       </div>
     </section>
 
-    <!-- --- Problem Solving Section (Clear and simple for everyday Kenyans) --- -->
-    <section id="problems" class="bg-zinc-950 border-y border-zinc-900 py-20 relative overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-          <h2 class="font-display text-3xl font-bold tracking-tight mb-3">Nairobi is Fast. Your Logistics Should Be Too.</h2>
-          <p class="text-zinc-400 text-sm sm:text-base">We understand how frustrating it is when business stalls or you are running late because of bad transport. Here is exactly how we solve your daily challenges:</p>
+    <!-- --- Coverage & Hours --- -->
+    <section id="coverage" class="bg-zinc-950 border-y border-zinc-900 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-3">Service Coverage & Hours</h2>
+          <p class="text-zinc-400 text-sm sm:text-base">Operating daily across key hubs in Nairobi County with base operations centered in Imara Daima.</p>
         </div>
-        
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Problem 1 Card -->
-          <div class="bg-black border border-zinc-900 p-8 rounded-2xl hover:border-brandLime-500/30 transition-all group">
-            <div class="w-12 h-12 bg-brandLime-500/10 rounded-xl flex items-center justify-center mb-6">
-              <span class="text-2xl">📅</span>
-            </div>
-            <h3 class="text-lg font-semibold mb-3 tracking-tight">Need a Parcel Delivered Today?</h3>
-            <p class="text-zinc-400 text-sm leading-relaxed">No "tomorrow" excuses. The moment you hand us your legal documents, shop orders, or personal items, we ride straight to the destination. Fast, continuous point-to-point delivery that keeps your day moving.</p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors">
+            <div class="text-brandLime-500 text-xl font-bold mb-2">Primary Zone</div>
+            <h3 class="text-white font-semibold text-base mb-2">Imara Daima & Environs</h3>
+            <p class="text-zinc-400 text-xs leading-relaxed">Phase 1-4, AA, Muimbi, Maina, Villa Franca, Pipeline, AA Station, and Cosmas Ndeti area.</p>
           </div>
-          
-          <!-- Problem 2 Card -->
-          <div class="bg-black border border-zinc-900 p-8 rounded-2xl hover:border-brandGold-400/30 transition-all group">
-            <div class="w-12 h-12 bg-brandGold-400/10 rounded-xl flex items-center justify-center mb-6">
-              <span class="text-2xl">🤝</span>
-            </div>
-            <h3 class="text-lg font-semibold mb-3 tracking-tight">Looking for a Trusted Rider in Imara Daima?</h3>
-            <p class="text-zinc-400 text-sm leading-relaxed">Don't guess who is carrying your expensive electronics or picking you up late at night. We know Imara Daima inside out—every court, phase, and shortcuts. We are fully verified, deeply local, and completely accountable.</p>
+          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors">
+            <div class="text-brandLime-500 text-xl font-bold mb-2">Commercial Hubs</div>
+            <h3 class="text-white font-semibold text-base mb-2">Mombasa Road Corridor</h3>
+            <p class="text-zinc-400 text-xs leading-relaxed">Industrial Area, Sameer Business Park, Gateway Mall, Syokimau, Mlolongo, and Standard Gauge Railway (SGR) Terminus.</p>
           </div>
-
-          <!-- Problem 3 Card -->
-          <div class="bg-black border border-zinc-900 p-8 rounded-2xl hover:border-brandLime-500/30 transition-all group">
-            <div class="w-12 h-12 bg-brandLime-500/10 rounded-xl flex items-center justify-center mb-6">
-              <span class="text-2xl">💬</span>
-            </div>
-            <h3 class="text-lg font-semibold mb-3 tracking-tight">Direct WhatsApp Communication</h3>
-            <p class="text-zinc-400 text-sm leading-relaxed">Forget fighting with useless automated app customer support bots. With us, you text or call the actual human being handling your transit route directly on WhatsApp. Get instant responses, live tracking, and peace of mind.</p>
+          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors">
+            <div class="text-brandLime-500 text-xl font-bold mb-2">Central Zones</div>
+            <h3 class="text-white font-semibold text-base mb-2">Nairobi Urban Core</h3>
+            <p class="text-zinc-400 text-xs leading-relaxed">Nairobi CBD, South B, South C, Upper Hill, Kilimani, Yaya Centre, and Westlands.</p>
+          </div>
+          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors">
+            <div class="text-brandGold-400 text-xl font-bold mb-2">Operating Hours</div>
+            <h3 class="text-white font-semibold text-base mb-2">Daily Schedule</h3>
+            <p class="text-zinc-400 text-xs leading-relaxed">Monday – Sunday: 6:00 AM – 10:00 PM.<br /><em>*After-hours pickups available on pre-booked WhatsApp requests.</em></p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- --- Secondary Visual Asset (Lazy-loaded, below the fold) --- -->
-    <section class="h-64 sm:h-80 w-full relative overflow-hidden bg-zinc-900 img-placeholder">
-      <img 
-        src="https://images.unsplash.com/photo-1532264523420-881a47db012d?q=80&w=1400&auto=format&fit=crop" 
-        alt="Sleek motorcycle wheel and engine on a clear city road street" 
-        loading="lazy"
-        decoding="async"
-        width="1400"
-        height="320"
-        class="w-full h-full object-cover opacity-30 select-none pointer-events-none transition-transform duration-700 hover:scale-105"
-      />
-      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" aria-hidden="true"></div>
-      <div class="absolute inset-0 flex flex-col justify-end items-center pb-8 px-4 text-center">
-        <p class="font-display text-xl sm:text-2xl font-bold tracking-tight text-white mb-1">Your Most Reliable Route Around Imara Daima & Greater Nairobi</p>
-        <span class="text-brandLime-400 font-medium text-xs tracking-wider uppercase">Safe • Direct Customer Communication • Zero Hidden Charges</span>
+    <!-- --- Rates --- -->
+    <section id="rates" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <h2 class="font-display text-3xl font-bold tracking-tight mb-3">Transparent Rate Card</h2>
+        <p class="text-zinc-400 text-sm sm:text-base">No hidden dynamic surges or unexpected app fees. Standard rates based on distance and service type.</p>
       </div>
-    </section>
-
-    <!-- --- Operational Services Architecture --- -->
-    <section id="services" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mb-16">
-        <h2 class="font-display text-3xl font-bold tracking-tight mb-4">How We Can Help You Right Now</h2>
-        <p class="text-zinc-400 text-base">Simple, straight-to-the-point logistics services built for small businesses, local merchants, and daily commuters.</p>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-8">
-        <!-- Delivery Card -->
-        <div class="bg-zinc-900/60 rounded-2xl p-8 sm:p-10 border border-zinc-900 hover:border-brandLime-500/20 transition-all flex flex-col justify-between">
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 flex flex-col justify-between hover:border-zinc-600 transition-colors">
           <div>
-            <span class="text-brandLime-400 font-semibold tracking-widest text-xs uppercase mb-3 block">Point-to-Point Express</span>
-            <h3 class="font-display text-2xl font-bold mb-4 tracking-tight text-white">Same-Day Courier & Delivery</h3>
-            <p class="text-zinc-400 text-sm sm:text-base mb-8 leading-relaxed">
-              Whether you are an online store vendor sending goods to a client, or need an urgent tender packet delivered to an office downtown, we track it safely from hand-off to drop-off. No sorting delays.
-            </p>
-            <ul class="space-y-3.5 mb-10 text-sm text-zinc-300" role="list">
-              <li class="flex items-center gap-3">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-4 h-4 text-brandLime-500 flex-shrink-0" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
-                Instant confirmation photo sent when parcel drops off
-              </li>
-              <li class="flex items-center gap-3">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-4 h-4 text-brandLime-500 flex-shrink-0" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
-                Careful handling for warm food or fragile packages
-              </li>
+            <span class="text-zinc-400 text-xs uppercase tracking-wider font-semibold">Local Express</span>
+            <h3 class="text-xl font-bold text-white mt-1 mb-4">Within Imara Daima</h3>
+            <div class="text-3xl font-extrabold text-brandLime-400 mb-4">KSh 150 – 250</div>
+            <ul class="text-xs text-zinc-300 space-y-2.5 mb-6">
+              <li class="flex items-center gap-2">✓ Internal estate passenger rides</li>
+              <li class="flex items-center gap-2">✓ Quick gate/court document drop-off</li>
+              <li class="flex items-center gap-2">✓ Instant 15-minute pickup</li>
             </ul>
           </div>
-          <a href="https://wa.me/254725351381?text=Hello%20Marindany%20Logistics%21%20%E2%9A%A1%20I%20need%20a%20parcel%20delivered%20today.%20Please%20confirm%20your%20availability." target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center text-center text-black bg-white hover:bg-zinc-200 px-6 py-3.5 rounded-xl font-semibold text-sm transition-colors">
-            Request Quick Courier Drop
-          </a>
+          <a href="https://wa.me/254725351381?text=Hi,%20I%20need%20a%20local%20Imara%20Daima%20pickup." class="block text-center bg-zinc-800 hover:bg-zinc-700 text-white font-semibold text-xs py-3 rounded-xl transition-colors">Book Local Pickup</a>
         </div>
-
-        <!-- Ride Card -->
-        <div class="bg-zinc-900/60 rounded-2xl p-8 sm:p-10 border border-zinc-900 hover:border-brandGold-400/20 transition-all flex flex-col justify-between">
+        <div class="bg-zinc-900/50 border border-brandLime-500/40 rounded-2xl p-6 flex flex-col justify-between relative hover:border-brandLime-500/70 transition-colors">
+          <span class="absolute -top-3 right-4 bg-brandLime-500 text-black text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">Most Popular</span>
           <div>
-            <span class="text-brandGold-400 font-semibold tracking-widest text-xs uppercase mb-3 block">Safe Estate Commuting</span>
-            <h3 class="font-display text-2xl font-bold mb-4 tracking-tight text-white">Trusted Boda Boda Passenger Rides</h3>
-            <p class="text-zinc-400 text-sm sm:text-base mb-8 leading-relaxed">
-              Don't ride with aggressive strangers. Enjoy a safe, predictable, smooth ride with an operator who values your road comfort and strictly follows safety codes. Perfect for early mornings or late evening commutes.
-            </p>
-            <ul class="space-y-3.5 mb-10 text-sm text-zinc-300" role="list">
-              <li class="flex items-center gap-3">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-4 h-4 text-brandLime-500 flex-shrink-0" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
-                Clean passenger helmet and hairnet provided every time
-              </li>
-              <li class="flex items-center gap-3">
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-4 h-4 text-brandLime-500 flex-shrink-0" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
-                Fair pricing without unexpected app surges
-              </li>
+            <span class="text-zinc-400 text-xs uppercase tracking-wider font-semibold">City Courier</span>
+            <h3 class="text-xl font-bold text-white mt-1 mb-4">Industrial Area / CBD / South B/C</h3>
+            <div class="text-3xl font-extrabold text-brandLime-400 mb-4">KSh 300 – 500</div>
+            <ul class="text-xs text-zinc-300 space-y-2.5 mb-6">
+              <li class="flex items-center gap-2">✓ Direct business document delivery</li>
+              <li class="flex items-center gap-2">✓ E-commerce parcel drop-offs</li>
+              <li class="flex items-center gap-2">✓ Photo verification on arrival</li>
             </ul>
           </div>
-          <a href="https://wa.me/254725351381?text=Hello%20Marindany%20Logistics%21%20%E2%9A%A1%20I%20am%20looking%20for%20a%20trusted%20ride%20around%20Imara%20Daima.%20Are%20you%20free%3F" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center text-center text-black bg-brandGold-400 hover:bg-brandGold-300 px-6 py-3.5 rounded-xl font-semibold text-sm transition-colors">
-            Book a Trusted Local Ride
-          </a>
+          <a href="https://wa.me/254725351381?text=Hi,%20I%20need%20a%20delivery%20to%20CBD/Industrial%20Area." class="block text-center bg-brandLime-500 hover:bg-brandLime-400 text-black font-semibold text-xs py-3 rounded-xl transition-colors">Dispatch to CBD/Industrial Area</a>
+        </div>
+        <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 flex flex-col justify-between hover:border-zinc-600 transition-colors">
+          <div>
+            <span class="text-zinc-400 text-xs uppercase tracking-wider font-semibold">Greater Nairobi</span>
+            <h3 class="text-xl font-bold text-white mt-1 mb-4">Westlands / Kilimani / Syokimau / SGR</h3>
+            <div class="text-3xl font-extrabold text-brandLime-400 mb-4">KSh 500 – 800</div>
+            <ul class="text-xs text-zinc-300 space-y-2.5 mb-6">
+              <li class="flex items-center gap-2">✓ Long-distance safe express transport</li>
+              <li class="flex items-center gap-2">✓ SGR passenger & luggage connection</li>
+              <li class="flex items-center gap-2">✓ Dedicated continuous point-to-point transit</li>
+            </ul>
+          </div>
+          <a href="https://wa.me/254725351381?text=Hi,%20I%20need%20a%20long-distance%20delivery/ride." class="block text-center bg-zinc-800 hover:bg-zinc-700 text-white font-semibold text-xs py-3 rounded-xl transition-colors">Request Long Distance Quote</a>
         </div>
       </div>
     </section>
 
-    <!-- --- Instant Call Action --- -->
-    <section class="bg-black py-20 border-t border-zinc-900 text-center px-4 relative">
-      <div class="max-w-2xl mx-auto space-y-6 relative z-10">
-        <h2 class="font-display text-3xl font-bold tracking-tight">Have an Urgent Delivery Right Now?</h2>
-        <p class="text-zinc-400 text-sm sm:text-base max-w-md mx-auto">Don't wait for emails or map loading. For instant same-day parcel pickups anywhere around Imara Daima and wider Nairobi, call us directly.</p>
-        
+    <!-- --- Services --- -->
+    <section id="services" class="py-16 bg-zinc-950 border-t border-zinc-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-12">
+          <h2 class="font-display text-3xl font-bold tracking-tight mb-3">Core Logistics Solutions</h2>
+          <p class="text-zinc-400 text-sm sm:text-base">Tailored courier and transit options engineered for individuals, local merchants, and corporate offices.</p>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div class="bg-black rounded-2xl p-8 border border-zinc-900 flex flex-col justify-between hover:border-zinc-700 transition-colors">
+            <div>
+              <span class="text-brandLime-400 font-semibold tracking-widest text-xs uppercase mb-2 block">Point-to-Point Express</span>
+              <h3 class="font-display text-2xl font-bold mb-3 text-white">Same-Day Courier & Delivery</h3>
+              <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Whether you run an online boutique sending orders to customers or need an urgent tender contract handed to an office downtown, we provide continuous point-to-point transit.</p>
+              <ul class="space-y-3 mb-8 text-xs sm:text-sm text-zinc-300">
+                <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold">✓</span> Delivery photo confirmation sent upon arrival</li>
+                <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold">✓</span> Secure handling for legal files, electronics, and fragile items</li>
+                <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold">✓</span> Food-grade clean delivery bags for meals</li>
+              </ul>
+            </div>
+            <a href="https://wa.me/254725351381?text=Hello%20Marindany%20Logistics%21%20I%20need%20a%20parcel%20delivered." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-black bg-white hover:bg-zinc-200 px-6 py-3 rounded-xl font-semibold text-sm transition-colors">Request Delivery Drop</a>
+          </div>
+          <div class="bg-black rounded-2xl p-8 border border-zinc-900 flex flex-col justify-between hover:border-zinc-700 transition-colors">
+            <div>
+              <span class="text-brandGold-400 font-semibold tracking-widest text-xs uppercase mb-2 block">Safe Commuting</span>
+              <h3 class="font-display text-2xl font-bold mb-3 text-white">Trusted Passenger Boda Rides</h3>
+              <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Skip aggressive riding and uncertain app wait times. Experience a smooth, safety-conscious ride with an experienced operator who knows Imara Daima shortcuts intimately.</p>
+              <ul class="space-y-3 mb-8 text-xs sm:text-sm text-zinc-300">
+                <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold">✓</span> Sanitized passenger helmet and clean hairnet provided</li>
+                <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold">✓</span> Strictly disciplined road speed and safety compliance</li>
+                <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold">✓</span> Reliable early morning SGR & Airport transfers</li>
+              </ul>
+            </div>
+            <a href="https://wa.me/254725351381?text=Hello%20Marindany%20Logistics%21%20I%20need%20a%20passenger%20ride." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-black bg-brandGold-400 hover:bg-brandGold-300 px-6 py-3 rounded-xl font-semibold text-sm transition-colors">Book Boda Ride</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- --- FAQ --- -->
+    <section id="faq" class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-display text-3xl font-bold tracking-tight mb-3">Frequently Asked Questions</h2>
+        <p class="text-zinc-400 text-sm sm:text-base">Everything you need to know about booking, payments, and parcel security.</p>
+      </div>
+      <div class="space-y-4">
+        <details class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 group [&_summary::-webkit-details-marker]:hidden hover:border-zinc-600 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white">
+            <span>How are parcel payments handled?</span>
+            <span class="text-brandLime-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
+          </summary>
+          <p class="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">We accept payments via <strong>M‑PESA</strong> (Buy Goods Till / Paybill) or Cash upon pickup or successful delivery. For merchant deliveries, payment on delivery (POD) reconciliation can be pre‑arranged over WhatsApp.</p>
+        </details>
+        <details class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 group [&_summary::-webkit-details-marker]:hidden hover:border-zinc-600 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white">
+            <span>What size and weight limits apply to motorcycle delivery?</span>
+            <span class="text-brandLime-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
+          </summary>
+          <p class="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">We carry standard parcels, documents, laptops, food crates, clothing bales, and small appliances up to 25 kg that fit securely on standard motorbikes. For bulkier cargo, contact us in advance to discuss arrangement options.</p>
+        </details>
+        <details class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 group [&_summary::-webkit-details-marker]:hidden hover:border-zinc-600 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white">
+            <span>How do I track my delivery in real-time?</span>
+            <span class="text-brandLime-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
+          </summary>
+          <p class="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">Unlike automated app platforms with lagging GPS pins, our rider communicates directly with you on WhatsApp. You receive direct status updates, pickup confirmation photos, and a notification as soon as the item reaches the recipient.</p>
+        </details>
+        <details class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 group [&_summary::-webkit-details-marker]:hidden hover:border-zinc-600 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white">
+            <span>What safety protocols are followed for passenger rides?</span>
+            <span class="text-brandLime-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
+          </summary>
+          <p class="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">Every passenger is provided with a sanitized safety helmet and a disposable hairnet. Riders adhere to strict urban speed regulations and safe road handling.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- --- Urgent Contact --- -->
+    <section class="bg-zinc-950 py-16 border-t border-zinc-900 text-center px-4">
+      <div class="max-w-2xl mx-auto space-y-6">
+        <h2 class="font-display text-3xl font-bold tracking-tight">Need Urgent Assistance Right Now?</h2>
+        <p class="text-zinc-400 text-sm sm:text-base">For instant pickup or route confirmation in Imara Daima and wider Nairobi, call or message directly.</p>
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
-          <a href="tel:+254725351381" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-white text-black font-semibold px-8 py-4 rounded-xl hover:bg-zinc-200 transition-colors text-sm sm:text-base shadow-lg">
-            📞 Call Now: +254 725 351381
+          <a href="tel:+254725351381" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-black font-semibold px-8 py-3.5 rounded-xl hover:bg-zinc-200 transition-colors text-sm">
+            📞 Call Direct: +254 725 351381
           </a>
-          <a href="https://wa.me/254725351381" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brandLime-500 text-black font-semibold px-8 py-4 rounded-xl hover:bg-brandLime-400 transition-colors text-sm sm:text-base shadow-lg">
-            💬 Text on WhatsApp
+          <a href="https://wa.me/254725351381" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brandLime-500 text-black font-semibold px-8 py-3.5 rounded-xl hover:bg-brandLime-400 transition-colors text-sm">
+            💬 WhatsApp Direct
           </a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- --- Footer Infrastructure --- -->
-  <footer class="bg-zinc-950 border-t border-zinc-900 py-12 px-4 text-center text-xs text-zinc-500 space-y-3">
-    <p class="font-display font-semibold text-zinc-400 text-sm tracking-wide">Marindany Boda Boda and Courier Services</p>
-    <p class="max-w-md mx-auto text-zinc-600">The independent, hassle-free logistics solution built for smart customers in Imara Daima, Embakasi, and across Nairobi County.</p>
-    <div class="pt-4 border-t border-zinc-900 max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[11px] text-zinc-600 gap-2">
-      <p>&copy; <span id="current-year"></span> Marindany Boda Boda and Courier Services. All rights reserved.</p>
-      <p class="tracking-widest uppercase text-[9px] text-zinc-700">Fast • Reliable • Direct Human Updates</p>
+  <!-- --- Footer --- -->
+  <footer class="bg-black border-t border-zinc-900 py-12 px-4 text-center text-xs text-zinc-500 space-y-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-left mb-8 pb-8 border-b border-zinc-900">
+      <div>
+        <h3 class="font-display font-bold text-white text-sm mb-2">Marindany Logistics</h3>
+        <p class="text-zinc-400 text-xs leading-relaxed">Fast, honest, and reliable boda boda and courier service based in Imara Daima, Nairobi.</p>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-white text-sm mb-2">Business Location & Contact</h3>
+        <p class="text-zinc-400 text-xs leading-relaxed">Imara Daima Estate, Off Mombasa Road<br />Nairobi County, Kenya<br />Phone: +254 725 351381</p>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-white text-sm mb-2">Accepted Payments</h3>
+        <p class="text-zinc-400 text-xs leading-relaxed">M‑PESA (Till Number / Buy Goods) & Cash.<br />Direct receipts issued on WhatsApp upon request.</p>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[11px] text-zinc-600 gap-2">
+      <p>&copy; <span id="current-year">2026</span> Marindany Boda Boda and Courier Services. All rights reserved.</p>
+      <p class="tracking-widest uppercase text-[9px] text-zinc-500">Fast • Reliable • Direct Human Updates</p>
     </div>
   </footer>
-
-  <!-- --- Application Core Logic System --- -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('current-year').textContent = new Date().getFullYear();
-
-      // Mobile Menu Actions
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const hamburgerIcon = document.getElementById('hamburger-icon');
-
-      function toggleMobileMenu() {
-        const isHidden = mobileMenu.classList.contains('hidden');
-        if (isHidden) {
-          mobileMenu.classList.remove('hidden');
-          setTimeout(() => {
-            mobileMenu.classList.remove('opacity-0', 'scale-95');
-            mobileMenu.classList.add('opacity-100', 'scale-100');
-          }, 20);
-          mobileMenuBtn.setAttribute('aria-expanded', 'true');
-          hamburgerIcon.style.transform = 'rotate(90deg)';
-        } else {
-          collapseMobileMenu();
-        }
-      }
-
-      function collapseMobileMenu() {
-        mobileMenu.classList.remove('opacity-100', 'scale-100');
-        mobileMenu.classList.add('opacity-0', 'scale-95');
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-        hamburgerIcon.style.transform = 'rotate(0deg)';
-        setTimeout(() => { mobileMenu.classList.add('hidden'); }, 300);
-      }
-
-      mobileMenuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleMobileMenu();
-      });
-
-      mobileMenu.querySelectorAll('a, button').forEach(link => {
-        link.addEventListener('click', () => { collapseMobileMenu(); });
-      });
-
-      // Form Tab Selector Setup
-      let activeWorkflow = 'send'; // defaults to delivery since it's highly requested
-      const tabRide = document.getElementById('tab-ride');
-      const tabSend = document.getElementById('tab-send');
-      const sendOptions = document.getElementById('send-options');
-
-      tabRide.addEventListener('click', () => {
-        if(activeWorkflow === 'ride') return;
-        activeWorkflow = 'ride';
-        tabRide.className = 'flex-1 py-3 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm bg-zinc-900 text-white shadow-sm focus:outline-none';
-        tabSend.className = 'flex-1 py-3 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm text-zinc-500 hover:text-zinc-300 focus:outline-none';
-        tabRide.setAttribute('aria-selected', 'true');
-        tabSend.setAttribute('aria-selected', 'false');
-        sendOptions.classList.add('hidden');
-      });
-
-      tabSend.addEventListener('click', () => {
-        if(activeWorkflow === 'send') return;
-        activeWorkflow = 'send';
-        tabSend.className = 'flex-1 py-3 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm bg-zinc-900 text-white shadow-sm focus:outline-none';
-        tabRide.className = 'flex-1 py-3 rounded-lg font-medium transition-all duration-200 text-xs sm:text-sm text-zinc-500 hover:text-zinc-300 focus:outline-none';
-        tabSend.setAttribute('aria-selected', 'true');
-        tabRide.setAttribute('aria-selected', 'false');
-        sendOptions.classList.remove('hidden');
-      });
-
-      // Dynamic Form to WhatsApp Message Engine
-      const bookingForm = document.getElementById('booking-form');
-      bookingForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        
-        const pickup = document.getElementById('input-pickup').value.trim();
-        const dropoff = document.getElementById('input-dropoff').value.trim();
-        
-        if (!pickup || !dropoff) {
-          if(!pickup) document.getElementById('input-pickup').focus();
-          else document.getElementById('input-dropoff').focus();
-          return;
-        }
-        
-        let messageText = "";
-        
-        if (activeWorkflow === 'send') {
-          const packageType = document.getElementById('input-package-type').value;
-          messageText = `Hello Marindany Logistics! ⚡ I saw your website and want to book a fast parcel delivery for today.\n\n📍 Pickup point: ${pickup}\n🏁 Drop-off point: ${dropoff}\n📦 Package description: ${packageType}\n\nPlease let me know how quickly your rider can pick it up and the total rate. Thanks!`;
-        } else {
-          messageText = `Hello Marindany Logistics! ⚡ I saw your website and want to book a trusted Boda Boda ride around Imara Daima.\n\n📍 Pickup from: ${pickup}\n🏁 Going to: ${dropoff}\n\nPlease confirm availability and let me know the rate estimate. Thanks!`;
-        }
-        
-        const structuredWhatsAppURI = `https://wa.me/254725351381?text=${encodeURIComponent(messageText)}`;
-        window.open(structuredWhatsAppURI, '_blank', 'noopener,noreferrer');
-      });
-    });
-  </script>
 </body>
 </html>
