@@ -79,8 +79,10 @@
   <!-- --- External CSS (custom overrides & enhancements) --- -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- --- External JavaScript (deferred) --- -->
-  <script src="script.js" defer></script>
+  <!-- ============================================================ -->
+  <!-- LINK TO EXTERNAL JAVASCRIPT FILE (production-ready)          -->
+  <!-- ============================================================ -->
+  <script src="scripts.js" defer></script>
 </head>
 <body class="min-h-screen bg-black text-white font-sans antialiased">
 
@@ -348,33 +350,41 @@
         <p class="text-zinc-400 text-sm sm:text-base">Everything you need to know about booking, payments, and parcel security.</p>
       </div>
       <div class="space-y-4">
-        <details class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 group [&_summary::-webkit-details-marker]:hidden hover:border-zinc-600 transition-colors">
-          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white">
+        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white list-none">
             <span>How are parcel payments handled?</span>
-            <span class="text-brandLime-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
+            <span class="faq-icon text-brandLime-400 transition-transform duration-300" aria-hidden="true">▼</span>
           </summary>
-          <p class="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">We accept payments via <strong>M‑PESA</strong> (Buy Goods Till / Paybill) or Cash upon pickup or successful delivery. For merchant deliveries, payment on delivery (POD) reconciliation can be pre‑arranged over WhatsApp.</p>
+          <div class="faq-content mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">
+            We accept payments via <strong>M‑PESA</strong> (Buy Goods Till / Paybill) or Cash upon pickup or successful delivery. For merchant deliveries, payment on delivery (POD) reconciliation can be pre‑arranged over WhatsApp.
+          </div>
         </details>
-        <details class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 group [&_summary::-webkit-details-marker]:hidden hover:border-zinc-600 transition-colors">
-          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white">
+        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white list-none">
             <span>What size and weight limits apply to motorcycle delivery?</span>
-            <span class="text-brandLime-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
+            <span class="faq-icon text-brandLime-400 transition-transform duration-300" aria-hidden="true">▼</span>
           </summary>
-          <p class="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">We carry standard parcels, documents, laptops, food crates, clothing bales, and small appliances up to 25 kg that fit securely on standard motorbikes. For bulkier cargo, contact us in advance to discuss arrangement options.</p>
+          <div class="faq-content mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">
+            We carry standard parcels, documents, laptops, food crates, clothing bales, and small appliances up to 25 kg that fit securely on standard motorbikes. For bulkier cargo, contact us in advance to discuss arrangement options.
+          </div>
         </details>
-        <details class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 group [&_summary::-webkit-details-marker]:hidden hover:border-zinc-600 transition-colors">
-          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white">
+        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white list-none">
             <span>How do I track my delivery in real-time?</span>
-            <span class="text-brandLime-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
+            <span class="faq-icon text-brandLime-400 transition-transform duration-300" aria-hidden="true">▼</span>
           </summary>
-          <p class="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">Unlike automated app platforms with lagging GPS pins, our rider communicates directly with you on WhatsApp. You receive direct status updates, pickup confirmation photos, and a notification as soon as the item reaches the recipient.</p>
+          <div class="faq-content mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">
+            Unlike automated app platforms with lagging GPS pins, our rider communicates directly with you on WhatsApp. You receive direct status updates, pickup confirmation photos, and a notification as soon as the item reaches the recipient.
+          </div>
         </details>
-        <details class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 group [&_summary::-webkit-details-marker]:hidden hover:border-zinc-600 transition-colors">
-          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white">
+        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer font-medium text-sm sm:text-base text-white list-none">
             <span>What safety protocols are followed for passenger rides?</span>
-            <span class="text-brandLime-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
+            <span class="faq-icon text-brandLime-400 transition-transform duration-300" aria-hidden="true">▼</span>
           </summary>
-          <p class="mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">Every passenger is provided with a sanitized safety helmet and a disposable hairnet. Riders adhere to strict urban speed regulations and safe road handling.</p>
+          <div class="faq-content mt-3 text-xs sm:text-sm text-zinc-400 leading-relaxed">
+            Every passenger is provided with a sanitized safety helmet and a disposable hairnet. Riders adhere to strict urban speed regulations and safe road handling.
+          </div>
         </details>
       </div>
     </section>
