@@ -4,7 +4,6 @@ body {
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Ensure Inter is the default sans-serif */
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
@@ -48,59 +47,75 @@ body {
 
 /* ---------- Text Shadow for Headings ---------- */
 .text-shadow-sm {
-  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 /* ---------- Smooth Transitions (Global) ---------- */
-a, button, .card, details, summary, input, select, textarea {
+a,
+button,
+.card,
+details,
+summary,
+input,
+select,
+textarea {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ---------- Premium Button Styles ---------- */
-button, a[role="button"], .btn {
+button,
+a[role="button"],
+.btn {
   transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-button:active, a[role="button"]:active, .btn:active {
+button:active,
+a[role="button"]:active,
+.btn:active {
   transform: scale(0.97);
 }
 
-/* Brand buttons – lift on hover */
-.bg-brandLime-500, .bg-brandGold-400, .bg-white {
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+/* Brand buttons – lift on hover + subtle glow */
+.bg-brandLime-500,
+.bg-brandGold-400,
+.bg-white {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
-.bg-brandLime-500:hover, .bg-brandGold-400:hover, .bg-white:hover {
+.bg-brandLime-500:hover,
+.bg-brandGold-400:hover,
+.bg-white:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 30px rgba(132, 204, 22, 0.25);
 }
 
 /* ---------- Form Inputs – Premium Focus ---------- */
-input, select, textarea {
+input,
+select,
+textarea {
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   background-color: #000000;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   border-color: #84cc16;
   box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.2);
   outline: none;
 }
 
-/* ---------- Mobile Menu – No conflict with JS ---------- */
+/* ---------- Mobile Menu – Handled entirely by JS ---------- */
 #mobile-menu {
-  /* The JS handles opacity/transform transitions, we only set a default state */
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  /* All animations are controlled inline by the JavaScript */
   pointer-events: none;
 }
 #mobile-menu:not(.hidden) {
-  opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
 }
 
-/* ---------- FAQ Accordion (enhanced) ---------- */
+/* ---------- FAQ Accordion ---------- */
 .faq-item summary {
   list-style: none;
   user-select: none;
@@ -113,11 +128,30 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* ---------- Premium Card Hover ---------- */
-.bg-black, .bg-zinc-900\/50, .bg-zinc-950 {
+.bg-black,
+.bg-zinc-900\/50,
+.bg-zinc-950 {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-.bg-black:hover, .bg-zinc-900\/50:hover, .bg-zinc-950:hover {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+.bg-black:hover,
+.bg-zinc-900\/50:hover,
+.bg-zinc-950:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Intentional Spacing & Typography ---------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+p {
+  line-height: 1.6;
 }
 
 /* ---------- Responsive Tweaks ---------- */
@@ -125,20 +159,15 @@ input:focus, select:focus, textarea:focus {
   .font-display {
     letter-spacing: -0.02em;
   }
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
 }
 
 /* ---------- Additional Premium Polish ---------- */
-/* Smooth anchor scrolling */
+/* Smooth anchor scrolling (already set via Tailwind's scroll-smooth) */
 html {
   scroll-behavior: smooth;
-}
-
-/* Subtle glow on brand elements */
-.brand-glow {
-  box-shadow: 0 0 30px rgba(132, 204, 22, 0.1);
-}
-.brand-glow:hover {
-  box-shadow: 0 0 40px rgba(132, 204, 22, 0.2);
 }
 
 /* Remove default details marker for better control */
@@ -148,17 +177,23 @@ details summary {
   justify-content: space-between;
 }
 
-/* ---------- Fix for the JS ripple effect (prevents overflow) ---------- */
-.btn-ripple-container {
-  position: relative;
-  overflow: hidden;
-}
-
-/* ---------- Optional: Fade-in for feedback messages ---------- */
+/* ---------- Fade-in for feedback messages ---------- */
 #form-feedback {
   animation: fadeIn 0.3s ease;
 }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Focus-visible (accessibility) ---------- */
+*:focus-visible {
+  outline: 2px solid #84cc16;
+  outline-offset: 2px;
 }
