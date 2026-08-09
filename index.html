@@ -440,7 +440,118 @@
         </div>
       </div>
     </section>
-
+    <!-- ========== SCHEDULE A PICKUP CALENDAR ========== -->
+  <section id="schedule" class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center mb-12">
+    <span class="text-brandLime-400 font-semibold tracking-widest text-xs uppercase mb-2 block font-mono">Plan Ahead</span>
+    <h2 class="font-display text-4xl sm:text-5xl font-bold tracking-tight mb-3">Schedule Your Pickup</h2>
+    <p class="text-zinc-400 text-sm sm:text-base font-light max-w-2xl mx-auto">Select your preferred date and time. We'll confirm your booking within minutes via WhatsApp.</p>
+  </div>
+  
+  <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
+    <div class="grid lg:grid-cols-2 gap-8">
+      <!-- Calendar Widget -->
+      <div class="bg-black border border-zinc-900 rounded-xl p-6">
+        <div class="flex items-center justify-between mb-6">
+          <button id="prev-month" class="text-zinc-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-zinc-900" aria-label="Previous month">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          <h3 id="calendar-month-year" class="font-display text-lg font-semibold text-white"></h3>
+          <button id="next-month" class="text-zinc-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-zinc-900" aria-label="Next month">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Day Headers -->
+        <div class="grid grid-cols-7 gap-2 mb-3">
+          <div class="text-center text-xs font-semibold text-zinc-500 uppercase tracking-wider">Mon</div>
+          <div class="text-center text-xs font-semibold text-zinc-500 uppercase tracking-wider">Tue</div>
+          <div class="text-center text-xs font-semibold text-zinc-500 uppercase tracking-wider">Wed</div>
+          <div class="text-center text-xs font-semibold text-zinc-500 uppercase tracking-wider">Thu</div>
+          <div class="text-center text-xs font-semibold text-zinc-500 uppercase tracking-wider">Fri</div>
+          <div class="text-center text-xs font-semibold text-zinc-500 uppercase tracking-wider">Sat</div>
+          <div class="text-center text-xs font-semibold text-zinc-500 uppercase tracking-wider">Sun</div>
+        </div>
+        
+        <!-- Calendar Grid -->
+        <div id="calendar-grid" class="grid grid-cols-7 gap-2"></div>
+        
+        <!-- Legend -->
+        <div class="flex items-center gap-6 mt-6 pt-4 border-t border-zinc-900">
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-brandLime-500"></div>
+            <span class="text-xs text-zinc-400">Available</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-zinc-700"></div>
+            <span class="text-xs text-zinc-400">Unavailable</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-brandGold-400"></div>
+            <span class="text-xs text-zinc-400">Selected</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Time Slot Selection -->
+      <div class="bg-black border border-zinc-900 rounded-xl p-6 flex flex-col justify-between">
+        <div>
+          <h3 class="font-display text-lg font-semibold text-white mb-2">Select Time Slot</h3>
+          <p id="selected-date-display" class="text-sm text-zinc-400 mb-6">Please select a date from the calendar</p>
+          
+          <div id="time-slots" class="grid grid-cols-2 gap-3 mb-6">
+            <button class="time-slot-btn bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm py-3 px-4 rounded-xl transition-all border border-zinc-800 hover:border-zinc-700" data-time="06:00-07:00">
+              🌅 6:00 - 7:00 AM
+            </button>
+            <button class="time-slot-btn bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm py-3 px-4 rounded-xl transition-all border border-zinc-800 hover:border-zinc-700" data-time="07:00-08:00">
+              🌤️ 7:00 - 8:00 AM
+            </button>
+            <button class="time-slot-btn bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm py-3 px-4 rounded-xl transition-all border border-zinc-800 hover:border-zinc-700" data-time="08:00-10:00">
+              ☀️ 8:00 - 10:00 AM
+            </button>
+            <button class="time-slot-btn bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm py-3 px-4 rounded-xl transition-all border border-zinc-800 hover:border-zinc-700" data-time="10:00-12:00">
+              🕐 10:00 AM - 12:00 PM
+            </button>
+            <button class="time-slot-btn bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm py-3 px-4 rounded-xl transition-all border border-zinc-800 hover:border-zinc-700" data-time="12:00-14:00">
+              🌞 12:00 - 2:00 PM
+            </button>
+            <button class="time-slot-btn bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm py-3 px-4 rounded-xl transition-all border border-zinc-800 hover:border-zinc-700" data-time="14:00-17:00">
+              🌤️ 2:00 - 5:00 PM
+            </button>
+            <button class="time-slot-btn bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm py-3 px-4 rounded-xl transition-all border border-zinc-800 hover:border-zinc-700" data-time="17:00-20:00">
+              🌆 5:00 - 8:00 PM
+            </button>
+            <button class="time-slot-btn bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm py-3 px-4 rounded-xl transition-all border border-zinc-800 hover:border-zinc-700" data-time="20:00-22:00">
+              🌙 8:00 - 10:00 PM
+            </button>
+          </div>
+        </div>
+        
+        <div class="space-y-3">
+          <div class="bg-zinc-900/50 rounded-xl p-4 border border-zinc-800">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs text-zinc-400">Service Type</span>
+              <select id="schedule-service-type" class="w-auto bg-black border border-zinc-800 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-brandLime-500">
+                <option value="delivery">📦 Parcel Delivery</option>
+                <option value="ride">🏍️ Passenger Ride</option>
+              </select>
+            </div>
+          </div>
+          
+          <button id="schedule-booking-btn" disabled class="w-full bg-brandLime-500 hover:bg-brandLime-400 disabled:bg-zinc-700 disabled:cursor-not-allowed text-black font-semibold py-3.5 rounded-xl transition-all shadow-[0_4px_20px_rgba(132,204,22,0.2)] text-sm">
+            Confirm Schedule via WhatsApp
+          </button>
+          
+          <p id="schedule-feedback" class="text-xs text-center text-brandLime-400 hidden"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
     <!-- ========== FAQ ========== -->
     <section id="faq" class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">

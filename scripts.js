@@ -18,9 +18,25 @@
   const currentYearSpan = document.getElementById('current-year');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
+  // Calendar elements
+  const calendarGrid = document.getElementById('calendar-grid');
+  const calendarMonthYear = document.getElementById('calendar-month-year');
+  const prevMonthBtn = document.getElementById('prev-month');
+  const nextMonthBtn = document.getElementById('next-month');
+  const timeSlotBtns = document.querySelectorAll('.time-slot-btn');
+  const selectedDateDisplay = document.getElementById('selected-date-display');
+  const scheduleBookingBtn = document.getElementById('schedule-booking-btn');
+  const scheduleFeedback = document.getElementById('schedule-feedback');
+  const scheduleServiceType = document.getElementById('schedule-service-type');
+
   // ============ STATE ============
   let isMenuOpen = false;
   let activeService = 'deliver'; // 'deliver' or 'ride'
+  
+  // Calendar state
+  let currentDate = new Date();
+  let selectedDate = null;
+  let selectedTimeSlot = null;
 
   // ============ INITIALIZATION ============
   function init() {
@@ -28,9 +44,12 @@
     setupMobileMenu();
     setupServiceTabs();
     setupBookingForm();
+    setupCalendar();
     setupFAQAccordion();
     setupSmoothScroll();
     setupImageLazyLoading();
+    setupScrollAnimations();
+    setupCardHoverEffects();
     addAccessibilityEnhancements();
   }
 
@@ -45,10 +64,8 @@
   function setupMobileMenu() {
     if (!mobileMenuBtn || !mobileMenu) return;
 
-    // Toggle menu
     mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
-    // Close menu when clicking nav links
     mobileNavLinks.forEach(link => {
       link.addEventListener('click', () => {
         if (isMenuOpen) {
@@ -57,7 +74,6 @@
       });
     });
 
-    // Close menu when pressing Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && isMenuOpen) {
         closeMobileMenu();
@@ -65,7 +81,6 @@
       }
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (isMenuOpen && 
           !mobileMenu.contains(e.target) && 
@@ -87,14 +102,12 @@
     mobileMenu.classList.remove('hidden');
     mobileMenuBtn.setAttribute('aria-expanded', 'true');
     
-    // Animate hamburger to X
     if (hamburgerIcon) {
       hamburgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
     }
     
     isMenuOpen = true;
     
-    // Trap focus within menu
     const firstFocusable = mobileMenu.querySelector('a');
     if (firstFocusable) {
       setTimeout(() => firstFocusable.focus(), 100);
@@ -105,7 +118,6 @@
     mobileMenu.classList.add('hidden');
     mobileMenuBtn.setAttribute('aria-expanded', 'false');
     
-    // Restore hamburger icon
     if (hamburgerIcon) {
       hamburgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
     }
@@ -134,13 +146,15 @@
       tabRide.classList.add('text-zinc-500');
       
       if (parcelTypeContainer) {
-        parcelTypeContainer.style.display = 'block';
+        parcelTypeContainer.style.opacity = '1';
+        parcelTypeContainer.style.maxHeight = '200px';
+        parcelTypeContainer.style.transition = 'all 0.3s ease';
       }
       
-      // Update button text
       const submitBtn = document.getElementById('submit-btn');
       if (submitBtn) {
-        submitBtn.querySelector('span').textContent = 'Send Dispatch via WhatsApp';
+        const span = submitBtn.querySelector('span');
+        if (span) span.textContent = 'Send Dispatch via WhatsApp';
       }
     } else {
       tabRide.setAttribute('aria-pressed', 'true');
@@ -152,13 +166,15 @@
       tabSend.classList.add('text-zinc-500');
       
       if (parcelTypeContainer) {
-        parcelTypeContainer.style.display = 'none';
+        parcelTypeContainer.style.opacity = '0';
+        parcelTypeContainer.style.maxHeight = '0';
+        parcelTypeContainer.style.transition = 'all 0.3s ease';
       }
       
-      // Update button text
       const submitBtn = document.getElementById('submit-btn');
       if (submitBtn) {
-        submitBtn.querySelector('span').textContent = 'Book Ride via WhatsApp';
+        const span = submitBtn.querySelector('span');
+        if (span) span.textContent = 'Book Ride via WhatsApp';
       }
     }
   }
@@ -169,7 +185,6 @@
 
     bookingForm.addEventListener('submit', handleFormSubmit);
     
-    // Real-time validation on blur
     const inputs = bookingForm.querySelectorAll('input[required], select[required]');
     inputs.forEach(input => {
       input.addEventListener('blur', () => validateField(input));
@@ -182,9 +197,13 @@
   }
 
   function validateField(field) {
+    if (!field) return false;
+    
     if (field.value.trim() === '') {
       field.classList.add('border-red-500');
       field.classList.remove('border-zinc-800');
+      field.style.animation = 'shake 0.5s ease';
+      setTimeout(() => field.style.animation = '', 500);
       return false;
     } else {
       field.classList.remove('border-red-500');
@@ -196,20 +215,17 @@
   function handleFormSubmit(e) {
     e.preventDefault();
     
-    // Get form fields
     const pickupInput = document.getElementById('input-pickup');
     const dropoffInput = document.getElementById('input-dropoff');
     const packageTypeSelect = document.getElementById('input-package-type');
     const urgencySelect = document.getElementById('input-urgency');
     const notesInput = document.getElementById('input-notes');
     
-    // Validate required fields
     let isValid = true;
     
     if (!validateField(pickupInput)) isValid = false;
     if (!validateField(dropoffInput)) isValid = false;
     
-    // Check if parcel type is visible and validate if so
     if (activeService === 'deliver' && packageTypeSelect) {
       if (!validateField(packageTypeSelect)) isValid = false;
     }
@@ -217,19 +233,17 @@
     if (!isValid) {
       showFeedback('Please fill in all required fields.', 'error');
       
-      // Focus first invalid field
       const firstInvalid = bookingForm.querySelector('.border-red-500');
       if (firstInvalid) firstInvalid.focus();
       
       return;
     }
     
-    // Build WhatsApp message
     const pickup = encodeURIComponent(pickupInput.value.trim());
     const dropoff = encodeURIComponent(dropoffInput.value.trim());
     const packageType = packageTypeSelect ? encodeURIComponent(packageTypeSelect.value) : '';
     const urgency = urgencySelect ? encodeURIComponent(urgencySelect.value) : 'Standard 🕐';
-    const notes = notesInput.value.trim() ? encodeURIComponent(notesInput.value.trim()) : '';
+    const notes = notesInput && notesInput.value.trim() ? encodeURIComponent(notesInput.value.trim()) : '';
     
     let whatsappMessage = '';
     
@@ -245,38 +259,269 @@
     
     whatsappMessage += `%0A%0A🙏%20Thank%20you!`;
     
-    // Open WhatsApp
     const whatsappURL = `https://wa.me/254725351381?text=${whatsappMessage}`;
     
     showFeedback('Opening WhatsApp...', 'success');
     
-    // Small delay for feedback visibility
     setTimeout(() => {
       window.open(whatsappURL, '_blank', 'noopener,noreferrer');
     }, 300);
     
-    // Reset form after submission
     setTimeout(() => {
       bookingForm.reset();
-      if (formFeedback) {
-        formFeedback.classList.add('hidden');
+      const feedback = document.getElementById('form-feedback');
+      if (feedback) {
+        feedback.classList.add('hidden');
       }
     }, 2000);
   }
 
   function showFeedback(message, type) {
-    if (!formFeedback) return;
+    const feedback = document.getElementById('form-feedback');
+    if (!feedback) return;
     
-    formFeedback.textContent = message;
-    formFeedback.className = 'text-xs text-center rounded-lg p-3';
-    formFeedback.classList.add(type);
-    formFeedback.classList.remove('hidden');
+    feedback.textContent = message;
+    feedback.className = 'text-xs text-center rounded-lg p-3';
+    feedback.classList.add(type);
+    feedback.classList.remove('hidden');
     
-    // Auto-hide after 5 seconds
-    clearTimeout(formFeedback.hideTimeout);
-    formFeedback.hideTimeout = setTimeout(() => {
-      formFeedback.classList.add('hidden');
+    clearTimeout(feedback.hideTimeout);
+    feedback.hideTimeout = setTimeout(() => {
+      feedback.classList.add('hidden');
     }, 5000);
+  }
+
+  // ============ CALENDAR SYSTEM ============
+  function setupCalendar() {
+    if (!calendarGrid || !calendarMonthYear) return;
+    
+    renderCalendar();
+    
+    if (prevMonthBtn) {
+      prevMonthBtn.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+      });
+    }
+    
+    if (nextMonthBtn) {
+      nextMonthBtn.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+      });
+    }
+    
+    // Time slot selection
+    timeSlotBtns.forEach(btn => {
+      btn.addEventListener('click', () => selectTimeSlot(btn));
+    });
+    
+    // Schedule booking button
+    if (scheduleBookingBtn) {
+      scheduleBookingBtn.addEventListener('click', handleScheduleBooking);
+    }
+  }
+
+  function renderCalendar() {
+    if (!calendarGrid || !calendarMonthYear) return;
+    
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    
+    // Update header
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'];
+    calendarMonthYear.textContent = `${monthNames[month]} ${year}`;
+    
+    // Get first day of month and total days
+    const firstDay = new Date(year, month, 1).getDay();
+    const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1; // Adjust for Monday start
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+    // Get today's date for comparison
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Simulated unavailable dates (weekends and some random days)
+    const unavailableDates = generateUnavailableDates(year, month, daysInMonth);
+    
+    let calendarHTML = '';
+    
+    // Add empty cells for days before first day
+    for (let i = 0; i < adjustedFirstDay; i++) {
+      calendarHTML += '<div class="calendar-day empty"></div>';
+    }
+    
+    // Add day cells
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+      date.setHours(0, 0, 0, 0);
+      
+      const isToday = date.getTime() === today.getTime();
+      const isPast = date < today;
+      const isUnavailable = unavailableDates.includes(day) || isPast;
+      const isSelected = selectedDate && 
+                         date.getFullYear() === selectedDate.getFullYear() &&
+                         date.getMonth() === selectedDate.getMonth() &&
+                         date.getDate() === selectedDate.getDate();
+      
+      let dayClass = 'calendar-day';
+      if (isToday) dayClass += ' today';
+      if (isUnavailable) dayClass += ' unavailable';
+      if (isSelected) dayClass += ' selected';
+      
+      calendarHTML += `
+        <button 
+          class="${dayClass}"
+          data-date="${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}"
+          ${isUnavailable ? 'disabled' : ''}
+          aria-label="${monthNames[month]} ${day}, ${year}${isUnavailable ? ' (unavailable)' : ''}"
+        >
+          ${day}
+        </button>
+      `;
+    }
+    
+    calendarGrid.innerHTML = calendarHTML;
+    
+    // Add click handlers to available days
+    calendarGrid.querySelectorAll('.calendar-day:not(.empty):not(.unavailable)').forEach(dayBtn => {
+      dayBtn.addEventListener('click', () => selectDate(dayBtn));
+    });
+  }
+
+  function generateUnavailableDates(year, month, daysInMonth) {
+    const unavailable = [];
+    // Make weekends unavailable
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+      const dayOfWeek = date.getDay();
+      // Sunday (0) is unavailable
+      if (dayOfWeek === 0) {
+        unavailable.push(day);
+      }
+    }
+    // Add some random weekdays as unavailable (simulating booked slots)
+    const randomUnavailable = [5, 12, 18, 25];
+    randomUnavailable.forEach(day => {
+      if (day <= daysInMonth && !unavailable.includes(day)) {
+        const date = new Date(year, month, day);
+        if (date.getDay() !== 0) { // Don't double-add Sundays
+          unavailable.push(day);
+        }
+      }
+    });
+    return unavailable;
+  }
+
+  function selectDate(dayBtn) {
+    // Remove previous selection
+    calendarGrid.querySelectorAll('.calendar-day.selected').forEach(btn => {
+      btn.classList.remove('selected');
+    });
+    
+    // Add new selection
+    dayBtn.classList.add('selected');
+    const dateStr = dayBtn.getAttribute('data-date');
+    selectedDate = new Date(dateStr);
+    
+    // Update display
+    if (selectedDateDisplay) {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      selectedDateDisplay.textContent = `📅 ${selectedDate.toLocaleDateString('en-US', options)}`;
+    }
+    
+    // Enable time slot selection
+    timeSlotBtns.forEach(btn => {
+      btn.disabled = false;
+      btn.classList.remove('opacity-50', 'cursor-not-allowed');
+    });
+    
+    // Reset time slot selection
+    selectedTimeSlot = null;
+    updateScheduleButton();
+    
+    // Add pulse animation
+    dayBtn.style.animation = 'none';
+    dayBtn.offsetHeight; // Trigger reflow
+    dayBtn.style.animation = 'pulseSelect 0.6s ease';
+  }
+
+  function selectTimeSlot(btn) {
+    if (!selectedDate) return;
+    
+    // Remove previous time selection
+    timeSlotBtns.forEach(b => {
+      b.classList.remove('bg-brandGold-400', 'text-black', 'border-brandGold-400');
+      b.classList.add('bg-zinc-900', 'text-white', 'border-zinc-800');
+    });
+    
+    // Add new selection
+    btn.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-800');
+    btn.classList.add('bg-brandGold-400', 'text-black', 'border-brandGold-400');
+    selectedTimeSlot = btn.getAttribute('data-time');
+    
+    // Add pulse animation
+    btn.style.animation = 'none';
+    btn.offsetHeight;
+    btn.style.animation = 'pulseSelect 0.4s ease';
+    
+    updateScheduleButton();
+  }
+
+  function updateScheduleButton() {
+    if (scheduleBookingBtn) {
+      if (selectedDate && selectedTimeSlot) {
+        scheduleBookingBtn.disabled = false;
+        scheduleBookingBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      } else {
+        scheduleBookingBtn.disabled = true;
+        scheduleBookingBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+    }
+  }
+
+  function handleScheduleBooking() {
+    if (!selectedDate || !selectedTimeSlot || !scheduleFeedback) return;
+    
+    const serviceType = scheduleServiceType ? scheduleServiceType.value : 'delivery';
+    const serviceEmoji = serviceType === 'delivery' ? '📦' : '🏍️';
+    const serviceName = serviceType === 'delivery' ? 'Parcel Delivery' : 'Passenger Ride';
+    
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = selectedDate.toLocaleDateString('en-US', options);
+    
+    const whatsappMessage = encodeURIComponent(
+      `Hello%20Marindany%20Logistics!%0A%0A${serviceEmoji}%20*Scheduled%20${serviceName}*%0A%0A📅%20Date:%20${formattedDate}%0A🕐%20Time:%20${selectedTimeSlot}%0A%0APlease%20confirm%20my%20booking.%20Thank%20you!%20🙏`
+    );
+    
+    const whatsappURL = `https://wa.me/254725351381?text=${whatsappMessage}`;
+    
+    scheduleFeedback.textContent = '✨ Opening WhatsApp to confirm your schedule...';
+    scheduleFeedback.className = 'text-xs text-center text-brandLime-400 mt-3';
+    scheduleFeedback.classList.remove('hidden');
+    
+    setTimeout(() => {
+      window.open(whatsappURL, '_blank', 'noopener,noreferrer');
+    }, 500);
+    
+    // Reset after 3 seconds
+    setTimeout(() => {
+      scheduleFeedback.classList.add('hidden');
+      selectedDate = null;
+      selectedTimeSlot = null;
+      calendarGrid.querySelectorAll('.calendar-day.selected').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      timeSlotBtns.forEach(b => {
+        b.classList.remove('bg-brandGold-400', 'text-black', 'border-brandGold-400');
+        b.classList.add('bg-zinc-900', 'text-white', 'border-zinc-800');
+      });
+      if (selectedDateDisplay) {
+        selectedDateDisplay.textContent = 'Please select a date from the calendar';
+      }
+      updateScheduleButton();
+    }, 3000);
   }
 
   // ============ FAQ ACCORDION ============
@@ -288,12 +533,65 @@
       if (!summary) return;
       
       summary.addEventListener('click', (e) => {
-        // Close other open items (accordion behavior)
+        const isOpening = !item.hasAttribute('open');
+        
+        // Close other open items
         faqItems.forEach(otherItem => {
           if (otherItem !== item && otherItem.hasAttribute('open')) {
             otherItem.removeAttribute('open');
           }
         });
+        
+        // Smooth scroll to item if opening
+        if (isOpening) {
+          setTimeout(() => {
+            item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 100);
+        }
+      });
+    });
+  }
+
+  // ============ SCROLL ANIMATIONS ============
+  function setupScrollAnimations() {
+    if ('IntersectionObserver' in window) {
+      const animationObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up');
+            animationObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+      
+      // Observe sections and cards
+      document.querySelectorAll('section, .card-premium, .faq-item').forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        el.style.transitionDelay = `${index * 0.1}s`;
+        animationObserver.observe(el);
+      });
+    }
+  }
+
+  // ============ CARD HOVER EFFECTS ============
+  function setupCardHoverEffects() {
+    document.querySelectorAll('.card-premium').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--mouse-x', '50%');
+        card.style.setProperty('--mouse-y', '50%');
       });
     });
   }
@@ -304,7 +602,6 @@
       anchor.addEventListener('click', function (e) {
         const targetId = this.getAttribute('href');
         
-        // Skip if it's just "#"
         if (targetId === '#') return;
         
         const targetElement = document.querySelector(targetId);
@@ -320,10 +617,8 @@
             behavior: 'smooth'
           });
           
-          // Update URL without scrolling
           history.pushState(null, null, targetId);
           
-          // Set focus to target for accessibility
           targetElement.setAttribute('tabindex', '-1');
           targetElement.focus({ preventScroll: true });
         }
@@ -334,19 +629,19 @@
   // ============ IMAGE LAZY LOADING ============
   function setupImageLazyLoading() {
     if ('loading' in HTMLImageElement.prototype) {
-      // Browser supports native lazy loading - already handled in HTML
       return;
     }
     
-    // Fallback for browsers that don't support native lazy loading
     const lazyImages = document.querySelectorAll('img[loading="lazy"]');
     
-    if ('IntersectionObserver' in window) {
+    if ('IntersectionObserver' in window && lazyImages.length > 0) {
       const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const img = entry.target;
-            img.src = img.dataset.src || img.src;
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+            }
             imageObserver.unobserve(img);
           }
         });
@@ -378,7 +673,8 @@
       }
       
       if (!link.hasAttribute('aria-label')) {
-        link.setAttribute('aria-label', link.textContent.trim() + ' (opens in new tab)');
+        const text = link.textContent.trim();
+        link.setAttribute('aria-label', text ? text + ' (opens in new tab)' : 'Opens in new tab');
       }
     });
   }
@@ -386,33 +682,13 @@
   // ============ ERROR HANDLING ============
   window.addEventListener('error', function(e) {
     console.error('Global error:', e.message);
-    // In production, you would send this to an error tracking service
   });
 
-  // Handle unhandled promise rejections
   window.addEventListener('unhandledrejection', function(e) {
     console.error('Unhandled promise rejection:', e.reason);
   });
 
-  // ============ PERFORMANCE OBSERVER ============
-  if ('PerformanceObserver' in window) {
-    // Monitor for long tasks
-    try {
-      const observer = new PerformanceObserver((list) => {
-        for (const entry of list.getEntries()) {
-          if (entry.duration > 50) {
-            console.warn('Long task detected:', entry.duration, 'ms');
-          }
-        }
-      });
-      observer.observe({ entryTypes: ['longtask'] });
-    } catch (e) {
-      // longtask may not be supported
-    }
-  }
-
   // ============ START ============
-  // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
