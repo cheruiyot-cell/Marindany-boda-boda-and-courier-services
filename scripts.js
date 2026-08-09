@@ -202,8 +202,6 @@
     if (field.value.trim() === '') {
       field.classList.add('border-red-500');
       field.classList.remove('border-zinc-800');
-      field.style.animation = 'shake 0.5s ease';
-      setTimeout(() => field.style.animation = '', 500);
       return false;
     } else {
       field.classList.remove('border-red-500');
@@ -269,25 +267,23 @@
     
     setTimeout(() => {
       bookingForm.reset();
-      const feedback = document.getElementById('form-feedback');
-      if (feedback) {
-        feedback.classList.add('hidden');
+      if (formFeedback) {
+        formFeedback.classList.add('hidden');
       }
     }, 2000);
   }
 
   function showFeedback(message, type) {
-    const feedback = document.getElementById('form-feedback');
-    if (!feedback) return;
+    if (!formFeedback) return;
     
-    feedback.textContent = message;
-    feedback.className = 'text-xs text-center rounded-lg p-3';
-    feedback.classList.add(type);
-    feedback.classList.remove('hidden');
+    formFeedback.textContent = message;
+    formFeedback.className = 'text-xs text-center rounded-lg p-3';
+    formFeedback.classList.add(type);
+    formFeedback.classList.remove('hidden');
     
-    clearTimeout(feedback.hideTimeout);
-    feedback.hideTimeout = setTimeout(() => {
-      feedback.classList.add('hidden');
+    clearTimeout(formFeedback._hideTimeout);
+    formFeedback._hideTimeout = setTimeout(() => {
+      formFeedback.classList.add('hidden');
     }, 5000);
   }
 
@@ -423,7 +419,7 @@
     // Add new selection
     dayBtn.classList.add('selected');
     const dateStr = dayBtn.getAttribute('data-date');
-    selectedDate = new Date(dateStr);
+    selectedDate = new Date(dateStr + 'T00:00:00');
     
     // Update display
     if (selectedDateDisplay) {
@@ -439,12 +435,11 @@
     
     // Reset time slot selection
     selectedTimeSlot = null;
+    timeSlotBtns.forEach(b => {
+      b.classList.remove('bg-brandGold-400', 'text-black', 'border-brandGold-400');
+      b.classList.add('bg-zinc-900', 'text-white', 'border-zinc-800');
+    });
     updateScheduleButton();
-    
-    // Add pulse animation
-    dayBtn.style.animation = 'none';
-    dayBtn.offsetHeight; // Trigger reflow
-    dayBtn.style.animation = 'pulseSelect 0.6s ease';
   }
 
   function selectTimeSlot(btn) {
@@ -460,11 +455,6 @@
     btn.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-800');
     btn.classList.add('bg-brandGold-400', 'text-black', 'border-brandGold-400');
     selectedTimeSlot = btn.getAttribute('data-time');
-    
-    // Add pulse animation
-    btn.style.animation = 'none';
-    btn.offsetHeight;
-    btn.style.animation = 'pulseSelect 0.4s ease';
     
     updateScheduleButton();
   }
@@ -492,7 +482,7 @@
     const formattedDate = selectedDate.toLocaleDateString('en-US', options);
     
     const whatsappMessage = encodeURIComponent(
-      `Hello%20Marindany%20Logistics!%0A%0A${serviceEmoji}%20*Scheduled%20${serviceName}*%0A%0A📅%20Date:%20${formattedDate}%0A🕐%20Time:%20${selectedTimeSlot}%0A%0APlease%20confirm%20my%20booking.%20Thank%20you!%20🙏`
+      `Hello Marindany Logistics!\n\n${serviceEmoji} *Scheduled ${serviceName}*\n\n📅 Date: ${formattedDate}\n🕐 Time: ${selectedTimeSlot}\n\nPlease confirm my booking. Thank you! 🙏`
     );
     
     const whatsappURL = `https://wa.me/254725351381?text=${whatsappMessage}`;
@@ -532,7 +522,7 @@
       const summary = item.querySelector('summary');
       if (!summary) return;
       
-      summary.addEventListener('click', (e) => {
+      summary.addEventListener('click', () => {
         const isOpening = !item.hasAttribute('open');
         
         // Close other open items
@@ -554,28 +544,31 @@
 
   // ============ SCROLL ANIMATIONS ============
   function setupScrollAnimations() {
-    if ('IntersectionObserver' in window) {
-      const animationObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in-up');
-            animationObserver.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+    if (!('IntersectionObserver' in window)) return;
+    
+    const animatedElements = document.querySelectorAll('section, .card-premium, .faq-item');
+    
+    animatedElements.forEach((el, index) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      el.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
+    const animationObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          animationObserver.unobserve(entry.target);
+        }
       });
-      
-      // Observe sections and cards
-      document.querySelectorAll('section, .card-premium, .faq-item').forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        el.style.transitionDelay = `${index * 0.1}s`;
-        animationObserver.observe(el);
-      });
-    }
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    animatedElements.forEach(el => animationObserver.observe(el));
   }
 
   // ============ CARD HOVER EFFECTS ============
@@ -617,7 +610,7 @@
             behavior: 'smooth'
           });
           
-          history.pushState(null, null, targetId);
+          history.pushState(null, '', targetId);
           
           targetElement.setAttribute('tabindex', '-1');
           targetElement.focus({ preventScroll: true });
@@ -628,27 +621,25 @@
 
   // ============ IMAGE LAZY LOADING ============
   function setupImageLazyLoading() {
-    if ('loading' in HTMLImageElement.prototype) {
-      return;
-    }
+    if ('loading' in HTMLImageElement.prototype) return;
     
     const lazyImages = document.querySelectorAll('img[loading="lazy"]');
     
-    if ('IntersectionObserver' in window && lazyImages.length > 0) {
-      const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            if (img.dataset.src) {
-              img.src = img.dataset.src;
-            }
-            imageObserver.unobserve(img);
+    if (!('IntersectionObserver' in window) || lazyImages.length === 0) return;
+    
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
           }
-        });
+          imageObserver.unobserve(img);
+        }
       });
-      
-      lazyImages.forEach(img => imageObserver.observe(img));
-    }
+    });
+    
+    lazyImages.forEach(img => imageObserver.observe(img));
   }
 
   // ============ ACCESSIBILITY ENHANCEMENTS ============
@@ -662,7 +653,7 @@
     
     // Add role="main" to main element if not present
     const mainElement = document.querySelector('main');
-    if (mainElement && !mainElement.hasAttribute('role')) {
+    if (mainElement && !mainElement.hasAttribute('id')) {
       mainElement.setAttribute('id', 'main-content');
     }
     
