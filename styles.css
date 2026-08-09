@@ -1,7 +1,9 @@
 /* ---------- Base ---------- */
 body {
   background-color: #050505;
-  color: #ffffff;
+  color: #f0f0f0;
+  font-size: 1rem;              /* Changed from 1.125rem – let headings do the heavy lifting */
+  line-height: 1.6;             /* Reduced from 1.7 for better density */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -10,15 +12,50 @@ body {
 /* ---------- Typography ---------- */
 .font-display {
   font-family: 'Poppins', 'Inter', system-ui, sans-serif;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.02em;      /* Reduced negative tracking for readability */
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  text-wrap: balance;           /* NEW: Prevents widows/orphans in headings */
+  margin-bottom: 0.5em;         /* NEW: Consistent spacing */
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); }   /* NEW: Fluid type scale */
+h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+
+p {
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  max-width: 65ch;              /* NEW: Optimal line length for readability */
+}
+
+strong, b {
+  color: #fafafa;
+  font-weight: 600;             /* Changed from 700 – Inter's semibold looks cleaner */
+}
+
+/* ---------- Color Utilities (with fallbacks) ---------- */
+.text-zinc-400 { color: #a1a1aa !important; }
+.text-zinc-300 { color: #d4d4d8 !important; }
+.text-brandLime-400 { color: #a3e635 !important; }
+.text-brandGold-400 { color: #facc15 !important; }
+
+/* ---------- Selection ---------- */
 ::selection {
   background-color: #84cc16;
   color: #000000;
 }
 
-/* ---------- Scrollbar ---------- */
+/* ---------- Scrollbar (Firefox support added) ---------- */
+* {
+  scrollbar-width: thin;        /* NEW: Firefox */
+  scrollbar-color: #27272a #050505;  /* NEW: Firefox */
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -30,7 +67,7 @@ body {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #84cc16;
+  background: #52525b;          /* Changed from lime – less jarring */
 }
 
 /* ---------- Image Placeholder Shimmer ---------- */
@@ -40,78 +77,73 @@ body {
   animation: shine 1.5s infinite linear;
 }
 @keyframes shine {
-  to {
-    background-position-x: -200%;
-  }
+  to { background-position-x: -200%; }
 }
 
 /* ---------- Text Shadow for Headings ---------- */
 .text-shadow-sm {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
 }
 
-/* ---------- Smooth Transitions (Global) ---------- */
-a,
-button,
-.card,
-details,
-summary,
-input,
-select,
-textarea {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+/* ---------- Smooth Transitions (Global – scoped down) ---------- */
+a, button, details summary, input, select, textarea {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;  /* FIXED: Removed 'all' */
 }
 
 /* ---------- Premium Button Styles ---------- */
-button,
-a[role="button"],
-.btn {
+button, a[role="button"], .btn {
   transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;              /* NEW: Explicit cursor */
 }
-
-button:active,
-a[role="button"]:active,
-.btn:active {
+button:active, a[role="button"]:active, .btn:active {
   transform: scale(0.97);
 }
 
-/* Brand buttons – lift on hover + subtle glow */
-.bg-brandLime-500,
-.bg-brandGold-400,
-.bg-white {
+.bg-brandLime-500, .bg-brandGold-400, .bg-white {
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.2s ease,
-    background-color 0.2s ease;
+              box-shadow 0.2s ease,
+              background-color 0.2s ease;
 }
-.bg-brandLime-500:hover,
-.bg-brandGold-400:hover,
-.bg-white:hover {
+.bg-brandLime-500:hover, .bg-brandGold-400:hover, .bg-white:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(132, 204, 22, 0.25);
 }
 
-/* ---------- Form Inputs – Premium Focus ---------- */
-input,
-select,
-textarea {
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-  background-color: #000000;
+/* NEW: Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
-input:focus,
-select:focus,
-textarea:focus {
+/* ---------- Form Inputs – Premium Focus ---------- */
+input, select, textarea {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  background-color: #000000;
+  font-size: 1rem;              /* 16px minimum to prevent iOS zoom */
+  color: #f0f0f0;               /* NEW: Explicit text color */
+}
+input:focus, select:focus, textarea:focus {
   border-color: #84cc16;
   box-shadow: 0 0 0 3px rgba(132, 204, 22, 0.2);
   outline: none;
 }
 
-/* ---------- Mobile Menu – Handled entirely by JS ---------- */
+/* NEW: Placeholder styling */
+input::placeholder, textarea::placeholder {
+  color: #71717a;
+  opacity: 1;                   /* Firefox fix */
+}
+
+/* ---------- Mobile Menu ---------- */
 #mobile-menu {
-  /* All animations are controlled inline by the JavaScript */
-  pointer-events: none;
+  display: none;                /* FIXED: Use display instead of pointer-events */
 }
 #mobile-menu:not(.hidden) {
+  display: block;
   pointer-events: auto;
 }
 
@@ -119,76 +151,55 @@ textarea:focus {
 .faq-item summary {
   list-style: none;
   user-select: none;
+  cursor: pointer;              /* NEW: Explicit cursor */
 }
 .faq-item summary::-webkit-details-marker {
   display: none;
 }
 .faq-item .faq-content {
-  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  overflow: hidden;             /* NEW: For smooth height animation */
+  max-height: 0;                /* NEW: Start collapsed */
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+.faq-item[open] .faq-content {
+  max-height: 500px;            /* NEW: Expand when open */
+  opacity: 1;
 }
 
 /* ---------- Premium Card Hover ---------- */
-.bg-black,
-.bg-zinc-900\/50,
-.bg-zinc-950 {
+.bg-black, .bg-zinc-950 {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-.bg-black:hover,
-.bg-zinc-900\/50:hover,
-.bg-zinc-950:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+.bg-black:hover, .bg-zinc-950:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
-
-/* ---------- Intentional Spacing & Typography ---------- */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
-  letter-spacing: -0.02em;
-}
-
-p {
-  line-height: 1.6;
-}
+/* REMOVED: .bg-zinc-900\/50 hover – utility classes with slashes shouldn't be targeted */
 
 /* ---------- Responsive Tweaks ---------- */
 @media (max-width: 640px) {
+  body {
+    font-size: 0.9375rem;       /* 15px – better for mobile reading */
+  }
   .font-display {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;    /* Less aggressive tracking */
   }
   .text-shadow-sm {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  }
+  button, a[role="button"], .btn {
+    min-height: 44px;           /* WCAG 2.5.5 target size */
+    min-width: 44px;            /* NEW: Width requirement too */
+    padding: 0.75rem 1.25rem;
+  }
+  input, select, textarea {
+    font-size: 16px;            /* Explicit 16px to prevent iOS zoom */
   }
 }
 
-/* ---------- Additional Premium Polish ---------- */
-/* Smooth anchor scrolling (already set via Tailwind's scroll-smooth) */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Remove default details marker for better control */
-details summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* ---------- Fade-in for feedback messages ---------- */
-#form-feedback {
-  animation: fadeIn 0.3s ease;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* ---------- Reduced motion respects ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;    /* MOVED: Only when user allows motion */
   }
 }
 
@@ -196,4 +207,43 @@ details summary {
 *:focus-visible {
   outline: 2px solid #84cc16;
   outline-offset: 2px;
+}
+/* NEW: Remove focus outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ---------- Ensure proper spacing for small screens ---------- */
+@media (max-width: 768px) {
+  .grid-cols-2 > * {
+    min-width: 0;
+  }
+  .hero-image {
+    aspect-ratio: 16/9;
+  }
+}
+
+/* ---------- Fade-in for feedback messages ---------- */
+#form-feedback {
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* NEW: Print styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  .bg-black, .bg-zinc-950, .bg-zinc-900 {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+  a {
+    text-decoration: underline;
+  }
 }

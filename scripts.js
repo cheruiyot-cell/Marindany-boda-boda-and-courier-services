@@ -1,370 +1,437 @@
-(function() {
-  'use strict';
-
-  // ------------------------------------------------------------
-  // 1. Utility Helpers
-  // ------------------------------------------------------------
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
-  const on = (el, ev, fn) => el.addEventListener(ev, fn);
-
-  // ------------------------------------------------------------
-  // 2. Footer Year
-  // ------------------------------------------------------------
-  const yearEl = document.getElementById('current-year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-  // ------------------------------------------------------------
-  // 3. Mobile Menu — slide + fade
-  // ------------------------------------------------------------
-  const menuBtn = document.getElementById('mobile-menu-btn');
+document.addEventListener('DOMContentLoaded', () => {
+  // =============================================
+  // MOBILE MENU TOGGLE (Enhanced)
+  // =============================================
+  const mobileBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const hamburgerIcon = document.getElementById('hamburger-icon');
-  const navLinks = $$('.mobile-nav-link');
 
-  if (menuBtn && mobileMenu) {
-    let isOpen = false;
+  function toggleMobileMenu(forceClose = false) {
+    if (!mobileMenu || !mobileBtn) return;
+    
+    const isHidden = forceClose ? true : mobileMenu.classList.toggle('hidden');
+    const isExpanded = !isHidden;
+    
+    mobileBtn.setAttribute('aria-expanded', isExpanded);
+    
+    // Animate hamburger to X
+    if (hamburgerIcon) {
+      hamburgerIcon.style.transform = isExpanded ? 'rotate(90deg)' : 'rotate(0deg)';
+      hamburgerIcon.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+    
+    // Trap focus inside mobile menu when open
+    if (isExpanded) {
+      trapFocus(mobileMenu);
+      // Close on Escape key
+      document.addEventListener('keydown', handleMobileEscKey);
+    } else {
+      document.removeEventListener('keydown', handleMobileEscKey);
+      mobileBtn.focus(); // Return focus to toggle button
+    }
+  }
 
-    const openMenu = () => {
-      isOpen = true;
-      menuBtn.setAttribute('aria-expanded', 'true');
-      mobileMenu.classList.remove('hidden');
-      // Trigger reflow for transition
-      void mobileMenu.offsetWidth;
-      mobileMenu.style.opacity = '1';
-      mobileMenu.style.transform = 'translateY(0)';
-      if (hamburgerIcon) {
-        hamburgerIcon.style.transform = 'rotate(90deg)';
-      }
-    };
+  function handleMobileEscKey(e) {
+    if (e.key === 'Escape') toggleMobileMenu(true);
+  }
 
-    const closeMenu = () => {
-      isOpen = false;
-      menuBtn.setAttribute('aria-expanded', 'false');
-      mobileMenu.style.opacity = '0';
-      mobileMenu.style.transform = 'translateY(-8px)';
-      if (hamburgerIcon) {
-        hamburgerIcon.style.transform = 'rotate(0deg)';
-      }
-      setTimeout(() => {
-        if (!isOpen) mobileMenu.classList.add('hidden');
-      }, 300);
-    };
+  if (mobileBtn && mobileMenu) {
+    mobileBtn.addEventListener('click', () => toggleMobileMenu());
 
-    // Init styles
-    mobileMenu.style.opacity = '0';
-    mobileMenu.style.transform = 'translateY(-8px)';
-    mobileMenu.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-
-    on(menuBtn, 'click', () => {
-      if (isOpen) closeMenu();
-      else openMenu();
+    // Close menu when clicking navigation links
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => toggleMobileMenu(true));
     });
 
-    navLinks.forEach(link => {
-      on(link, 'click', closeMenu);
-    });
-
-    // Close on outside click
-    on(document, 'click', (e) => {
-      if (isOpen && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-        closeMenu();
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.classList.contains('hidden') && 
+          !mobileMenu.contains(e.target) && 
+          e.target !== mobileBtn &&
+          !mobileBtn.contains(e.target)) {
+        toggleMobileMenu(true);
       }
     });
   }
 
-  // ------------------------------------------------------------
-  // 4. Tab Switching — smooth fade
-  // ------------------------------------------------------------
+  // =============================================
+  // BOOKING MODE TAB SWITCHER (Accessibility + Animation)
+  // =============================================
   const tabSend = document.getElementById('tab-send');
   const tabRide = document.getElementById('tab-ride');
   const parcelContainer = document.getElementById('parcel-type-container');
-  let activeMode = 'parcel';
+  let bookingMode = 'parcel';
 
-  const setActiveTab = (active) => {
-    [tabSend, tabRide].forEach(t => {
-      const isActive = t === active;
-      t.setAttribute('aria-selected', isActive);
-      t.className = isActive ?
-        'flex-1 py-3 rounded-lg font-medium transition-all text-xs sm:text-sm bg-zinc-900 text-white shadow-sm focus:outline-none focus:ring-1 focus:ring-brandLime-500' :
-        'flex-1 py-3 rounded-lg font-medium transition-all text-xs sm:text-sm text-zinc-500 hover:text-zinc-300 focus:outline-none focus:ring-1 focus:ring-brandLime-500';
-    });
-  };
+  function switchTab(mode) {
+    bookingMode = mode;
+    const isParcel = mode === 'parcel';
 
-  if (tabSend && tabRide) {
-    on(tabSend, 'click', () => {
-      activeMode = 'parcel';
-      setActiveTab(tabSend);
-      if (parcelContainer) {
-        parcelContainer.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
-        parcelContainer.style.opacity = '0';
-        parcelContainer.style.transform = 'scale(0.98)';
-        parcelContainer.classList.remove('hidden');
-        void parcelContainer.offsetWidth;
-        parcelContainer.style.opacity = '1';
-        parcelContainer.style.transform = 'scale(1)';
-      }
-    });
+    // Update ARIA states
+    tabSend.setAttribute('aria-pressed', isParcel);
+    tabRide.setAttribute('aria-pressed', !isParcel);
 
-    on(tabRide, 'click', () => {
-      activeMode = 'ride';
-      setActiveTab(tabRide);
-      if (parcelContainer) {
-        parcelContainer.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
-        parcelContainer.style.opacity = '0';
-        parcelContainer.style.transform = 'scale(0.98)';
-        setTimeout(() => {
-          parcelContainer.classList.add('hidden');
+    // Update visual states
+    tabSend.className = isParcel 
+      ? 'flex-1 py-3 rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm bg-zinc-900 text-white shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brandLime-500'
+      : 'flex-1 py-3 rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm text-zinc-500 hover:text-zinc-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brandLime-500';
+    
+    tabRide.className = !isParcel
+      ? 'flex-1 py-3 rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm bg-zinc-900 text-white shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brandLime-500'
+      : 'flex-1 py-3 rounded-lg font-medium transition-all duration-300 text-xs sm:text-sm text-zinc-500 hover:text-zinc-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brandLime-500';
+
+    // Animate parcel container
+    if (parcelContainer) {
+      if (isParcel) {
+        parcelContainer.style.display = 'block';
+        requestAnimationFrame(() => {
           parcelContainer.style.opacity = '1';
-          parcelContainer.style.transform = 'scale(1)';
-        }, 200);
+          parcelContainer.style.transform = 'translateY(0)';
+          parcelContainer.style.maxHeight = '200px';
+        });
+      } else {
+        parcelContainer.style.opacity = '0';
+        parcelContainer.style.transform = 'translateY(-10px)';
+        parcelContainer.style.maxHeight = '0';
+        setTimeout(() => {
+          if (bookingMode === 'ride') {
+            parcelContainer.style.display = 'none';
+          }
+        }, 300);
       }
-    });
+    }
   }
 
-  // ------------------------------------------------------------
-  // 5. Form Submission — WhatsApp with validation feedback
-  // ------------------------------------------------------------
-  const bookingForm = document.getElementById('booking-form');
-  const feedbackEl = document.getElementById('form-feedback');
-  const pickupInput = document.getElementById('input-pickup');
-  const dropoffInput = document.getElementById('input-dropoff');
-  const notesInput = document.getElementById('input-notes');
-  const packageSelect = document.getElementById('input-package-type');
+  // Initialize parcel container with transition properties
+  if (parcelContainer) {
+    parcelContainer.style.transition = 'opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease';
+    parcelContainer.style.overflow = 'hidden';
+    parcelContainer.style.maxHeight = '200px';
+  }
 
-  if (bookingForm) {
-    // Real-time validation styling
-    const validateField = (input) => {
-      if (!input.value.trim()) {
-        input.style.borderColor = '#ef4444';
-        input.style.boxShadow = '0 0 0 1px #ef4444';
-        return false;
-      } else {
-        input.style.borderColor = '#84cc16';
-        input.style.boxShadow = '0 0 0 1px #84cc16';
-        return true;
-      }
-    };
+  if (tabSend && tabRide) {
+    tabSend.addEventListener('click', () => switchTab('parcel'));
+    tabRide.addEventListener('click', () => switchTab('ride'));
 
-    const resetFieldStyle = (input) => {
-      input.style.borderColor = '#27272a';
-      input.style.boxShadow = 'none';
-    };
-
-    [pickupInput, dropoffInput].forEach(inp => {
-      on(inp, 'blur', () => {
-        if (inp.value.trim()) validateField(inp);
-        else resetFieldStyle(inp);
-      });
-      on(inp, 'input', () => {
-        if (inp.value.trim()) {
-          inp.style.borderColor = '#84cc16';
-          inp.style.boxShadow = '0 0 0 1px #84cc16';
-        } else {
-          resetFieldStyle(inp);
+    // Keyboard navigation for tabs
+    const tabContainer = tabSend.parentElement;
+    if (tabContainer) {
+      tabContainer.addEventListener('keydown', (e) => {
+        const tabs = [tabSend, tabRide];
+        const currentIndex = tabs.indexOf(document.activeElement);
+        
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const nextIndex = e.key === 'ArrowRight' 
+            ? (currentIndex + 1) % tabs.length 
+            : (currentIndex - 1 + tabs.length) % tabs.length;
+          tabs[nextIndex].focus();
         }
+      });
+    }
+  }
+
+  // =============================================
+  // WHATSAPP BOOKING FORM (Enhanced Validation + Animations)
+  // =============================================
+  const bookingForm = document.getElementById('booking-form');
+  
+  if (bookingForm) {
+    const pickupInput = document.getElementById('input-pickup');
+    const dropoffInput = document.getElementById('input-dropoff');
+    const feedback = document.getElementById('form-feedback');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Real-time validation with animations
+    [pickupInput, dropoffInput].forEach(input => {
+      if (!input) return;
+      
+      input.addEventListener('input', () => {
+        if (input.value.trim()) {
+          input.style.borderColor = '#84cc16';
+          input.style.boxShadow = '0 0 0 1px rgba(132, 204, 22, 0.3)';
+        } else {
+          input.style.borderColor = '';
+          input.style.boxShadow = '';
+        }
+        // Clear feedback when user starts typing
+        if (feedback && !feedback.classList.contains('hidden')) {
+          hideFeedback(feedback);
+        }
+      });
+
+      input.addEventListener('blur', () => {
+        input.style.borderColor = '';
+        input.style.boxShadow = '';
       });
     });
 
-    on(bookingForm, 'submit', (e) => {
+    // Form submission
+    bookingForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      
+      const pickup = pickupInput?.value.trim() || '';
+      const dropoff = dropoffInput?.value.trim() || '';
+      const packageType = document.getElementById('input-package-type')?.value || '';
+      const notes = document.getElementById('input-notes')?.value.trim() || '';
 
-      const pickup = pickupInput.value.trim();
-      const dropoff = dropoffInput.value.trim();
-      const notes = notesInput.value.trim();
-      const pkg = packageSelect ? packageSelect.value : '';
+      // Validate with shake animation on empty fields
+      let hasError = false;
+      
+      if (!pickup) {
+        animateShake(pickupInput);
+        hasError = true;
+      }
+      if (!dropoff) {
+        animateShake(dropoffInput);
+        hasError = true;
+      }
 
-      // Validate
-      const isPickupValid = validateField(pickupInput);
-      const isDropoffValid = validateField(dropoffInput);
-
-      if (!isPickupValid || !isDropoffValid) {
-        if (feedbackEl) {
-          feedbackEl.textContent = '⚠️ Please fill in both pickup and drop-off locations.';
-          feedbackEl.className = 'text-xs text-center text-red-400 block';
-          feedbackEl.style.animation = 'none';
-          void feedbackEl.offsetWidth;
-          feedbackEl.style.animation = 'fadeIn 0.3s ease';
-        }
+      if (hasError) {
+        showFeedback(feedback, '⚠️ Please fill in both pickup location and destination.', 'error');
         return;
       }
 
-      // Build message
-      let msg = '';
-      if (activeMode === 'parcel') {
-        msg =
-          `Hello Marindany Logistics! 📦 I want to request a parcel delivery:\n\n📍 Pickup: ${pickup}\n🏁 Drop-off: ${dropoff}\n📦 Item: ${pkg}`;
-      } else {
-        msg =
-          `Hello Marindany Logistics! 🏍️ I want to book a passenger ride:\n\n📍 Pickup: ${pickup}\n🏁 Destination: ${dropoff}`;
-      }
-      if (notes) msg += `\n📝 Note: ${notes}`;
-
-      window.open(`https://wa.me/254725351381?text=${encodeURIComponent(msg)}`, '_blank');
-
-      // Success feedback
-      if (feedbackEl) {
-        feedbackEl.textContent = '✅ WhatsApp opened! Your message is ready to send.';
-        feedbackEl.className = 'text-xs text-center text-brandLime-400 block';
-        feedbackEl.style.animation = 'none';
-        void feedbackEl.offsetWidth;
-        feedbackEl.style.animation = 'fadeIn 0.3s ease';
+      // Loading state
+      if (submitBtn) {
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span>Preparing WhatsApp...</span>';
+        submitBtn.disabled = true;
+        
         setTimeout(() => {
-          feedbackEl.textContent = '';
-          feedbackEl.className = 'text-xs text-center text-brandLime-400 hidden';
-        }, 4500);
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        }, 2000);
       }
 
-      // Reset validation styles
-      resetFieldStyle(pickupInput);
-      resetFieldStyle(dropoffInput);
+      // Build message
+      let message = '';
+      if (bookingMode === 'parcel') {
+        message = `Hello Marindany Logistics! I want to dispatch a parcel.\n\n📦 *Pickup:* ${pickup}\n🏁 *Destination:* ${dropoff}\n📋 *Item:* ${packageType}`;
+        if (notes) message += `\n📝 *Notes:* ${notes}`;
+      } else {
+        message = `Hello Marindany Logistics! I need a passenger boda ride.\n\n📍 *Pickup:* ${pickup}\n🏁 *Destination:* ${dropoff}`;
+        if (notes) message += `\n📝 *Notes:* ${notes}`;
+      }
+
+      // Success feedback before redirect
+      showFeedback(feedback, '✅ Opening WhatsApp...', 'success');
+      
+      // Small delay for user to see success message
+      setTimeout(() => {
+        const waUrl = `https://wa.me/254725351381?text=${encodeURIComponent(message)}`;
+        window.open(waUrl, '_blank', 'noopener,noreferrer');
+      }, 500);
     });
   }
 
-  // ------------------------------------------------------------
-  // 6. FAQ Accordion — premium height animation
-  // ------------------------------------------------------------
-  const faqItems = $$('.faq-item');
-
-  faqItems.forEach(item => {
+  // =============================================
+  // FAQ ACCORDION (Enhanced Animation + Accessibility)
+  // =============================================
+  document.querySelectorAll('.faq-item').forEach(item => {
     const summary = item.querySelector('summary');
-    const content = item.querySelector('.faq-content');
     const icon = item.querySelector('.faq-icon');
+    
+    if (!summary) return;
 
-    if (!summary || !content) return;
-
-    // Store natural height
-    content.style.display = 'block';
-    const naturalHeight = content.scrollHeight;
-    content.style.display = '';
-    content.style.height = '0';
-    content.style.overflow = 'hidden';
-    content.style.transition = 'height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease';
-    content.style.opacity = '0';
-
-    // Initially closed
-    item.open = false;
-
-    on(summary, 'click', (e) => {
-      e.preventDefault();
-
-      const isOpening = !item.open;
-
-      // Close all others
-      faqItems.forEach(other => {
-        if (other !== item && other.open) {
-          other.open = false;
-          const otherContent = other.querySelector('.faq-content');
-          const otherIcon = other.querySelector('.faq-icon');
-          if (otherContent) {
-            otherContent.style.height = '0';
-            otherContent.style.opacity = '0';
-          }
-          if (otherIcon) {
-            otherIcon.style.transform = 'rotate(0deg)';
-          }
+    summary.addEventListener('click', (e) => {
+      // Close other open FAQs (accordion pattern)
+      document.querySelectorAll('.faq-item[open]').forEach(openItem => {
+        if (openItem !== item) {
+          openItem.removeAttribute('open');
+          const openIcon = openItem.querySelector('.faq-icon');
+          if (openIcon) openIcon.style.transform = 'rotate(0deg)';
         }
       });
-
-      if (isOpening) {
-        item.open = true;
-        content.style.height = naturalHeight + 'px';
-        content.style.opacity = '1';
-        if (icon) icon.style.transform = 'rotate(180deg)';
-      } else {
-        item.open = false;
-        content.style.height = '0';
-        content.style.opacity = '0';
-        if (icon) icon.style.transform = 'rotate(0deg)';
+      
+      // Animate icon
+      if (icon) {
+        const isOpen = item.hasAttribute('open');
+        icon.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
       }
     });
+
+    // Initialize icon transition
+    if (icon) {
+      icon.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+    }
   });
 
-  // ------------------------------------------------------------
-  // 7. Smooth Scroll for all anchor links (premium)
-  // ------------------------------------------------------------
-  $$('a[href^="#"]').forEach(anchor => {
-    on(anchor, 'click', (e) => {
+  // =============================================
+  // INTERSECTION OBSERVER (Scroll Animations)
+  // =============================================
+  const animateOnScroll = () => {
+    const elements = document.querySelectorAll('.bg-black, .bg-zinc-950, .card, section');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    elements.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+      observer.observe(el);
+    });
+  };
+
+  // Initialize scroll animations if user hasn't requested reduced motion
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    animateOnScroll();
+  }
+
+  // =============================================
+  // SMOOTH SCROLL FOR ANCHOR LINKS
+  // =============================================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
       const targetId = anchor.getAttribute('href');
       if (targetId === '#') return;
+      
       const target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
-        const headerOffset = 80;
-        const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementPosition - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
+        target.scrollIntoView({
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          block: 'start'
         });
+        
+        // Update URL without jump
+        history.pushState(null, null, targetId);
       }
     });
   });
 
-  // ------------------------------------------------------------
-  // 8. Add fadeIn keyframes dynamically (clean)
-  // ------------------------------------------------------------
-  const styleSheet = document.createElement('style');
-  styleSheet.textContent = `
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(6px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .faq-item[open] .faq-content {
-        opacity: 1 !important;
-      }
-    `;
-  document.head.appendChild(styleSheet);
+  // =============================================
+  // DYNAMIC YEAR UPDATE
+  // =============================================
+  const yearEl = document.getElementById('current-year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 
-  // ------------------------------------------------------------
-  // 9. Performance: nav background on scroll
-  // ------------------------------------------------------------
-  const nav = document.querySelector('nav');
-  let scrollTimeout;
-  on(window, 'scroll', () => {
-    if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
-    scrollTimeout = requestAnimationFrame(() => {
-      if (window.scrollY > 20) {
-        nav.style.borderColor = '#3f3f46';
-        nav.style.backdropFilter = 'blur(24px)';
+  // =============================================
+  // UTILITY FUNCTIONS
+  // =============================================
+  function showFeedback(element, message, type = 'info') {
+    if (!element) return;
+    
+    element.textContent = message;
+    element.classList.remove('hidden');
+    
+    // Color based on type
+    const colors = {
+      error: '#ef4444',
+      success: '#84cc16',
+      info: '#a3e635'
+    };
+    
+    element.style.color = colors[type] || colors.info;
+    element.style.animation = 'none';
+    element.offsetHeight; // Trigger reflow
+    element.style.animation = 'fadeIn 0.3s ease';
+    
+    // Auto-hide success messages
+    if (type === 'success') {
+      setTimeout(() => hideFeedback(element), 3000);
+    }
+  }
+
+  function hideFeedback(element) {
+    if (!element) return;
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(-10px)';
+    element.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    
+    setTimeout(() => {
+      element.classList.add('hidden');
+      element.style.opacity = '1';
+      element.style.transform = 'translateY(0)';
+    }, 300);
+  }
+
+  function animateShake(element) {
+    if (!element) return;
+    
+    element.style.animation = 'none';
+    element.offsetHeight; // Trigger reflow
+    element.style.animation = 'shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both';
+    element.style.borderColor = '#ef4444';
+    element.style.boxShadow = '0 0 0 1px rgba(239, 68, 68, 0.5)';
+    
+    setTimeout(() => {
+      element.style.borderColor = '';
+      element.style.boxShadow = '';
+    }, 1500);
+  }
+
+  function trapFocus(element) {
+    const focusableElements = element.querySelectorAll(
+      'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    );
+    
+    if (focusableElements.length === 0) return;
+    
+    const firstFocusable = focusableElements[0];
+    const lastFocusable = focusableElements[focusableElements.length - 1];
+    
+    // Focus first element
+    firstFocusable.focus();
+    
+    element.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable.focus();
+        }
       } else {
-        nav.style.borderColor = '#27272a';
-        nav.style.backdropFilter = 'blur(12px)';
+        if (document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable.focus();
+        }
       }
     });
-  }, { passive: true });
+  }
+});
 
-  // ------------------------------------------------------------
-  // 10. Tiny micro-interaction: button ripple effect (optional)
-  // ------------------------------------------------------------
-  $$('.bg-brandLime-500, .bg-white, .bg-brandGold-400').forEach(btn => {
-    btn.style.position = 'relative';
-    btn.style.overflow = 'hidden';
-    on(btn, 'mousedown', function(e) {
-      const rect = this.getBoundingClientRect();
-      const ripple = document.createElement('span');
-      const size = Math.max(rect.width, rect.height);
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-      ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-      ripple.style.position = 'absolute';
-      ripple.style.borderRadius = '50%';
-      ripple.style.backgroundColor = 'rgba(255,255,255,0.2)';
-      ripple.style.transform = 'scale(0)';
-      ripple.style.animation = 'rippleAnim 0.6s ease-out forwards';
-      this.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 600);
-    });
-  });
-
-  // Add ripple keyframes
-  const rippleStyle = document.createElement('style');
-  rippleStyle.textContent = `
-      @keyframes rippleAnim {
-        to { transform: scale(4); opacity: 0; }
-      }
-    `;
-  document.head.appendChild(rippleStyle);
-
-})();
+// =============================================
+// ANIMATION KEYFRAMES (Injected via JS)
+// =============================================
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+    20%, 40%, 60%, 80% { transform: translateX(4px); }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes pulse-subtle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+  
+  .shake-animation {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+  
+  .fade-in-animation {
+    animation: fadeIn 0.3s ease;
+  }
+`;
+document.head.appendChild(styleSheet);
