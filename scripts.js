@@ -287,7 +287,7 @@
     }, 5000);
   }
 
-  // ============ CALENDAR SYSTEM ============
+  // ============ CALENDAR SYSTEM (FIXED) ============
   function setupCalendar() {
     if (!calendarGrid || !calendarMonthYear) return;
     
@@ -338,9 +338,6 @@
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
-    // Simulated unavailable dates (weekends and some random days)
-    const unavailableDates = generateUnavailableDates(year, month, daysInMonth);
-    
     let calendarHTML = '';
     
     // Add empty cells for days before first day
@@ -355,7 +352,10 @@
       
       const isToday = date.getTime() === today.getTime();
       const isPast = date < today;
-      const isUnavailable = unavailableDates.includes(day) || isPast;
+      
+      // FIXED: Only block past dates — all future dates are now available
+      const isUnavailable = isPast;
+      
       const isSelected = selectedDate && 
                          date.getFullYear() === selectedDate.getFullYear() &&
                          date.getMonth() === selectedDate.getMonth() &&
@@ -386,29 +386,11 @@
     });
   }
 
-  function generateUnavailableDates(year, month, daysInMonth) {
-    const unavailable = [];
-    // Make weekends unavailable
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day);
-      const dayOfWeek = date.getDay();
-      // Sunday (0) is unavailable
-      if (dayOfWeek === 0) {
-        unavailable.push(day);
-      }
-    }
-    // Add some random weekdays as unavailable (simulating booked slots)
-    const randomUnavailable = [5, 12, 18, 25];
-    randomUnavailable.forEach(day => {
-      if (day <= daysInMonth && !unavailable.includes(day)) {
-        const date = new Date(year, month, day);
-        if (date.getDay() !== 0) { // Don't double-add Sundays
-          unavailable.push(day);
-        }
-      }
-    });
-    return unavailable;
-  }
+  // NOTE: The generateUnavailableDates function has been removed entirely.
+  // If you need to block specific dates in the future (holidays, fully booked days),
+  // add a simple array here like:
+  // const blockedDates = ['2026-12-25', '2027-01-01'];
+  // Then check against it in renderCalendar.
 
   function selectDate(dayBtn) {
     // Remove previous selection
