@@ -1,6 +1,13 @@
+/* =============================================
+   MARINDANY LOGISTICS — INTERACTIVE SCRIPTS
+   Production-ready, accessible, and performant
+   Version: 3.0.0
+   ============================================= */
+
 (function () {
   'use strict';
 
+  // ============ DOM ELEMENTS ============
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const hamburgerIcon = document.getElementById('hamburger-icon');
@@ -12,6 +19,7 @@
   const currentYearSpan = document.getElementById('current-year');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
+  // Calendar elements
   const calendarGrid = document.getElementById('calendar-grid');
   const calendarMonthYear = document.getElementById('calendar-month-year');
   const prevMonthBtn = document.getElementById('prev-month');
@@ -22,13 +30,16 @@
   const scheduleFeedback = document.getElementById('schedule-feedback');
   const scheduleServiceType = document.getElementById('schedule-service-type');
 
+  // ============ STATE ============
   let isMenuOpen = false;
-  let activeService = 'deliver';
+  let activeService = 'deliver'; // 'deliver' or 'ride'
+  
+  // Calendar state
   let currentDate = new Date();
   let selectedDate = null;
   let selectedTimeSlot = null;
-  let lastFocusedElement = null;
 
+  // ============ INITIALIZATION ============
   function init() {
     setCurrentYear();
     setupMobileMenu();
@@ -38,57 +49,42 @@
     setupFAQAccordion();
     setupSmoothScroll();
     setupImageLazyLoading();
+    setupScrollAnimations();
     setupCardHoverEffects();
     addAccessibilityEnhancements();
     preventZoomOnDoubleTap();
-    setupKeyboardNavigation();
-    fixCalendarAccessibility();
-    addAnimationStyles();
   }
 
+  // ============ SET CURRENT YEAR ============
   function setCurrentYear() {
     if (currentYearSpan) {
       currentYearSpan.textContent = new Date().getFullYear();
     }
   }
 
+  // ============ MOBILE MENU ============
   function setupMobileMenu() {
     if (!mobileMenuBtn || !mobileMenu) return;
 
-    mobileMenu.classList.add('menu-closed');
-    mobileMenu.classList.remove('hidden');
-    mobileMenu.setAttribute('aria-hidden', 'true');
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
-    mobileMenuBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      toggleMobileMenu();
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (isMenuOpen) closeMobileMenu();
+      });
     });
 
-    document.addEventListener('click', function(e) {
-      if (isMenuOpen && 
-          !mobileMenu.contains(e.target) && 
-          !mobileMenuBtn.contains(e.target)) {
-        closeMobileMenu();
-      }
-    });
-
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && isMenuOpen) {
         closeMobileMenu();
         mobileMenuBtn.focus();
       }
     });
 
-    mobileNavLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        if (isMenuOpen) {
-          setTimeout(() => closeMobileMenu(), 100);
-        }
-      });
-    });
-
-    window.addEventListener('resize', function() {
-      if (window.innerWidth >= 768 && isMenuOpen) {
+    document.addEventListener('click', (e) => {
+      if (isMenuOpen && 
+          !mobileMenu.contains(e.target) && 
+          !mobileMenuBtn.contains(e.target)) {
         closeMobileMenu();
       }
     });
@@ -99,9 +95,7 @@
   }
 
   function openMobileMenu() {
-    mobileMenu.classList.remove('menu-closed');
-    mobileMenu.classList.add('menu-open');
-    mobileMenu.setAttribute('aria-hidden', 'false');
+    mobileMenu.classList.remove('hidden');
     mobileMenuBtn.setAttribute('aria-expanded', 'true');
     
     if (hamburgerIcon) {
@@ -109,18 +103,15 @@
     }
     
     isMenuOpen = true;
-    document.body.style.overflow = 'hidden';
     
-    const firstLink = mobileMenu.querySelector('a');
-    if (firstLink) {
-      setTimeout(() => firstLink.focus(), 100);
+    const firstFocusable = mobileMenu.querySelector('a');
+    if (firstFocusable) {
+      setTimeout(() => firstFocusable.focus(), 100);
     }
   }
 
   function closeMobileMenu() {
-    mobileMenu.classList.remove('menu-open');
-    mobileMenu.classList.add('menu-closed');
-    mobileMenu.setAttribute('aria-hidden', 'true');
+    mobileMenu.classList.add('hidden');
     mobileMenuBtn.setAttribute('aria-expanded', 'false');
     
     if (hamburgerIcon) {
@@ -128,29 +119,14 @@
     }
     
     isMenuOpen = false;
-    document.body.style.overflow = '';
-    mobileMenuBtn.focus();
   }
 
+  // ============ SERVICE TABS ============
   function setupServiceTabs() {
     if (!tabSend || !tabRide) return;
 
     tabSend.addEventListener('click', () => switchService('deliver'));
     tabRide.addEventListener('click', () => switchService('ride'));
-    
-    tabSend.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        switchService('deliver');
-      }
-    });
-    
-    tabRide.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        switchService('ride');
-      }
-    });
   }
 
   function switchService(service) {
@@ -168,7 +144,6 @@
       if (parcelTypeContainer) {
         parcelTypeContainer.style.opacity = '1';
         parcelTypeContainer.style.maxHeight = '200px';
-        parcelTypeContainer.style.overflow = 'visible';
         parcelTypeContainer.style.transition = 'all 0.3s ease';
       }
       
@@ -189,7 +164,6 @@
       if (parcelTypeContainer) {
         parcelTypeContainer.style.opacity = '0';
         parcelTypeContainer.style.maxHeight = '0';
-        parcelTypeContainer.style.overflow = 'hidden';
         parcelTypeContainer.style.transition = 'all 0.3s ease';
       }
       
@@ -201,6 +175,7 @@
     }
   }
 
+  // ============ BOOKING FORM ============
   function setupBookingForm() {
     if (!bookingForm) return;
 
@@ -221,34 +196,10 @@
     if (field.value.trim() === '') {
       field.classList.add('border-red-500');
       field.classList.remove('border-zinc-800');
-      
-      const errorId = `${field.id}-error`;
-      let errorMsg = document.getElementById(errorId);
-      if (!errorMsg) {
-        errorMsg = document.createElement('div');
-        errorMsg.id = errorId;
-        errorMsg.className = 'text-red-500 text-sm mt-1';
-        errorMsg.setAttribute('role', 'alert');
-        field.parentNode.appendChild(errorMsg);
-      }
-      errorMsg.textContent = 'This field is required';
-      field.setAttribute('aria-describedby', errorId);
-      field.setAttribute('aria-invalid', 'true');
-      
       return false;
     } else {
       field.classList.remove('border-red-500');
       field.classList.add('border-zinc-800');
-      
-      const errorId = `${field.id}-error`;
-      const errorMsg = document.getElementById(errorId);
-      if (errorMsg) {
-        errorMsg.textContent = '';
-        errorMsg.setAttribute('role', '');
-      }
-      field.removeAttribute('aria-invalid');
-      field.removeAttribute('aria-describedby');
-      
       return true;
     }
   }
@@ -311,10 +262,6 @@
     setTimeout(() => {
       bookingForm.reset();
       if (formFeedback) formFeedback.classList.add('hidden');
-      bookingForm.querySelectorAll('.border-red-500').forEach(el => {
-        el.classList.remove('border-red-500');
-        el.classList.add('border-zinc-800');
-      });
     }, 2000);
   }
 
@@ -323,17 +270,16 @@
     
     formFeedback.textContent = message;
     formFeedback.className = 'text-sm text-center rounded-lg p-3';
-    formFeedback.classList.add(type === 'error' ? 'bg-red-900/50 text-red-400' : 'bg-green-900/50 text-green-400');
+    formFeedback.classList.add(type);
     formFeedback.classList.remove('hidden');
-    formFeedback.setAttribute('role', 'alert');
     
     clearTimeout(formFeedback._hideTimeout);
     formFeedback._hideTimeout = setTimeout(() => {
       formFeedback.classList.add('hidden');
-      formFeedback.setAttribute('role', '');
     }, 5000);
   }
 
+  // ============ CALENDAR SYSTEM ============
   function setupCalendar() {
     if (!calendarGrid || !calendarMonthYear) return;
     
@@ -362,14 +308,6 @@
     }
   }
 
-  function fixCalendarAccessibility() {
-    const days = calendarGrid.querySelectorAll('.calendar-day:not(.empty)');
-    days.forEach(day => {
-      day.setAttribute('role', 'button');
-      day.setAttribute('tabindex', '0');
-    });
-  }
-
   function renderCalendar() {
     if (!calendarGrid || !calendarMonthYear) return;
     
@@ -390,7 +328,7 @@
     let calendarHTML = '';
     
     for (let i = 0; i < adjustedFirstDay; i++) {
-      calendarHTML += '<div class="calendar-day empty" role="presentation"></div>';
+      calendarHTML += '<div class="calendar-day empty"></div>';
     }
     
     for (let day = 1; day <= daysInMonth; day++) {
@@ -411,17 +349,12 @@
       if (isUnavailable) dayClass += ' unavailable';
       if (isSelected) dayClass += ' selected';
       
-      const ariaLabel = `${monthNames[month]} ${day}, ${year}${isUnavailable ? ' (unavailable)' : ''}`;
-      
       calendarHTML += `
         <button 
           class="${dayClass}"
           data-date="${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}"
-          ${isUnavailable ? 'disabled aria-disabled="true"' : ''}
-          aria-label="${ariaLabel}"
-          role="gridcell"
-          tabindex="${isUnavailable ? '-1' : '0'}"
-          ${isToday ? 'aria-current="date"' : ''}
+          ${isUnavailable ? 'disabled' : ''}
+          aria-label="${monthNames[month]} ${day}, ${year}${isUnavailable ? ' (unavailable)' : ''}"
         >
           ${day}
         </button>
@@ -432,43 +365,6 @@
     
     calendarGrid.querySelectorAll('.calendar-day:not(.empty):not(.unavailable)').forEach(dayBtn => {
       dayBtn.addEventListener('click', () => selectDate(dayBtn));
-      dayBtn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          selectDate(dayBtn);
-        }
-      });
-    });
-    
-    setupCalendarKeyboardNavigation();
-  }
-
-  function setupCalendarKeyboardNavigation() {
-    const days = calendarGrid.querySelectorAll('.calendar-day:not(.empty):not(.unavailable)');
-    days.forEach((day, index) => {
-      day.addEventListener('keydown', (e) => {
-        let targetIndex = -1;
-        
-        switch(e.key) {
-          case 'ArrowRight':
-            targetIndex = index + 1;
-            break;
-          case 'ArrowLeft':
-            targetIndex = index - 1;
-            break;
-          case 'ArrowDown':
-            targetIndex = index + 7;
-            break;
-          case 'ArrowUp':
-            targetIndex = index - 7;
-            break;
-        }
-        
-        if (targetIndex >= 0 && targetIndex < days.length) {
-          e.preventDefault();
-          days[targetIndex].focus();
-        }
-      });
     });
   }
 
@@ -489,14 +385,12 @@
     timeSlotBtns.forEach(btn => {
       btn.disabled = false;
       btn.classList.remove('opacity-50', 'cursor-not-allowed');
-      btn.setAttribute('aria-disabled', 'false');
     });
     
     selectedTimeSlot = null;
     timeSlotBtns.forEach(b => {
       b.classList.remove('bg-brandGold-400', 'text-black', 'border-brandGold-400');
       b.classList.add('bg-zinc-900', 'text-white', 'border-zinc-800');
-      b.removeAttribute('aria-selected');
     });
     updateScheduleButton();
   }
@@ -507,12 +401,10 @@
     timeSlotBtns.forEach(b => {
       b.classList.remove('bg-brandGold-400', 'text-black', 'border-brandGold-400');
       b.classList.add('bg-zinc-900', 'text-white', 'border-zinc-800');
-      b.removeAttribute('aria-selected');
     });
     
     btn.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-800');
     btn.classList.add('bg-brandGold-400', 'text-black', 'border-brandGold-400');
-    btn.setAttribute('aria-selected', 'true');
     selectedTimeSlot = btn.getAttribute('data-time');
     
     updateScheduleButton();
@@ -523,11 +415,9 @@
       if (selectedDate && selectedTimeSlot) {
         scheduleBookingBtn.disabled = false;
         scheduleBookingBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-        scheduleBookingBtn.setAttribute('aria-disabled', 'false');
       } else {
         scheduleBookingBtn.disabled = true;
         scheduleBookingBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        scheduleBookingBtn.setAttribute('aria-disabled', 'true');
       }
     }
   }
@@ -551,7 +441,6 @@
     scheduleFeedback.textContent = '✨ Opening WhatsApp to confirm your schedule...';
     scheduleFeedback.className = 'text-sm text-center text-brandLime-400 mt-3';
     scheduleFeedback.classList.remove('hidden');
-    scheduleFeedback.setAttribute('role', 'status');
     
     setTimeout(() => {
       window.open(whatsappURL, '_blank', 'noopener,noreferrer');
@@ -559,7 +448,6 @@
     
     setTimeout(() => {
       scheduleFeedback.classList.add('hidden');
-      scheduleFeedback.setAttribute('role', '');
       selectedDate = null;
       selectedTimeSlot = null;
       calendarGrid.querySelectorAll('.calendar-day.selected').forEach(btn => {
@@ -568,7 +456,6 @@
       timeSlotBtns.forEach(b => {
         b.classList.remove('bg-brandGold-400', 'text-black', 'border-brandGold-400');
         b.classList.add('bg-zinc-900', 'text-white', 'border-zinc-800');
-        b.removeAttribute('aria-selected');
       });
       if (selectedDateDisplay) {
         selectedDateDisplay.textContent = 'Please select a date from the calendar';
@@ -577,6 +464,7 @@
     }, 3000);
   }
 
+  // ============ FAQ ACCORDION ============
   function setupFAQAccordion() {
     const faqItems = document.querySelectorAll('.faq-item');
     
@@ -584,26 +472,14 @@
       const summary = item.querySelector('summary');
       if (!summary) return;
       
-      const content = item.querySelector('.faq-content');
-      if (content) {
-        const id = `faq-content-${Math.random().toString(36).substr(2, 9)}`;
-        content.id = id;
-        summary.setAttribute('aria-controls', id);
-        summary.setAttribute('aria-expanded', 'false');
-      }
-      
-      summary.addEventListener('click', (e) => {
+      summary.addEventListener('click', () => {
         const isOpening = !item.hasAttribute('open');
         
         faqItems.forEach(otherItem => {
           if (otherItem !== item && otherItem.hasAttribute('open')) {
             otherItem.removeAttribute('open');
-            const otherSummary = otherItem.querySelector('summary');
-            if (otherSummary) otherSummary.setAttribute('aria-expanded', 'false');
           }
         });
-        
-        if (summary) summary.setAttribute('aria-expanded', isOpening ? 'true' : 'false');
         
         if (isOpening) {
           setTimeout(() => {
@@ -614,6 +490,54 @@
     });
   }
 
+  // ============ SCROLL ANIMATIONS ============
+  function setupScrollAnimations() {
+    if (!('IntersectionObserver' in window)) return;
+    
+    const animatedElements = document.querySelectorAll('section, .card-premium, .faq-item');
+    
+    animatedElements.forEach((el, index) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      el.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
+    const animationObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          animationObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    animatedElements.forEach(el => animationObserver.observe(el));
+  }
+
+  // ============ CARD HOVER EFFECTS ============
+  function setupCardHoverEffects() {
+    document.querySelectorAll('.card-premium').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--mouse-x', '50%');
+        card.style.setProperty('--mouse-y', '50%');
+      });
+    });
+  }
+
+  // ============ SMOOTH SCROLL ============
   function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -642,6 +566,7 @@
     });
   }
 
+  // ============ IMAGE LAZY LOADING ============
   function setupImageLazyLoading() {
     if ('loading' in HTMLImageElement.prototype) return;
     
@@ -659,30 +584,12 @@
           imageObserver.unobserve(img);
         }
       });
-    }, {
-      rootMargin: '200px 0px'
     });
     
     lazyImages.forEach(img => imageObserver.observe(img));
   }
 
-  function setupCardHoverEffects() {
-    document.querySelectorAll('.card-premium').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        card.style.setProperty('--mouse-x', `${x}%`);
-        card.style.setProperty('--mouse-y', `${y}%`);
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        card.style.setProperty('--mouse-x', '50%');
-        card.style.setProperty('--mouse-y', '50%');
-      });
-    });
-  }
-
+  // ============ ACCESSIBILITY ENHANCEMENTS ============
   function addAccessibilityEnhancements() {
     const mainElement = document.querySelector('main');
     if (mainElement && !mainElement.hasAttribute('id')) {
@@ -698,93 +605,24 @@
         link.setAttribute('aria-label', text ? text + ' (opens in new tab)' : 'Opens in new tab');
       }
     });
-    
-    const skipLink = document.querySelector('.skip-to-main');
-    if (skipLink) {
-      skipLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        const main = document.getElementById('main-content');
-        if (main) {
-          main.setAttribute('tabindex', '-1');
-          main.focus();
-        }
-      });
-    }
   }
 
+  // ============ PREVENT DOUBLE-TAP ZOOM ============
   function preventZoomOnDoubleTap() {
-    let lastTouch = 0;
     document.addEventListener('touchend', (e) => {
       const now = Date.now();
+      const lastTouch = preventZoomOnDoubleTap._lastTouch || 0;
       const timeSince = now - lastTouch;
       
       if (timeSince < 300 && timeSince > 0) {
         e.preventDefault();
       }
       
-      lastTouch = now;
+      preventZoomOnDoubleTap._lastTouch = now;
     }, { passive: false });
   }
 
-  function setupKeyboardNavigation() {
-    document.querySelectorAll('button, a, input, select, textarea').forEach(el => {
-      if (!el.hasAttribute('tabindex') && el.tagName !== 'BUTTON' && el.tagName !== 'A' && el.tagName !== 'INPUT' && el.tagName !== 'SELECT' && el.tagName !== 'TEXTAREA') {
-        el.setAttribute('tabindex', '0');
-      }
-    });
-  }
-
-  function addAnimationStyles() {
-    const style = document.createElement('style');
-    style.textContent = `
-      .menu-closed {
-        visibility: hidden;
-        opacity: 0;
-        transform: translateY(-8px) scale(0.98);
-        transition: visibility 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-        display: block !important;
-        max-height: 0;
-        overflow: hidden;
-      }
-      .menu-open {
-        visibility: visible;
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        transition: visibility 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-        display: block !important;
-        max-height: 600px;
-        overflow-y: auto;
-      }
-      #mobile-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        width: 100%;
-        z-index: 40;
-        border-bottom: 1px solid #1f1f1f;
-      }
-      @media (min-width: 768px) {
-        #mobile-menu {
-          display: none !important;
-        }
-      }
-      .scroll-animate {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      .scroll-animate.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .calendar-day:focus-visible {
-        outline: 2px solid #84cc16;
-        outline-offset: 2px;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
+  // ============ ERROR HANDLING ============
   window.addEventListener('error', function(e) {
     console.error('Global error:', e.message);
   });
@@ -793,13 +631,10 @@
     console.error('Unhandled promise rejection:', e.reason);
   });
 
+  // ============ START ============
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      addAnimationStyles();
-      init();
-    });
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    addAnimationStyles();
     init();
   }
 

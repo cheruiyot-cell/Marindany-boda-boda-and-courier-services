@@ -2,25 +2,28 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover, shrink-to-fit=no" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover" />
 
+  <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://i.ibb.co" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+  <!-- Core SEO -->
   <title>Marindany Boda Boda and Courier Services — Trusted Imara Daima Logistics</title>
   <meta name="description" content="Fast, reliable parcel delivery and boda boda rides in Imara Daima and across Nairobi. Direct WhatsApp booking, transparent rates, and real-time human updates." />
   <meta name="keywords" content="Marindany Boda Boda, trusted rider Imara Daima, same day parcel delivery Nairobi, fast delivery services Kenya, WhatsApp courier Nairobi, M-Pesa delivery Nairobi" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://marindany-boda-boda-and-courier-ser.vercel.app/" />
 
+  <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Marindany Boda Boda and Courier Services" />
   <meta property="og:description" content="Fast, reliable, and completely stress-free rides and deliveries in Nairobi. Direct human updates via WhatsApp." />
   <meta property="og:image" content="https://i.ibb.co/R4GpYkHd/1786271471547.png" />
   <meta property="og:url" content="https://marindany-boda-boda-and-courier-ser.vercel.app/" />
 
+  <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -54,8 +57,10 @@
     }
   </script>
 
+  <!-- Premium Web Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Tailwind CSS CDN + Config -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -75,39 +80,18 @@
     }
   </script>
 
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
-  
-  <style>
-    @media (max-width: 640px) {
-      body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; }
-      img, video, iframe, table, pre, code { max-width: 100% !important; height: auto !important; }
-      .container, .max-w-7xl, section, article, main, header, footer, div, nav {
-        max-width: 100% !important;
-        overflow-x: hidden !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-      }
-      h1, h2, h3, h4, h5, h6, p, li, a, span { 
-        word-break: break-word !important; 
-        overflow-wrap: break-word !important;
-      }
-      .grid { display: flex !important; flex-wrap: wrap !important; }
-      .grid > * { flex: 1 1 100% !important; min-width: 0 !important; }
-      .flex { flex-wrap: wrap !important; }
-      .flex > * { min-width: 0 !important; }
-      table { display: block !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
-      pre, code { white-space: pre-wrap !important; word-break: break-all !important; }
-    }
-  </style>
 </head>
 <body class="min-h-screen bg-black text-white font-sans antialiased">
 
+  <!-- Skip to main content (accessibility) -->
   <a href="#main-content" class="sr-only-focusable skip-to-main" aria-label="Skip to main content">Skip to main content</a>
 
   <!-- ========== HEADER ========== -->
   <header>
     <nav class="fixed w-full z-50 bg-black/95 backdrop-blur-xl border-b border-zinc-900 transition-all duration-300" aria-label="Main Navigation">
-      <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20 md:h-24 items-center">
           <!-- Logo -->
           <a href="#" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-brandLime-500 rounded-lg p-2" aria-label="Marindany Home">
@@ -132,7 +116,7 @@
             </a>
           </div>
 
-          <!-- Mobile menu button - Fixed right alignment -->
+          <!-- Mobile menu button (enlarged, thumb-friendly) -->
           <div class="md:hidden flex items-center">
             <button id="mobile-menu-btn" type="button" class="text-zinc-400 hover:text-white focus:outline-none p-3.5 rounded-xl bg-zinc-900/60 backdrop-blur-sm border border-zinc-800 transition-all hover:border-brandLime-500" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle Navigation Menu" style="min-width:56px; min-height:56px;">
               <svg id="hamburger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-7 h-7 transition-transform duration-200">
@@ -143,8 +127,8 @@
         </div>
       </div>
 
-      <!-- Mobile menu - Fixed with proper animation -->
-      <div id="mobile-menu" class="md:hidden bg-black/95 backdrop-blur-2xl border-b border-zinc-900 menu-closed" aria-hidden="true">
+      <!-- Mobile menu (dropdown) -->
+      <div id="mobile-menu" class="hidden md:hidden bg-black/95 backdrop-blur-2xl border-b border-zinc-900 transition-all duration-300">
         <div class="px-4 pt-3 pb-6 space-y-2">
           <a href="#services" class="mobile-nav-link block text-zinc-300 hover:text-brandLime-400 py-3.5 text-base font-medium border-b border-zinc-900">Services</a>
           <a href="#rates" class="mobile-nav-link block text-zinc-300 hover:text-brandLime-400 py-3.5 text-base font-medium border-b border-zinc-900">Rates & Pricing</a>
@@ -162,7 +146,8 @@
 
   <!-- ========== MAIN CONTENT ========== -->
   <main id="main-content">
-    <section class="relative pt-28 pb-16 lg:pt-36 lg:pb-24 px-2 sm:px-6 lg:px-8 max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <!-- ========== HERO & BOOKING ========== -->
+    <section class="relative pt-28 pb-16 lg:pt-36 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
       <div class="lg:col-span-7 space-y-6 z-10">
         <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-sm">
           <span class="flex w-2.5 h-2.5 rounded-full bg-brandLime-500 animate-pulse" aria-hidden="true"></span>
@@ -175,58 +160,81 @@
           Tired of riders canceling or delayed parcels? <strong class="font-semibold">Marindany Logistics</strong> connects you instantly with verified riders based right here in Imara Daima. Skip the jam, move your packages safely, and get real human updates straight on WhatsApp.
         </p>
         
+        <!-- Trust indicators -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-          <div class="flex items-center gap-3 bg-zinc-900/60 p-4 rounded-xl border border-zinc-800 min-w-0">
-            <span class="text-2xl flex-shrink-0" aria-hidden="true">⚡</span>
-            <span class="text-sm sm:text-base font-medium text-zinc-200 break-words">Express Pickup</span>
+          <div class="flex items-center gap-3 bg-zinc-900/60 p-4 rounded-xl border border-zinc-800">
+            <span class="text-2xl" aria-hidden="true">⚡</span>
+            <span class="text-sm sm:text-base font-medium text-zinc-200">Express Pickup</span>
           </div>
-          <div class="flex items-center gap-3 bg-zinc-900/60 p-4 rounded-xl border border-zinc-800 min-w-0">
-            <span class="text-2xl flex-shrink-0" aria-hidden="true">📲</span>
-            <span class="text-sm sm:text-base font-medium text-zinc-200 break-words">Direct WhatsApp</span>
+          <div class="flex items-center gap-3 bg-zinc-900/60 p-4 rounded-xl border border-zinc-800">
+            <span class="text-2xl" aria-hidden="true">📲</span>
+            <span class="text-sm sm:text-base font-medium text-zinc-200">Direct WhatsApp</span>
           </div>
-          <div class="flex items-center gap-3 bg-zinc-900/60 p-4 rounded-xl border border-zinc-800 min-w-0">
-            <span class="text-2xl flex-shrink-0" aria-hidden="true">🛡️</span>
-            <span class="text-sm sm:text-base font-medium text-zinc-200 break-words">Verified Riders</span>
+          <div class="flex items-center gap-3 bg-zinc-900/60 p-4 rounded-xl border border-zinc-800">
+            <span class="text-2xl" aria-hidden="true">🛡️</span>
+            <span class="text-sm sm:text-base font-medium text-zinc-200">Verified Riders</span>
           </div>
-          <div class="flex items-center gap-3 bg-zinc-900/60 p-4 rounded-xl border border-zinc-800 min-w-0">
-            <span class="text-2xl flex-shrink-0" aria-hidden="true">⭐</span>
-            <span class="text-sm sm:text-base font-medium text-zinc-200 break-words">4.9/5 Rating</span>
+          <div class="flex items-center gap-3 bg-zinc-900/60 p-4 rounded-xl border border-zinc-800">
+            <span class="text-2xl" aria-hidden="true">⭐</span>
+            <span class="text-sm sm:text-base font-medium text-zinc-200">4.9/5 Rating</span>
           </div>
         </div>
 
+        <!-- Key statistics -->
         <div class="grid grid-cols-3 gap-4 pt-4">
-          <div class="text-center min-w-0">
+          <div class="text-center">
             <div class="font-mono text-2xl sm:text-3xl font-bold text-brandLime-400">5,000+</div>
             <div class="text-sm text-zinc-500 mt-1">Deliveries Completed</div>
           </div>
-          <div class="text-center min-w-0">
+          <div class="text-center">
             <div class="font-mono text-2xl sm:text-3xl font-bold text-brandGold-400">15 min</div>
             <div class="text-sm text-zinc-500 mt-1">Avg. Pickup Time</div>
           </div>
-          <div class="text-center min-w-0">
+          <div class="text-center">
             <div class="font-mono text-2xl sm:text-3xl font-bold text-brandLime-400">99%</div>
             <div class="text-sm text-zinc-500 mt-1">On-Time Rate</div>
           </div>
         </div>
+
+        <!-- Hero image -->
+        <div class="relative w-full aspect-[16/9] lg:aspect-[21/10] rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl optimized-img-wrapper">
+          <img 
+            src="https://i.ibb.co/R4GpYkHd/1786271471547.png" 
+            srcset="https://i.ibb.co/R4GpYkHd/1786271471547.png 1x"
+            alt="Marindany Logistics boda boda rider navigating Nairobi traffic" 
+            loading="eager" 
+            decoding="async"
+            width="1000" 
+            height="476" 
+            class="w-full h-full object-cover contrast-115 transition-transform duration-500 hover:scale-105 lazy-img"
+            onload="this.classList.add('loaded')"
+            onerror="this.onerror=null; this.parentElement.querySelector('.img-fallback').classList.add('active');"
+          />
+          <div class="img-fallback">
+            <span>📸 Image loading...</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" aria-hidden="true"></div>
+        </div>
       </div>
 
-      <div class="lg:col-span-5 bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative min-w-0 overflow-hidden">
+      <!-- Booking form -->
+      <div class="lg:col-span-5 bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative">
         <div class="absolute -top-16 -right-16 w-48 h-48 bg-brandLime-500/10 rounded-full blur-[64px] pointer-events-none" aria-hidden="true"></div>
         <h2 class="font-display text-2xl font-semibold mb-2 tracking-tight">Instant Dispatch Form</h2>
         <p class="text-base text-zinc-400 mb-6 font-light">Fill in route details below to launch a structured booking on WhatsApp.</p>
         
         <div class="bg-brandLime-500/10 border border-brandLime-500/30 rounded-xl p-4 mb-6">
           <div class="flex items-center gap-2">
-            <span class="text-base flex-shrink-0" aria-hidden="true">⏱️</span>
+            <span class="text-base" aria-hidden="true">⏱️</span>
             <p class="text-sm font-medium text-brandLime-400">Avg. delivery time: <span class="font-bold font-mono">45-90 min</span> within Nairobi metro</p>
           </div>
         </div>
         
-        <div class="flex flex-wrap bg-black p-1 rounded-xl mb-6 border border-zinc-900" aria-label="Service Type Selector">
-          <button id="tab-send" type="button" aria-pressed="true" class="flex-1 py-3.5 rounded-lg font-medium transition-all text-base bg-zinc-900 text-white shadow-sm focus:outline-none focus:ring-1 focus:ring-brandLime-500 min-w-0">
+        <div class="flex bg-black p-1 rounded-xl mb-6 border border-zinc-900" aria-label="Service Type Selector">
+          <button id="tab-send" type="button" aria-pressed="true" class="flex-1 py-3.5 rounded-lg font-medium transition-all text-base bg-zinc-900 text-white shadow-sm focus:outline-none focus:ring-1 focus:ring-brandLime-500">
             📦 Deliver Parcel
           </button>
-          <button id="tab-ride" type="button" aria-pressed="false" class="flex-1 py-3.5 rounded-lg font-medium transition-all text-base text-zinc-500 hover:text-zinc-300 focus:outline-none min-w-0">
+          <button id="tab-ride" type="button" aria-pressed="false" class="flex-1 py-3.5 rounded-lg font-medium transition-all text-base text-zinc-500 hover:text-zinc-300 focus:outline-none">
             🏍️ Passenger Ride
           </button>
         </div>
@@ -274,8 +282,8 @@
           
           <div class="bg-zinc-900/50 rounded-xl p-4 border border-zinc-800">
             <div class="flex items-start gap-3">
-              <span class="text-base mt-0.5 flex-shrink-0" aria-hidden="true">🛡️</span>
-              <p class="text-sm text-zinc-400 leading-relaxed break-words">
+              <span class="text-base mt-0.5" aria-hidden="true">🛡️</span>
+              <p class="text-sm text-zinc-400 leading-relaxed">
                 <strong class="text-white font-semibold">Fragile items insured up to KSh 5,000.</strong> All deliveries include photo confirmation and real-time WhatsApp tracking at no extra cost.
               </p>
             </div>
@@ -283,7 +291,7 @@
           
           <button type="submit" id="submit-btn" class="w-full mt-2 bg-brandLime-500 hover:bg-brandLime-400 active:scale-[0.98] text-black text-base font-semibold py-4 rounded-xl transition-all shadow-[0_4px_20px_rgba(132,204,22,0.2)] flex items-center justify-center gap-2 group">
             <span>Send Dispatch via WhatsApp</span>
-            <svg class="w-4 h-4 flex-shrink-0 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </button>
           <div id="form-feedback" class="text-sm text-center text-brandLime-400 hidden" aria-live="polite"></div>
         </form>
@@ -294,6 +302,7 @@
       </div>
     </section>
 
+    <!-- ========== COVERAGE ========== -->
     <section id="coverage" class="bg-zinc-950 border-y border-zinc-900 py-16 lg:py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-12">
@@ -301,22 +310,22 @@
           <p class="text-zinc-400 text-base sm:text-lg font-light">Operating daily across key hubs in Nairobi County with base operations centered in Imara Daima.</p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors min-w-0">
+          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors">
             <div class="text-brandLime-500 text-xl font-bold mb-2 font-mono">Primary Zone</div>
             <h3 class="text-white font-semibold text-base mb-2 font-display">Imara Daima & Environs</h3>
             <p class="text-zinc-400 text-base leading-relaxed font-light">Phase 1-4, AA, Muimbi, Maina, Villa Franca, Pipeline, AA Station, and Cosmas Ndeti area.</p>
           </div>
-          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors min-w-0">
+          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors">
             <div class="text-brandLime-500 text-xl font-bold mb-2 font-mono">Commercial Hubs</div>
             <h3 class="text-white font-semibold text-base mb-2 font-display">Mombasa Road Corridor</h3>
             <p class="text-zinc-400 text-base leading-relaxed font-light">Industrial Area, Sameer Business Park, Gateway Mall, Syokimau, Mlolongo, and Standard Gauge Railway (SGR) Terminus.</p>
           </div>
-          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors min-w-0">
+          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors">
             <div class="text-brandLime-500 text-xl font-bold mb-2 font-mono">Central Zones</div>
             <h3 class="text-white font-semibold text-base mb-2 font-display">Nairobi Urban Core</h3>
             <p class="text-zinc-400 text-base leading-relaxed font-light">Nairobi CBD, South B, South C, Upper Hill, Kilimani, Yaya Centre, and Westlands.</p>
           </div>
-          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors min-w-0">
+          <div class="bg-black border border-zinc-900 p-6 rounded-2xl hover:border-zinc-700 transition-colors">
             <div class="text-brandGold-400 text-xl font-bold mb-2 font-mono">Operating Hours</div>
             <h3 class="text-white font-semibold text-base mb-2 font-display">Daily Schedule</h3>
             <p class="text-zinc-400 text-base leading-relaxed font-light">Monday – Sunday: 6:00 AM – 10:00 PM.<br /><em class="italic">*After-hours pickups available on pre-booked WhatsApp requests.</em></p>
@@ -325,6 +334,7 @@
       </div>
     </section>
 
+    <!-- ========== SERVICES & GALLERY ========== -->
     <section id="services" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mb-12">
         <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-3">Core Logistics Solutions & Fleet</h2>
@@ -332,32 +342,32 @@
       </div>
 
       <div class="grid lg:grid-cols-2 gap-8 mb-16">
-        <div class="bg-zinc-950 rounded-2xl p-8 border border-zinc-900 flex flex-col justify-between hover:border-zinc-700 transition-colors min-w-0">
+        <div class="bg-zinc-950 rounded-2xl p-8 border border-zinc-900 flex flex-col justify-between hover:border-zinc-700 transition-colors">
           <div>
             <span class="text-brandLime-400 font-semibold tracking-widest text-sm uppercase mb-2 block font-mono">Point-to-Point Express</span>
             <h3 class="font-display text-2xl font-bold mb-3 text-white">Same-Day Courier & Delivery</h3>
             <p class="text-zinc-400 text-base mb-6 leading-relaxed font-light">Whether you run an online boutique sending orders to customers or need an urgent tender contract handed to an office downtown, we provide continuous point-to-point transit.</p>
             <ul class="space-y-3 mb-8 text-base text-zinc-300">
-              <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold flex-shrink-0">✓</span> Delivery photo confirmation sent upon arrival</li>
-              <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold flex-shrink-0">✓</span> Secure handling for legal files, electronics, and fragile items</li>
-              <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold flex-shrink-0">✓</span> Food-grade clean delivery boxes for meals & cakes</li>
-              <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold flex-shrink-0">✓</span> <strong>NEW:</strong> Same-day e-commerce fulfillment support</li>
+              <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold">✓</span> Delivery photo confirmation sent upon arrival</li>
+              <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold">✓</span> Secure handling for legal files, electronics, and fragile items</li>
+              <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold">✓</span> Food-grade clean delivery boxes for meals & cakes</li>
+              <li class="flex items-center gap-2.5"><span class="text-brandLime-500 font-bold">✓</span> <strong>NEW:</strong> Same-day e-commerce fulfillment support</li>
             </ul>
           </div>
           <a href="https://wa.me/254725351381?text=Hello%20Marindany%20Logistics%21%20I%20need%20a%20parcel%20delivered." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-black bg-white hover:bg-zinc-200 px-6 py-3.5 rounded-xl font-semibold text-base transition-colors">
             Request Delivery Drop
           </a>
         </div>
-        <div class="bg-zinc-950 rounded-2xl p-8 border border-zinc-900 flex flex-col justify-between hover:border-zinc-700 transition-colors min-w-0">
+        <div class="bg-zinc-950 rounded-2xl p-8 border border-zinc-900 flex flex-col justify-between hover:border-zinc-700 transition-colors">
           <div>
             <span class="text-brandGold-400 font-semibold tracking-widest text-sm uppercase mb-2 block font-mono">Safe Commuting</span>
             <h3 class="font-display text-2xl font-bold mb-3 text-white">Trusted Passenger Boda Rides</h3>
             <p class="text-zinc-400 text-base mb-6 leading-relaxed font-light">Skip aggressive riding and uncertain app wait times. Experience a smooth, safety-conscious ride with an experienced operator who knows Imara Daima shortcuts intimately.</p>
             <ul class="space-y-3 mb-8 text-base text-zinc-300">
-              <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold flex-shrink-0">✓</span> Sanitized passenger helmet and clean hairnet provided</li>
-              <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold flex-shrink-0">✓</span> Strictly disciplined road speed and safety compliance</li>
-              <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold flex-shrink-0">✓</span> Reliable early morning SGR & Airport transfers</li>
-              <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold flex-shrink-0">✓</span> <strong>NEW:</strong> Advance booking for daily commute packages</li>
+              <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold">✓</span> Sanitized passenger helmet and clean hairnet provided</li>
+              <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold">✓</span> Strictly disciplined road speed and safety compliance</li>
+              <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold">✓</span> Reliable early morning SGR & Airport transfers</li>
+              <li class="flex items-center gap-2.5"><span class="text-brandGold-400 font-bold">✓</span> <strong>NEW:</strong> Advance booking for daily commute packages</li>
             </ul>
           </div>
           <a href="https://wa.me/254725351381?text=Hello%20Marindany%20Logistics%21%20I%20need%20a%20passenger%20ride." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center text-black bg-brandGold-400 hover:bg-brandGold-300 px-6 py-3.5 rounded-xl font-semibold text-base transition-colors">Book Boda Ride</a>
@@ -365,6 +375,7 @@
       </div>
     </section>
 
+    <!-- ========== GALLERY ========== -->
     <section id="gallery" class="pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <span class="text-brandLime-400 font-semibold tracking-widest text-sm uppercase mb-2 block font-mono">Our Fleet in Action</span>
@@ -373,9 +384,24 @@
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <figure class="group min-w-0">
+        <!-- Gallery Image 1 -->
+        <figure class="group">
           <div class="relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-[4/3] optimized-img-wrapper mb-3">
-            <img src="https://i.ibb.co/KctzvVr1/1786271932511.png" alt="Marindany Logistics motorcycle courier ready for dispatch with delivery box" loading="lazy" decoding="async" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img" />
+            <img 
+              src="https://i.ibb.co/KctzvVr1/1786271932511.png" 
+              srcset="https://i.ibb.co/KctzvVr1/1786271932511.png 1x"
+              alt="Marindany Logistics motorcycle courier ready for dispatch with delivery box" 
+              loading="lazy" 
+              decoding="async"
+              width="800" 
+              height="600" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img"
+              onload="this.classList.add('loaded')"
+              onerror="this.onerror=null; this.parentElement.querySelector('.img-fallback').classList.add('active');"
+            />
+            <div class="img-fallback">
+              <span>📸 Fleet Image</span>
+            </div>
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
           </div>
           <figcaption class="text-center">
@@ -385,9 +411,24 @@
           </figcaption>
         </figure>
         
-        <figure class="group min-w-0">
+        <!-- Gallery Image 2 -->
+        <figure class="group">
           <div class="relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-[4/3] optimized-img-wrapper mb-3">
-            <img src="https://i.ibb.co/ymq0jMFP/1786271643717.png" alt="Marindany Logistics fast parcel transit across Nairobi city lanes" loading="lazy" decoding="async" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img" />
+            <img 
+              src="https://i.ibb.co/ymq0jMFP/1786271643717.png" 
+              srcset="https://i.ibb.co/ymq0jMFP/1786271643717.png 1x"
+              alt="Marindany Logistics fast parcel transit across Nairobi city lanes" 
+              loading="lazy" 
+              decoding="async"
+              width="800" 
+              height="600" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img"
+              onload="this.classList.add('loaded')"
+              onerror="this.onerror=null; this.parentElement.querySelector('.img-fallback').classList.add('active');"
+            />
+            <div class="img-fallback">
+              <span>📸 Transit Image</span>
+            </div>
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
           </div>
           <figcaption class="text-center">
@@ -397,9 +438,24 @@
           </figcaption>
         </figure>
         
-        <figure class="group min-w-0">
+        <!-- Gallery Image 3 -->
+        <figure class="group">
           <div class="relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-[4/3] optimized-img-wrapper mb-3">
-            <img src="https://i.ibb.co/1YsTMFRR/1786272232822.png" alt="Marindany Logistics reliable rider on Nairobi highway during delivery" loading="lazy" decoding="async" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img" />
+            <img 
+              src="https://i.ibb.co/1YsTMFRR/1786272232822.png" 
+              srcset="https://i.ibb.co/1YsTMFRR/1786272232822.png 1x"
+              alt="Marindany Logistics reliable rider on Nairobi highway during delivery" 
+              loading="lazy" 
+              decoding="async"
+              width="800" 
+              height="600" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img"
+              onload="this.classList.add('loaded')"
+              onerror="this.onerror=null; this.parentElement.querySelector('.img-fallback').classList.add('active');"
+            />
+            <div class="img-fallback">
+              <span>📸 Operator Image</span>
+            </div>
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
           </div>
           <figcaption class="text-center">
@@ -409,9 +465,24 @@
           </figcaption>
         </figure>
 
-        <figure class="group min-w-0">
+        <!-- Gallery Image 4 -->
+        <figure class="group">
           <div class="relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-[4/3] optimized-img-wrapper mb-3">
-            <img src="https://i.ibb.co/R4GpYkHd/1786271471547.png" alt="Marindany Logistics boda boda rider navigating Nairobi traffic with parcel" loading="lazy" decoding="async" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img" />
+            <img 
+              src="https://i.ibb.co/R4GpYkHd/1786271471547.png" 
+              srcset="https://i.ibb.co/R4GpYkHd/1786271471547.png 1x"
+              alt="Marindany Logistics boda boda rider navigating Nairobi traffic with parcel" 
+              loading="lazy" 
+              decoding="async"
+              width="800" 
+              height="600" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img"
+              onload="this.classList.add('loaded')"
+              onerror="this.onerror=null; this.parentElement.querySelector('.img-fallback').classList.add('active');"
+            />
+            <div class="img-fallback">
+              <span>📸 Rider Image</span>
+            </div>
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
           </div>
           <figcaption class="text-center">
@@ -423,6 +494,7 @@
       </div>
     </section>
 
+    <!-- ========== RATES ========== -->
     <section id="rates" class="py-20 bg-zinc-950 border-t border-zinc-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mb-12">
@@ -433,7 +505,7 @@
           <p class="text-base text-zinc-400 font-light">Need a custom quote? <a href="https://wa.me/254725351381" class="text-brandLime-400 underline font-medium">Message us on WhatsApp</a> for instant pricing based on your exact route.</p>
         </div>
         <div class="grid md:grid-cols-3 gap-6">
-          <div class="bg-black border border-zinc-900 rounded-2xl p-6 flex flex-col justify-between hover:border-zinc-700 transition-colors min-w-0">
+          <div class="bg-black border border-zinc-900 rounded-2xl p-6 flex flex-col justify-between hover:border-zinc-700 transition-colors">
             <div>
               <span class="text-zinc-400 text-sm uppercase tracking-wider font-semibold font-mono">Local Express</span>
               <h3 class="text-xl font-bold text-white mt-1 mb-4 font-display">Within Imara Daima</h3>
@@ -447,7 +519,7 @@
             </div>
             <a href="https://wa.me/254725351381?text=Hi,%20I%20need%20a%20local%20Imara%20Daima%20pickup." class="block text-center bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-base py-3.5 rounded-xl transition-colors">Book Local Pickup</a>
           </div>
-          <div class="bg-black border border-brandLime-500/40 rounded-2xl p-6 flex flex-col justify-between relative hover:border-brandLime-500/70 transition-colors min-w-0">
+          <div class="bg-black border border-brandLime-500/40 rounded-2xl p-6 flex flex-col justify-between relative hover:border-brandLime-500/70 transition-colors">
             <span class="absolute -top-3 right-4 bg-brandLime-500 text-black text-xs font-bold px-3 py-1 rounded-full uppercase font-mono">Most Popular</span>
             <div>
               <span class="text-zinc-400 text-sm uppercase tracking-wider font-semibold font-mono">City Courier</span>
@@ -462,7 +534,7 @@
             </div>
             <a href="https://wa.me/254725351381?text=Hi,%20I%20need%20a%20delivery%20to%20CBD/Industrial%20Area." class="block text-center bg-brandLime-500 hover:bg-brandLime-400 text-black font-semibold text-base py-3.5 rounded-xl transition-colors">Dispatch to CBD/Industrial Area</a>
           </div>
-          <div class="bg-black border border-zinc-900 rounded-2xl p-6 flex flex-col justify-between hover:border-zinc-700 transition-colors min-w-0">
+          <div class="bg-black border border-zinc-900 rounded-2xl p-6 flex flex-col justify-between hover:border-zinc-700 transition-colors">
             <div>
               <span class="text-zinc-400 text-sm uppercase tracking-wider font-semibold font-mono">Greater Nairobi</span>
               <h3 class="text-xl font-bold text-white mt-1 mb-4 font-display">Westlands / Kilimani / Syokimau / SGR</h3>
@@ -478,7 +550,7 @@
           </div>
         </div>
         
-        <div class="mt-10 bg-black border border-zinc-800 rounded-2xl p-6 text-center min-w-0">
+        <div class="mt-10 bg-black border border-zinc-800 rounded-2xl p-6 text-center">
           <h3 class="font-display text-xl font-bold text-white mb-2">Business & Volume Discounts</h3>
           <p class="text-base text-zinc-400 font-light mb-4">Send 10+ parcels weekly? Get custom rates, priority pickup, and monthly billing.</p>
           <a href="https://wa.me/254725351381?text=Hi,%20I'm%20interested%20in%20business%20volume%20discounts." class="inline-flex items-center gap-2 text-brandLime-400 hover:text-brandLime-300 font-semibold text-base transition-colors">
@@ -488,6 +560,7 @@
       </div>
     </section>
 
+    <!-- ========== SCHEDULING / CALENDAR ========== -->
     <section id="scheduling" class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <span class="text-brandGold-400 font-semibold tracking-widest text-sm uppercase mb-2 block font-mono">Plan Ahead</span>
@@ -495,7 +568,8 @@
         <p class="text-zinc-400 text-base sm:text-lg font-light max-w-2xl mx-auto">Select a date and time, and we'll confirm your booking via WhatsApp.</p>
       </div>
 
-      <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl max-w-2xl mx-auto min-w-0 overflow-hidden">
+      <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl max-w-2xl mx-auto">
+        <!-- Service Type Selector -->
         <div class="mb-6">
           <label for="schedule-service-type" class="block text-sm font-medium text-zinc-400 mb-1.5 font-mono tracking-wide">Service Type</label>
           <select id="schedule-service-type" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brandLime-500 focus:ring-1 focus:ring-brandLime-500 appearance-none text-base cursor-pointer">
@@ -504,6 +578,7 @@
           </select>
         </div>
 
+        <!-- Calendar -->
         <div class="mb-6">
           <div class="flex items-center justify-between mb-4">
             <h3 id="calendar-month-year" class="font-display text-xl font-bold text-white">January 2026</h3>
@@ -517,6 +592,7 @@
             </div>
           </div>
           <div id="calendar-grid" class="grid grid-cols-7 gap-1 sm:gap-2 text-center">
+            <!-- Days of week -->
             <div class="text-xs font-medium text-zinc-500 py-2">Mon</div>
             <div class="text-xs font-medium text-zinc-500 py-2">Tue</div>
             <div class="text-xs font-medium text-zinc-500 py-2">Wed</div>
@@ -524,13 +600,16 @@
             <div class="text-xs font-medium text-zinc-500 py-2">Fri</div>
             <div class="text-xs font-medium text-zinc-500 py-2">Sat</div>
             <div class="text-xs font-medium text-zinc-500 py-2">Sun</div>
+            <!-- Calendar days will be injected by JS -->
           </div>
         </div>
 
+        <!-- Selected Date Display -->
         <div id="selected-date-display" class="text-center text-zinc-400 text-base mb-4 font-light">
           Please select a date from the calendar
         </div>
 
+        <!-- Time Slots -->
         <div class="mb-6">
           <label class="block text-sm font-medium text-zinc-400 mb-2 font-mono tracking-wide">Choose a Time Slot</label>
           <div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
@@ -545,6 +624,7 @@
           </div>
         </div>
 
+        <!-- Book Button -->
         <button id="schedule-booking-btn" class="w-full btn btn-primary !py-4 rounded-xl text-base font-semibold opacity-50 cursor-not-allowed" disabled>
           📅 Confirm Scheduled Booking
         </button>
@@ -552,13 +632,14 @@
       </div>
     </section>
 
+    <!-- ========== FAQ ========== -->
     <section id="faq" class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-3">Frequently Asked Questions</h2>
         <p class="text-zinc-400 text-base sm:text-lg font-light">Everything you need to know about booking, payments, and parcel security.</p>
       </div>
       <div class="space-y-4">
-        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors min-w-0">
+        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors">
           <summary class="flex items-center justify-between cursor-pointer font-medium text-base text-white list-none">
             <span>How are parcel payments handled?</span>
             <span class="faq-icon text-brandLime-400 transition-transform duration-300" aria-hidden="true">▼</span>
@@ -567,7 +648,7 @@
             We accept payments via <strong class="font-semibold">M‑PESA</strong> (Buy Goods Till / Paybill) or Cash upon pickup or successful delivery. For merchant deliveries, payment on delivery (POD) reconciliation can be pre‑arranged over WhatsApp.
           </div>
         </details>
-        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors min-w-0">
+        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors">
           <summary class="flex items-center justify-between cursor-pointer font-medium text-base text-white list-none">
             <span>What size and weight limits apply to motorcycle delivery?</span>
             <span class="faq-icon text-brandLime-400 transition-transform duration-300" aria-hidden="true">▼</span>
@@ -576,7 +657,7 @@
             We carry standard parcels, documents, laptops, food crates, clothing bales, and small appliances up to 25 kg that fit securely on standard motorbikes. For bulkier cargo, contact us in advance to discuss arrangement options.
           </div>
         </details>
-        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors min-w-0">
+        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors">
           <summary class="flex items-center justify-between cursor-pointer font-medium text-base text-white list-none">
             <span>How do I track my delivery in real-time?</span>
             <span class="faq-icon text-brandLime-400 transition-transform duration-300" aria-hidden="true">▼</span>
@@ -585,7 +666,7 @@
             Unlike automated app platforms with lagging GPS pins, our rider communicates directly with you on WhatsApp. You receive direct status updates, pickup confirmation photos, and a notification as soon as the item reaches the recipient.
           </div>
         </details>
-        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors min-w-0">
+        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors">
           <summary class="flex items-center justify-between cursor-pointer font-medium text-base text-white list-none">
             <span>What safety protocols are followed for passenger rides?</span>
             <span class="faq-icon text-brandLime-400 transition-transform duration-300" aria-hidden="true">▼</span>
@@ -594,7 +675,7 @@
             Every passenger is provided with a sanitized safety helmet and a disposable hairnet. Riders adhere to strict urban speed regulations and safe road handling.
           </div>
         </details>
-        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors min-w-0">
+        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors">
           <summary class="flex items-center justify-between cursor-pointer font-medium text-base text-white list-none">
             <span>Do you offer business accounts with invoicing?</span>
             <span class="faq-icon text-brandLime-400 transition-transform duration-300" aria-hidden="true">▼</span>
@@ -603,7 +684,7 @@
             Yes! Regular business clients can open a monthly account with consolidated invoicing, priority dispatch, and negotiated volume rates. <a href="https://wa.me/254725351381" class="text-brandLime-400 underline">Contact us on WhatsApp</a> to set up your business profile.
           </div>
         </details>
-        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors min-w-0">
+        <details class="faq-item bg-zinc-950 border border-zinc-800 rounded-xl p-5 group hover:border-zinc-600 transition-colors">
           <summary class="flex items-center justify-between cursor-pointer font-medium text-base text-white list-none">
             <span>What happens if my parcel is damaged or lost?</span>
             <span class="faq-icon text-brandLime-400 transition-transform duration-300" aria-hidden="true">▼</span>
@@ -615,8 +696,9 @@
       </div>
     </section>
 
+    <!-- ========== URGENT CONTACT ========== -->
     <section class="bg-zinc-950 py-16 border-t border-zinc-900 text-center px-4">
-      <div class="max-w-2xl mx-auto space-y-6 min-w-0">
+      <div class="max-w-2xl mx-auto space-y-6">
         <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight">Need Urgent Assistance Right Now?</h2>
         <p class="text-zinc-400 text-base sm:text-lg font-light">For instant pickup or route confirmation in Imara Daima and wider Nairobi, call or message directly.</p>
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
@@ -632,6 +714,7 @@
     </section>
   </main>
 
+  <!-- ========== FOOTER ========== -->
   <footer class="bg-black border-t border-zinc-900 py-12 px-4 text-center text-sm text-zinc-500 space-y-4">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-left mb-8 pb-8 border-b border-zinc-900">
       <div>
@@ -659,50 +742,7 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script src="scripts.js" defer></script>
-  
-  <script>
-    (function() {
-      'use strict';
-      function detectOverflow() {
-        var bodyWidth = document.documentElement.clientWidth || window.innerWidth;
-        var offenders = [];
-        var all = document.querySelectorAll('*');
-        for (var i = 0; i < all.length; i++) {
-          var el = all[i];
-          var rect = el.getBoundingClientRect();
-          if (rect.width === 0 || rect.height === 0) continue;
-          var style = window.getComputedStyle(el);
-          if (style.display === 'none' || style.visibility === 'hidden') continue;
-          if (rect.left < -1 || rect.right > bodyWidth + 1) {
-            offenders.push({
-              tag: el.tagName,
-              id: el.id || 'no-id',
-              class: el.className || 'no-class',
-              left: Math.round(rect.left),
-              right: Math.round(rect.right),
-              width: Math.round(rect.width)
-            });
-          }
-        }
-        if (offenders.length > 0) {
-          console.warn('⚠️ MOBILE OVERFLOW DETECTED — elements exceed viewport:');
-          console.table(offenders);
-        } else {
-          console.log('✅ No mobile overflow detected — all elements fit!');
-        }
-      }
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', detectOverflow);
-      } else {
-        detectOverflow();
-      }
-      var timer;
-      window.addEventListener('resize', function() {
-        clearTimeout(timer);
-        timer = setTimeout(detectOverflow, 300);
-      });
-    })();
-  </script>
 </body>
 </html>
