@@ -1,6 +1,7 @@
 /* =============================================
    MARINDANY LOGISTICS — INTERACTIVE SCRIPTS
    Production-ready, accessible, and performant
+   Version: 3.0.0
    ============================================= */
 
 (function () {
@@ -51,6 +52,7 @@
     setupScrollAnimations();
     setupCardHoverEffects();
     addAccessibilityEnhancements();
+    preventZoomOnDoubleTap();
   }
 
   // ============ SET CURRENT YEAR ============
@@ -68,9 +70,7 @@
 
     mobileNavLinks.forEach(link => {
       link.addEventListener('click', () => {
-        if (isMenuOpen) {
-          closeMobileMenu();
-        }
+        if (isMenuOpen) closeMobileMenu();
       });
     });
 
@@ -91,11 +91,7 @@
   }
 
   function toggleMobileMenu() {
-    if (isMenuOpen) {
-      closeMobileMenu();
-    } else {
-      openMobileMenu();
-    }
+    isMenuOpen ? closeMobileMenu() : openMobileMenu();
   }
 
   function openMobileMenu() {
@@ -189,9 +185,7 @@
     inputs.forEach(input => {
       input.addEventListener('blur', () => validateField(input));
       input.addEventListener('input', () => {
-        if (input.classList.contains('border-red-500')) {
-          validateField(input);
-        }
+        if (input.classList.contains('border-red-500')) validateField(input);
       });
     });
   }
@@ -267,9 +261,7 @@
     
     setTimeout(() => {
       bookingForm.reset();
-      if (formFeedback) {
-        formFeedback.classList.add('hidden');
-      }
+      if (formFeedback) formFeedback.classList.add('hidden');
     }, 2000);
   }
 
@@ -277,7 +269,7 @@
     if (!formFeedback) return;
     
     formFeedback.textContent = message;
-    formFeedback.className = 'text-xs text-center rounded-lg p-3';
+    formFeedback.className = 'text-sm text-center rounded-lg p-3';
     formFeedback.classList.add(type);
     formFeedback.classList.remove('hidden');
     
@@ -287,7 +279,7 @@
     }, 5000);
   }
 
-  // ============ CALENDAR SYSTEM (FIXED) ============
+  // ============ CALENDAR SYSTEM ============
   function setupCalendar() {
     if (!calendarGrid || !calendarMonthYear) return;
     
@@ -307,12 +299,10 @@
       });
     }
     
-    // Time slot selection
     timeSlotBtns.forEach(btn => {
       btn.addEventListener('click', () => selectTimeSlot(btn));
     });
     
-    // Schedule booking button
     if (scheduleBookingBtn) {
       scheduleBookingBtn.addEventListener('click', handleScheduleBooking);
     }
@@ -324,36 +314,29 @@
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     
-    // Update header
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                         'July', 'August', 'September', 'October', 'November', 'December'];
     calendarMonthYear.textContent = `${monthNames[month]} ${year}`;
     
-    // Get first day of month and total days
     const firstDay = new Date(year, month, 1).getDay();
-    const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1; // Adjust for Monday start
+    const adjustedFirstDay = firstDay === 0 ? 6 : firstDay - 1;
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     
-    // Get today's date for comparison
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
     let calendarHTML = '';
     
-    // Add empty cells for days before first day
     for (let i = 0; i < adjustedFirstDay; i++) {
       calendarHTML += '<div class="calendar-day empty"></div>';
     }
     
-    // Add day cells
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(year, month, day);
       date.setHours(0, 0, 0, 0);
       
       const isToday = date.getTime() === today.getTime();
       const isPast = date < today;
-      
-      // FIXED: Only block past dates — all future dates are now available
       const isUnavailable = isPast;
       
       const isSelected = selectedDate && 
@@ -380,42 +363,30 @@
     
     calendarGrid.innerHTML = calendarHTML;
     
-    // Add click handlers to available days
     calendarGrid.querySelectorAll('.calendar-day:not(.empty):not(.unavailable)').forEach(dayBtn => {
       dayBtn.addEventListener('click', () => selectDate(dayBtn));
     });
   }
 
-  // NOTE: The generateUnavailableDates function has been removed entirely.
-  // If you need to block specific dates in the future (holidays, fully booked days),
-  // add a simple array here like:
-  // const blockedDates = ['2026-12-25', '2027-01-01'];
-  // Then check against it in renderCalendar.
-
   function selectDate(dayBtn) {
-    // Remove previous selection
     calendarGrid.querySelectorAll('.calendar-day.selected').forEach(btn => {
       btn.classList.remove('selected');
     });
     
-    // Add new selection
     dayBtn.classList.add('selected');
     const dateStr = dayBtn.getAttribute('data-date');
     selectedDate = new Date(dateStr + 'T00:00:00');
     
-    // Update display
     if (selectedDateDisplay) {
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
       selectedDateDisplay.textContent = `📅 ${selectedDate.toLocaleDateString('en-US', options)}`;
     }
     
-    // Enable time slot selection
     timeSlotBtns.forEach(btn => {
       btn.disabled = false;
       btn.classList.remove('opacity-50', 'cursor-not-allowed');
     });
     
-    // Reset time slot selection
     selectedTimeSlot = null;
     timeSlotBtns.forEach(b => {
       b.classList.remove('bg-brandGold-400', 'text-black', 'border-brandGold-400');
@@ -427,13 +398,11 @@
   function selectTimeSlot(btn) {
     if (!selectedDate) return;
     
-    // Remove previous time selection
     timeSlotBtns.forEach(b => {
       b.classList.remove('bg-brandGold-400', 'text-black', 'border-brandGold-400');
       b.classList.add('bg-zinc-900', 'text-white', 'border-zinc-800');
     });
     
-    // Add new selection
     btn.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-800');
     btn.classList.add('bg-brandGold-400', 'text-black', 'border-brandGold-400');
     selectedTimeSlot = btn.getAttribute('data-time');
@@ -470,14 +439,13 @@
     const whatsappURL = `https://wa.me/254725351381?text=${whatsappMessage}`;
     
     scheduleFeedback.textContent = '✨ Opening WhatsApp to confirm your schedule...';
-    scheduleFeedback.className = 'text-xs text-center text-brandLime-400 mt-3';
+    scheduleFeedback.className = 'text-sm text-center text-brandLime-400 mt-3';
     scheduleFeedback.classList.remove('hidden');
     
     setTimeout(() => {
       window.open(whatsappURL, '_blank', 'noopener,noreferrer');
     }, 500);
     
-    // Reset after 3 seconds
     setTimeout(() => {
       scheduleFeedback.classList.add('hidden');
       selectedDate = null;
@@ -507,14 +475,12 @@
       summary.addEventListener('click', () => {
         const isOpening = !item.hasAttribute('open');
         
-        // Close other open items
         faqItems.forEach(otherItem => {
           if (otherItem !== item && otherItem.hasAttribute('open')) {
             otherItem.removeAttribute('open');
           }
         });
         
-        // Smooth scroll to item if opening
         if (isOpening) {
           setTimeout(() => {
             item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -576,7 +542,6 @@
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const targetId = this.getAttribute('href');
-        
         if (targetId === '#') return;
         
         const targetElement = document.querySelector(targetId);
@@ -626,30 +591,35 @@
 
   // ============ ACCESSIBILITY ENHANCEMENTS ============
   function addAccessibilityEnhancements() {
-    // Add skip to main content link
-    const skipLink = document.createElement('a');
-    skipLink.href = '#main-content';
-    skipLink.className = 'skip-to-main';
-    skipLink.textContent = 'Skip to main content';
-    document.body.prepend(skipLink);
-    
-    // Add role="main" to main element if not present
     const mainElement = document.querySelector('main');
     if (mainElement && !mainElement.hasAttribute('id')) {
       mainElement.setAttribute('id', 'main-content');
     }
     
-    // Ensure all external links have proper attributes
     document.querySelectorAll('a[target="_blank"]').forEach(link => {
       if (!link.hasAttribute('rel')) {
         link.setAttribute('rel', 'noopener noreferrer');
       }
-      
       if (!link.hasAttribute('aria-label')) {
         const text = link.textContent.trim();
         link.setAttribute('aria-label', text ? text + ' (opens in new tab)' : 'Opens in new tab');
       }
     });
+  }
+
+  // ============ PREVENT DOUBLE-TAP ZOOM ============
+  function preventZoomOnDoubleTap() {
+    document.addEventListener('touchend', (e) => {
+      const now = Date.now();
+      const lastTouch = preventZoomOnDoubleTap._lastTouch || 0;
+      const timeSince = now - lastTouch;
+      
+      if (timeSince < 300 && timeSince > 0) {
+        e.preventDefault();
+      }
+      
+      preventZoomOnDoubleTap._lastTouch = now;
+    }, { passive: false });
   }
 
   // ============ ERROR HANDLING ============
