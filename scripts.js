@@ -1,9 +1,6 @@
-// scripts.js - Fixed version with critical fixes
-
 (function () {
   'use strict';
 
-  // ============ DOM ELEMENTS ============
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const hamburgerIcon = document.getElementById('hamburger-icon');
@@ -15,7 +12,6 @@
   const currentYearSpan = document.getElementById('current-year');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-  // Calendar elements
   const calendarGrid = document.getElementById('calendar-grid');
   const calendarMonthYear = document.getElementById('calendar-month-year');
   const prevMonthBtn = document.getElementById('prev-month');
@@ -26,18 +22,13 @@
   const scheduleFeedback = document.getElementById('schedule-feedback');
   const scheduleServiceType = document.getElementById('schedule-service-type');
 
-  // ============ STATE ============
   let isMenuOpen = false;
-  let activeService = 'deliver'; // 'deliver' or 'ride'
-  
-  // Calendar state
+  let activeService = 'deliver';
   let currentDate = new Date();
   let selectedDate = null;
   let selectedTimeSlot = null;
-  let focusableElements = [];
   let lastFocusedElement = null;
 
-  // ============ INITIALIZATION ============
   function init() {
     setCurrentYear();
     setupMobileMenu();
@@ -52,47 +43,52 @@
     preventZoomOnDoubleTap();
     setupKeyboardNavigation();
     fixCalendarAccessibility();
+    addAnimationStyles();
   }
 
-  // ============ SET CURRENT YEAR ============
   function setCurrentYear() {
     if (currentYearSpan) {
       currentYearSpan.textContent = new Date().getFullYear();
     }
   }
 
-  // ============ MOBILE MENU (FIXED) ============
   function setupMobileMenu() {
     if (!mobileMenuBtn || !mobileMenu) return;
 
-    // Fix: Remove display:none from hidden state, use opacity and visibility instead
     mobileMenu.classList.add('menu-closed');
     mobileMenu.classList.remove('hidden');
+    mobileMenu.setAttribute('aria-hidden', 'true');
 
-    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-
-    mobileNavLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if (isMenuOpen) closeMobileMenu();
-      });
+    mobileMenuBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleMobileMenu();
     });
 
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('click', function(e) {
+      if (isMenuOpen && 
+          !mobileMenu.contains(e.target) && 
+          !mobileMenuBtn.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && isMenuOpen) {
         closeMobileMenu();
         mobileMenuBtn.focus();
       }
-      
-      // Focus trap inside mobile menu
-      if (isMenuOpen && e.key === 'Tab') {
-        trapFocus(e);
-      }
     });
 
-    document.addEventListener('click', (e) => {
-      if (isMenuOpen && 
-          !mobileMenu.contains(e.target) && 
-          !mobileMenuBtn.contains(e.target)) {
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        if (isMenuOpen) {
+          setTimeout(() => closeMobileMenu(), 100);
+        }
+      });
+    });
+
+    window.addEventListener('resize', function() {
+      if (window.innerWidth >= 768 && isMenuOpen) {
         closeMobileMenu();
       }
     });
@@ -103,9 +99,9 @@
   }
 
   function openMobileMenu() {
-    // Fix: Use visibility + opacity for smooth animation
     mobileMenu.classList.remove('menu-closed');
     mobileMenu.classList.add('menu-open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
     mobileMenuBtn.setAttribute('aria-expanded', 'true');
     
     if (hamburgerIcon) {
@@ -113,21 +109,18 @@
     }
     
     isMenuOpen = true;
+    document.body.style.overflow = 'hidden';
     
-    // Store last focused element
-    lastFocusedElement = document.activeElement;
-    
-    // Focus first focusable element
-    const firstFocusable = mobileMenu.querySelector('a, button, input, select, textarea');
-    if (firstFocusable) {
-      setTimeout(() => firstFocusable.focus(), 100);
+    const firstLink = mobileMenu.querySelector('a');
+    if (firstLink) {
+      setTimeout(() => firstLink.focus(), 100);
     }
   }
 
   function closeMobileMenu() {
-    // Fix: Use visibility + opacity for smooth animation
     mobileMenu.classList.remove('menu-open');
     mobileMenu.classList.add('menu-closed');
+    mobileMenu.setAttribute('aria-hidden', 'true');
     mobileMenuBtn.setAttribute('aria-expanded', 'false');
     
     if (hamburgerIcon) {
@@ -135,40 +128,16 @@
     }
     
     isMenuOpen = false;
-    
-    // Return focus to previous element
-    if (lastFocusedElement) {
-      setTimeout(() => lastFocusedElement.focus(), 100);
-    }
+    document.body.style.overflow = '';
+    mobileMenuBtn.focus();
   }
 
-  // ============ FOCUS TRAP FOR MOBILE MENU ============
-  function trapFocus(e) {
-    const focusable = mobileMenu.querySelectorAll('a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])');
-    const firstFocusable = focusable[0];
-    const lastFocusable = focusable[focusable.length - 1];
-    
-    if (e.shiftKey) {
-      if (document.activeElement === firstFocusable) {
-        e.preventDefault();
-        lastFocusable.focus();
-      }
-    } else {
-      if (document.activeElement === lastFocusable) {
-        e.preventDefault();
-        firstFocusable.focus();
-      }
-    }
-  }
-
-  // ============ SERVICE TABS ============
   function setupServiceTabs() {
     if (!tabSend || !tabRide) return;
 
     tabSend.addEventListener('click', () => switchService('deliver'));
     tabRide.addEventListener('click', () => switchService('ride'));
     
-    // Fix: Add keyboard support
     tabSend.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -232,7 +201,6 @@
     }
   }
 
-  // ============ BOOKING FORM (FIXED) ============
   function setupBookingForm() {
     if (!bookingForm) return;
 
@@ -254,7 +222,6 @@
       field.classList.add('border-red-500');
       field.classList.remove('border-zinc-800');
       
-      // Add error message for accessibility
       const errorId = `${field.id}-error`;
       let errorMsg = document.getElementById(errorId);
       if (!errorMsg) {
@@ -344,7 +311,6 @@
     setTimeout(() => {
       bookingForm.reset();
       if (formFeedback) formFeedback.classList.add('hidden');
-      // Reset validation states
       bookingForm.querySelectorAll('.border-red-500').forEach(el => {
         el.classList.remove('border-red-500');
         el.classList.add('border-zinc-800');
@@ -368,7 +334,6 @@
     }, 5000);
   }
 
-  // ============ CALENDAR SYSTEM (FIXED ACCESSIBILITY) ============
   function setupCalendar() {
     if (!calendarGrid || !calendarMonthYear) return;
     
@@ -398,7 +363,6 @@
   }
 
   function fixCalendarAccessibility() {
-    // Ensure calendar days have proper roles
     const days = calendarGrid.querySelectorAll('.calendar-day:not(.empty)');
     days.forEach(day => {
       day.setAttribute('role', 'button');
@@ -466,7 +430,6 @@
     
     calendarGrid.innerHTML = calendarHTML;
     
-    // Fix: Add keyboard navigation
     calendarGrid.querySelectorAll('.calendar-day:not(.empty):not(.unavailable)').forEach(dayBtn => {
       dayBtn.addEventListener('click', () => selectDate(dayBtn));
       dayBtn.addEventListener('keydown', (e) => {
@@ -477,7 +440,6 @@
       });
     });
     
-    // Add arrow key navigation
     setupCalendarKeyboardNavigation();
   }
 
@@ -615,7 +577,6 @@
     }, 3000);
   }
 
-  // ============ FAQ ACCORDION (FIXED) ============
   function setupFAQAccordion() {
     const faqItems = document.querySelectorAll('.faq-item');
     
@@ -623,7 +584,6 @@
       const summary = item.querySelector('summary');
       if (!summary) return;
       
-      // Fix: Add proper ARIA attributes
       const content = item.querySelector('.faq-content');
       if (content) {
         const id = `faq-content-${Math.random().toString(36).substr(2, 9)}`;
@@ -654,62 +614,6 @@
     });
   }
 
-  // ============ SCROLL ANIMATIONS (FIXED PERFORMANCE) ============
-  function setupScrollAnimations() {
-    if (!('IntersectionObserver' in window)) return;
-    
-    // Fix: Only animate elements that are initially below viewport
-    const animatedElements = document.querySelectorAll('section, .card-premium, .faq-item');
-    
-    animatedElements.forEach((el, index) => {
-      // Use CSS classes instead of inline styles for better performance
-      el.classList.add('scroll-animate');
-      el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    });
-    
-    const animationObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          animationObserver.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.15,
-      rootMargin: '0px 0px -30px 0px'
-    });
-    
-    animatedElements.forEach(el => animationObserver.observe(el));
-  }
-
-  // ============ KEYBOARD NAVIGATION ============
-  function setupKeyboardNavigation() {
-    document.querySelectorAll('button, a, input, select, textarea').forEach(el => {
-      if (!el.hasAttribute('tabindex') && el.tagName !== 'BUTTON' && el.tagName !== 'A' && el.tagName !== 'INPUT' && el.tagName !== 'SELECT' && el.tagName !== 'TEXTAREA') {
-        el.setAttribute('tabindex', '0');
-      }
-    });
-  }
-
-  // ============ CARD HOVER EFFECTS ============
-  function setupCardHoverEffects() {
-    document.querySelectorAll('.card-premium').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        card.style.setProperty('--mouse-x', `${x}%`);
-        card.style.setProperty('--mouse-y', `${y}%`);
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        card.style.setProperty('--mouse-x', '50%');
-        card.style.setProperty('--mouse-y', '50%');
-      });
-    });
-  }
-
-  // ============ SMOOTH SCROLL ============
   function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -738,7 +642,6 @@
     });
   }
 
-  // ============ IMAGE LAZY LOADING ============
   function setupImageLazyLoading() {
     if ('loading' in HTMLImageElement.prototype) return;
     
@@ -763,7 +666,23 @@
     lazyImages.forEach(img => imageObserver.observe(img));
   }
 
-  // ============ ACCESSIBILITY ENHANCEMENTS ============
+  function setupCardHoverEffects() {
+    document.querySelectorAll('.card-premium').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mouse-x', `${x}%`);
+        card.style.setProperty('--mouse-y', `${y}%`);
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--mouse-x', '50%');
+        card.style.setProperty('--mouse-y', '50%');
+      });
+    });
+  }
+
   function addAccessibilityEnhancements() {
     const mainElement = document.querySelector('main');
     if (mainElement && !mainElement.hasAttribute('id')) {
@@ -780,7 +699,6 @@
       }
     });
     
-    // Fix: Add skip to main content
     const skipLink = document.querySelector('.skip-to-main');
     if (skipLink) {
       skipLink.addEventListener('click', (e) => {
@@ -794,7 +712,6 @@
     }
   }
 
-  // ============ PREVENT DOUBLE-TAP ZOOM ============
   function preventZoomOnDoubleTap() {
     let lastTouch = 0;
     document.addEventListener('touchend', (e) => {
@@ -809,23 +726,48 @@
     }, { passive: false });
   }
 
-  // ============ ADD CSS FOR ANIMATIONS ============
+  function setupKeyboardNavigation() {
+    document.querySelectorAll('button, a, input, select, textarea').forEach(el => {
+      if (!el.hasAttribute('tabindex') && el.tagName !== 'BUTTON' && el.tagName !== 'A' && el.tagName !== 'INPUT' && el.tagName !== 'SELECT' && el.tagName !== 'TEXTAREA') {
+        el.setAttribute('tabindex', '0');
+      }
+    });
+  }
+
   function addAnimationStyles() {
     const style = document.createElement('style');
     style.textContent = `
       .menu-closed {
         visibility: hidden;
         opacity: 0;
-        transform: translateY(-8px);
-        transition: visibility 0.3s, opacity 0.3s, transform 0.3s;
+        transform: translateY(-8px) scale(0.98);
+        transition: visibility 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
         display: block !important;
+        max-height: 0;
+        overflow: hidden;
       }
       .menu-open {
         visibility: visible;
         opacity: 1;
-        transform: translateY(0);
-        transition: visibility 0.3s, opacity 0.3s, transform 0.3s;
+        transform: translateY(0) scale(1);
+        transition: visibility 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
         display: block !important;
+        max-height: 600px;
+        overflow-y: auto;
+      }
+      #mobile-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 40;
+        border-bottom: 1px solid #1f1f1f;
+      }
+      @media (min-width: 768px) {
+        #mobile-menu {
+          display: none !important;
+        }
       }
       .scroll-animate {
         opacity: 0;
@@ -843,7 +785,6 @@
     document.head.appendChild(style);
   }
 
-  // ============ ERROR HANDLING ============
   window.addEventListener('error', function(e) {
     console.error('Global error:', e.message);
   });
@@ -852,7 +793,6 @@
     console.error('Unhandled promise rejection:', e.reason);
   });
 
-  // ============ START ============
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       addAnimationStyles();

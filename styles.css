@@ -1,22 +1,14 @@
-/* =============================================
-   MARINDANY LOGISTICS — PRODUCTION CSS (MOBILE-FIT HARDENED + IE11 FALLBACK)
-   Version: 3.2.0
-   ============================================= */
-
-/* ---------- 1. CSS CUSTOM PROPERTIES ---------- */
 :root {
-  /* --- Responsive Font Scales (Mobile-first) --- */
-  --text-xs: 0.75rem;   /* 12px */
-  --text-sm: 0.875rem;  /* 14px */
-  --text-base: 1.0625rem; /* 17px — baseline */
-  --text-lg: 1.25rem;   /* 20px */
-  --text-xl: 1.5rem;    /* 24px */
-  --text-2xl: 1.75rem;  /* 28px */
-  --text-3xl: 2rem;     /* 32px */
-  --text-4xl: 2.5rem;   /* 40px */
-  --text-5xl: 3rem;     /* 48px */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3rem;
 
-  /* --- Spacing (increased for touch) --- */
   --spacing-xs: 0.75rem;
   --spacing-sm: 1rem;
   --spacing-md: 1.25rem;
@@ -24,10 +16,8 @@
   --spacing-xl: 2rem;
   --spacing-2xl: 2.5rem;
 
-  /* --- Touch targets (increased) --- */
   --touch-target-min: 48px;
 
-  /* Color System */
   --color-bg-primary: #030303;
   --color-bg-secondary: #0d0d0d;
   --color-bg-tertiary: #141414;
@@ -42,29 +32,23 @@
   --color-accent-gold-hover: #fde047;
   --color-focus-ring: rgba(132, 204, 22, 0.15);
 
-  /* Typography */
-  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Playfair Display', Georgia, serif;
   --font-mono: 'Space Grotesk', 'Courier New', monospace;
 
-  /* Border Radius */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
   --radius-xl: 1.25rem;
 
-  /* Shadows */
   --shadow-green: 0 4px 15px rgba(132, 204, 22, 0.15);
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1);
 
-  /* Transitions */
   --transition-fast: 0.15s ease;
   --transition-base: 0.25s ease;
   --transition-bounce: 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ---------- 2. RESET & BASE ---------- */
 *,
 *::before,
 *::after {
@@ -92,13 +76,12 @@ body {
   line-height: 1.7;
   letter-spacing: 0.01em;
   min-height: 100vh;
-  overflow-x: hidden;           /* ← Prevents horizontal scroll */
-  width: 100%;                  /* ← Forces body to fit */
+  overflow-x: hidden;
+  width: 100%;
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
 }
 
-/* IE11 fallback for custom properties */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   body {
     background-color: #030303;
@@ -106,7 +89,6 @@ body {
   }
 }
 
-/* Remove animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -122,7 +104,6 @@ body {
   }
 }
 
-/* ---------- 3. TYPOGRAPHY ---------- */
 .font-display {
   font-family: var(--font-display);
   font-weight: 700;
@@ -142,12 +123,11 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-text-primary);
   text-wrap: balance;
   margin-bottom: 0.5em;
-  word-break: break-word;       /* ← Hardened */
-  overflow-wrap: break-word;    /* ← Hardened */
-  max-width: 100%;              /* ← Hardened */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
-/* IE11 fallback for word-break */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   h1, h2, h3, h4, h5, h6, p, li, a, span {
     word-break: break-all;
@@ -166,8 +146,8 @@ p, li, label, .text-content {
   margin-bottom: 0.75rem;
   max-width: 70ch;
   color: var(--color-text-secondary);
-  word-break: break-word;       /* ← Hardened */
-  overflow-wrap: break-word;    /* ← Hardened */
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 a {
@@ -183,16 +163,14 @@ a:focus-visible {
   border-radius: 2px;
 }
 
-/* ---------- 4. IMAGES ---------- */
 img {
-  max-width: 100% !important;   /* ← Hardened */
-  height: auto !important;      /* ← Hardened */
+  max-width: 100% !important;
+  height: auto !important;
   display: block;
   background-color: #080808;
   content-visibility: auto;
 }
 
-/* IE11 fallback for img */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   img {
     max-width: 100%;
@@ -222,7 +200,6 @@ img:not([src]), img[src=""] { visibility: hidden; }
   img { width: 100%; height: auto; }
 }
 
-/* ---------- 5. CARD COMPONENTS ---------- */
 .card-premium {
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border-primary);
@@ -232,8 +209,8 @@ img:not([src]), img[src=""] { visibility: hidden; }
     box-shadow var(--transition-base);
   will-change: transform;
   box-shadow: var(--shadow-card);
-  max-width: 100%;              /* ← Hardened */
-  overflow-x: hidden;           /* ← Hardened */
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .card-premium:hover {
@@ -247,7 +224,6 @@ img:not([src]), img[src=""] { visibility: hidden; }
   box-shadow: 0 0 0 1px var(--color-accent-green);
 }
 
-/* ---------- 6. BUTTONS ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -270,7 +246,7 @@ img:not([src]), img[src=""] { visibility: hidden; }
   position: relative;
   overflow: hidden;
   touch-action: manipulation;
-  max-width: 100%;              /* ← Hardened */
+  max-width: 100%;
 }
 
 .btn:active { transform: scale(0.98); }
@@ -321,15 +297,14 @@ img:not([src]), img[src=""] { visibility: hidden; }
 }
 
 @media (max-width: 640px) {
-  .btn { padding: 0.875rem 1.25rem; font-size: 1rem; width: 100%; } /* ← Full-width on tiny screens */
+  .btn { padding: 0.875rem 1.25rem; font-size: 1rem; width: 100%; }
 }
 
-/* ---------- 7. FORM ELEMENTS ---------- */
 input, select, textarea, button {
-  font-size: 16px !important; /* Prevents iOS zoom */
+  font-size: 16px !important;
   touch-action: manipulation;
   min-height: var(--touch-target-min);
-  max-width: 100%;              /* ← Hardened */
+  max-width: 100%;
 }
 
 input, select, textarea {
@@ -378,20 +353,41 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
 }
 
-/* ---------- 8. NAVIGATION ---------- */
+/* Mobile menu styles - FIXED */
 #mobile-menu {
-  display: none;
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity var(--transition-base), transform var(--transition-base);
-  max-width: 100%;              /* ← Hardened */
-  overflow-x: hidden;           /* ← Hardened */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 40;
+  border-bottom: 1px solid #1f1f1f;
 }
 
-#mobile-menu:not(.hidden) {
-  display: block;
+.menu-closed {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.98);
+  transition: visibility 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  display: block !important;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.menu-open {
+  visibility: visible;
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  transition: visibility 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  display: block !important;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  #mobile-menu {
+    display: none !important;
+  }
 }
 
 .mobile-nav-link {
@@ -403,8 +399,8 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   border-bottom: 1px solid var(--color-border-primary);
   transition: color var(--transition-fast), background-color var(--transition-fast);
   min-height: var(--touch-target-min);
-  word-break: break-word;       /* ← Hardened */
-  overflow-wrap: break-word;    /* ← Hardened */
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .mobile-nav-link:hover, .mobile-nav-link:focus-visible {
@@ -418,14 +414,13 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   padding-left: calc(var(--spacing-sm) - 3px);
 }
 
-/* ---------- 9. FAQ COMPONENT ---------- */
 .faq-item {
   background-color: var(--color-bg-secondary);
   border: 1px solid var(--color-border-primary);
   border-radius: var(--radius-lg);
   transition: border-color var(--transition-base);
   overflow: hidden;
-  max-width: 100%;              /* ← Hardened */
+  max-width: 100%;
 }
 
 .faq-item:hover { border-color: var(--color-border-hover); }
@@ -443,8 +438,8 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   gap: var(--spacing-md);
   outline: none;
   user-select: none;
-  word-break: break-word;       /* ← Hardened */
-  overflow-wrap: break-word;    /* ← Hardened */
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .faq-item summary::-webkit-details-marker { display: none; }
@@ -479,8 +474,8 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   color: var(--color-text-secondary);
   font-size: var(--text-base);
   line-height: 1.7;
-  word-break: break-word;       /* ← Hardened */
-  overflow-wrap: break-word;    /* ← Hardened */
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .faq-item[open] .faq-content {
@@ -489,7 +484,6 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   padding: 0 var(--spacing-xl) var(--spacing-lg);
 }
 
-/* ---------- 10. CALENDAR ---------- */
 .calendar-day {
   aspect-ratio: 1;
   display: flex;
@@ -505,7 +499,7 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
   min-height: var(--touch-target-min);
   position: relative;
-  max-width: 100%;              /* ← Hardened */
+  max-width: 100%;
 }
 
 .calendar-day:hover:not(.empty):not(.unavailable) {
@@ -547,7 +541,7 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 100%;              /* ← Hardened */
+  max-width: 100%;
 }
 
 .time-slot-btn:hover:not(:disabled):not(.unavailable) {
@@ -560,7 +554,6 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   color: #000;
 }
 
-/* ---------- 11. ACCESSIBILITY ---------- */
 *:focus-visible {
   outline: 2px solid var(--color-accent-green);
   outline-offset: 2px;
@@ -588,7 +581,6 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   *:focus-visible { outline: 3px solid Highlight; }
 }
 
-/* ---------- 12. RESPONSIVE BREAKPOINTS ---------- */
 @media (max-width: 1024px) {
   .card-premium { padding: var(--spacing-lg); }
 }
@@ -607,7 +599,6 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   .time-slot-btn { font-size: var(--text-sm); padding: var(--spacing-xs) var(--spacing-sm); }
 }
 
-/* ---------- 13. UTILITY CLASSES ---------- */
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0, 0, 0, 0); clip-path: inset(50%);
@@ -622,7 +613,7 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
 
 .container {
   width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-md);
-  overflow-x: hidden;           /* ← Hardened */
+  overflow-x: hidden;
 }
 
 @media (min-width: 768px) { .container { padding: 0 var(--spacing-xl); } }
@@ -646,7 +637,6 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   100% { background-position: -200% 0; }
 }
 
-/* ---------- 14. PRINT STYLES ---------- */
 @media print {
   * { background: transparent !important; color: #000 !important; box-shadow: none !important; text-shadow: none !important; }
   body { background: #fff; color: #000; }
@@ -657,14 +647,11 @@ input:invalid:not(:placeholder-shown):focus, select:invalid:not(:placeholder-sho
   p, li { orphans: 3; widows: 3; }
 }
 
-/* ---------- 15. EXTRA MOBILE-FIT GUARANTEE ---------- */
-/* Forces all block-level containers to stay within viewport */
 section, article, main, aside, header, footer, div, nav {
   max-width: 100vw;
   overflow-x: hidden;
 }
 
-/* Handles long URLs, code blocks, and tables */
 pre, code, table, .table-wrapper {
   max-width: 100%;
   overflow-x: auto;
@@ -672,15 +659,12 @@ pre, code, table, .table-wrapper {
   display: block;
 }
 
-/* Prevents flex/grid children from overflowing */
 .flex, .grid {
   max-width: 100%;
   flex-wrap: wrap;
 }
 
-/* ---------- 16. IE11 COMPLETE FALLBACK ---------- */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  /* All IE11-specific overrides */
   body { background-color: #030303; color: #f5f5f4; }
   h1, h2, h3, h4, h5, h6, p, li, a, span { word-break: break-all; }
   img { max-width: 100%; height: auto; }

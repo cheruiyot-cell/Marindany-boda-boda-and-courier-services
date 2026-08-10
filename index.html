@@ -2,30 +2,25 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <!-- CRITICAL FIX: viewport with shrink-to-fit and maximum-scale to prevent overflow -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover, shrink-to-fit=no" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://i.ibb.co" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Core SEO -->
   <title>Marindany Boda Boda and Courier Services — Trusted Imara Daima Logistics</title>
   <meta name="description" content="Fast, reliable parcel delivery and boda boda rides in Imara Daima and across Nairobi. Direct WhatsApp booking, transparent rates, and real-time human updates." />
   <meta name="keywords" content="Marindany Boda Boda, trusted rider Imara Daima, same day parcel delivery Nairobi, fast delivery services Kenya, WhatsApp courier Nairobi, M-Pesa delivery Nairobi" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://marindany-boda-boda-and-courier-ser.vercel.app/" />
 
-  <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Marindany Boda Boda and Courier Services" />
   <meta property="og:description" content="Fast, reliable, and completely stress-free rides and deliveries in Nairobi. Direct human updates via WhatsApp." />
   <meta property="og:image" content="https://i.ibb.co/R4GpYkHd/1786271471547.png" />
   <meta property="og:url" content="https://marindany-boda-boda-and-courier-ser.vercel.app/" />
 
-  <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -59,10 +54,8 @@
     }
   </script>
 
-  <!-- Premium Web Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS CDN + Config -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -82,12 +75,9 @@
     }
   </script>
 
-  <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
   
-  <!-- FALLBACK: Inline CSS to guarantee mobile fit even if styles.css fails -->
   <style>
-    /* Emergency mobile-fit overrides */
     @media (max-width: 640px) {
       body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; }
       img, video, iframe, table, pre, code { max-width: 100% !important; height: auto !important; }
@@ -112,13 +102,11 @@
 </head>
 <body class="min-h-screen bg-black text-white font-sans antialiased">
 
-  <!-- Skip to main content (accessibility) -->
   <a href="#main-content" class="sr-only-focusable skip-to-main" aria-label="Skip to main content">Skip to main content</a>
 
   <!-- ========== HEADER ========== -->
   <header>
     <nav class="fixed w-full z-50 bg-black/95 backdrop-blur-xl border-b border-zinc-900 transition-all duration-300" aria-label="Main Navigation">
-      <!-- FIX: Added px-2 to prevent overflow on tiny screens -->
       <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20 md:h-24 items-center">
           <!-- Logo -->
@@ -144,7 +132,7 @@
             </a>
           </div>
 
-          <!-- Mobile menu button (enlarged, thumb-friendly) -->
+          <!-- Mobile menu button - Fixed right alignment -->
           <div class="md:hidden flex items-center">
             <button id="mobile-menu-btn" type="button" class="text-zinc-400 hover:text-white focus:outline-none p-3.5 rounded-xl bg-zinc-900/60 backdrop-blur-sm border border-zinc-800 transition-all hover:border-brandLime-500" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle Navigation Menu" style="min-width:56px; min-height:56px;">
               <svg id="hamburger-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="w-7 h-7 transition-transform duration-200">
@@ -155,9 +143,8 @@
         </div>
       </div>
 
-      <!-- Mobile menu (dropdown) -->
-      <!-- FIX: Added max-w-full and overflow-hidden -->
-      <div id="mobile-menu" class="hidden md:hidden bg-black/95 backdrop-blur-2xl border-b border-zinc-900 transition-all duration-300 max-w-full overflow-hidden">
+      <!-- Mobile menu - Fixed with proper animation -->
+      <div id="mobile-menu" class="md:hidden bg-black/95 backdrop-blur-2xl border-b border-zinc-900 menu-closed" aria-hidden="true">
         <div class="px-4 pt-3 pb-6 space-y-2">
           <a href="#services" class="mobile-nav-link block text-zinc-300 hover:text-brandLime-400 py-3.5 text-base font-medium border-b border-zinc-900">Services</a>
           <a href="#rates" class="mobile-nav-link block text-zinc-300 hover:text-brandLime-400 py-3.5 text-base font-medium border-b border-zinc-900">Rates & Pricing</a>
@@ -175,8 +162,6 @@
 
   <!-- ========== MAIN CONTENT ========== -->
   <main id="main-content">
-    <!-- ========== HERO & BOOKING ========== -->
-    <!-- FIX: Added px-2 on mobile -->
     <section class="relative pt-28 pb-16 lg:pt-36 lg:pb-24 px-2 sm:px-6 lg:px-8 max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
       <div class="lg:col-span-7 space-y-6 z-10">
         <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-sm">
@@ -190,8 +175,6 @@
           Tired of riders canceling or delayed parcels? <strong class="font-semibold">Marindany Logistics</strong> connects you instantly with verified riders based right here in Imara Daima. Skip the jam, move your packages safely, and get real human updates straight on WhatsApp.
         </p>
         
-        <!-- Trust indicators -->
-        <!-- FIX: Added gap-2 and min-width:0 -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
           <div class="flex items-center gap-3 bg-zinc-900/60 p-4 rounded-xl border border-zinc-800 min-w-0">
             <span class="text-2xl flex-shrink-0" aria-hidden="true">⚡</span>
@@ -211,7 +194,6 @@
           </div>
         </div>
 
-        <!-- Key statistics -->
         <div class="grid grid-cols-3 gap-4 pt-4">
           <div class="text-center min-w-0">
             <div class="font-mono text-2xl sm:text-3xl font-bold text-brandLime-400">5,000+</div>
@@ -228,8 +210,6 @@
         </div>
       </div>
 
-      <!-- Booking form -->
-      <!-- FIX: Added overflow-hidden and min-width:0 -->
       <div class="lg:col-span-5 bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative min-w-0 overflow-hidden">
         <div class="absolute -top-16 -right-16 w-48 h-48 bg-brandLime-500/10 rounded-full blur-[64px] pointer-events-none" aria-hidden="true"></div>
         <h2 class="font-display text-2xl font-semibold mb-2 tracking-tight">Instant Dispatch Form</h2>
@@ -242,7 +222,6 @@
           </div>
         </div>
         
-        <!-- FIX: Added flex-wrap and min-width:0 -->
         <div class="flex flex-wrap bg-black p-1 rounded-xl mb-6 border border-zinc-900" aria-label="Service Type Selector">
           <button id="tab-send" type="button" aria-pressed="true" class="flex-1 py-3.5 rounded-lg font-medium transition-all text-base bg-zinc-900 text-white shadow-sm focus:outline-none focus:ring-1 focus:ring-brandLime-500 min-w-0">
             📦 Deliver Parcel
@@ -315,7 +294,6 @@
       </div>
     </section>
 
-    <!-- ========== COVERAGE ========== -->
     <section id="coverage" class="bg-zinc-950 border-y border-zinc-900 py-16 lg:py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-12">
@@ -347,7 +325,6 @@
       </div>
     </section>
 
-    <!-- ========== SERVICES & GALLERY ========== -->
     <section id="services" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mb-12">
         <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-3">Core Logistics Solutions & Fleet</h2>
@@ -388,7 +365,6 @@
       </div>
     </section>
 
-    <!-- ========== GALLERY ========== -->
     <section id="gallery" class="pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <span class="text-brandLime-400 font-semibold tracking-widest text-sm uppercase mb-2 block font-mono">Our Fleet in Action</span>
@@ -397,24 +373,9 @@
       </div>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Gallery Image 1 -->
         <figure class="group min-w-0">
           <div class="relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-[4/3] optimized-img-wrapper mb-3">
-            <img 
-              src="https://i.ibb.co/KctzvVr1/1786271932511.png" 
-              srcset="https://i.ibb.co/KctzvVr1/1786271932511.png 1x"
-              alt="Marindany Logistics motorcycle courier ready for dispatch with delivery box" 
-              loading="lazy" 
-              decoding="async"
-              width="800" 
-              height="600" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img"
-              onload="this.classList.add('loaded')"
-              onerror="this.onerror=null; this.parentElement.querySelector('.img-fallback').classList.add('active');"
-            />
-            <div class="img-fallback">
-              <span>📸 Fleet Image</span>
-            </div>
+            <img src="https://i.ibb.co/KctzvVr1/1786271932511.png" alt="Marindany Logistics motorcycle courier ready for dispatch with delivery box" loading="lazy" decoding="async" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
           </div>
           <figcaption class="text-center">
@@ -424,24 +385,9 @@
           </figcaption>
         </figure>
         
-        <!-- Gallery Image 2 -->
         <figure class="group min-w-0">
           <div class="relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-[4/3] optimized-img-wrapper mb-3">
-            <img 
-              src="https://i.ibb.co/ymq0jMFP/1786271643717.png" 
-              srcset="https://i.ibb.co/ymq0jMFP/1786271643717.png 1x"
-              alt="Marindany Logistics fast parcel transit across Nairobi city lanes" 
-              loading="lazy" 
-              decoding="async"
-              width="800" 
-              height="600" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img"
-              onload="this.classList.add('loaded')"
-              onerror="this.onerror=null; this.parentElement.querySelector('.img-fallback').classList.add('active');"
-            />
-            <div class="img-fallback">
-              <span>📸 Transit Image</span>
-            </div>
+            <img src="https://i.ibb.co/ymq0jMFP/1786271643717.png" alt="Marindany Logistics fast parcel transit across Nairobi city lanes" loading="lazy" decoding="async" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
           </div>
           <figcaption class="text-center">
@@ -451,24 +397,9 @@
           </figcaption>
         </figure>
         
-        <!-- Gallery Image 3 -->
         <figure class="group min-w-0">
           <div class="relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-[4/3] optimized-img-wrapper mb-3">
-            <img 
-              src="https://i.ibb.co/1YsTMFRR/1786272232822.png" 
-              srcset="https://i.ibb.co/1YsTMFRR/1786272232822.png 1x"
-              alt="Marindany Logistics reliable rider on Nairobi highway during delivery" 
-              loading="lazy" 
-              decoding="async"
-              width="800" 
-              height="600" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img"
-              onload="this.classList.add('loaded')"
-              onerror="this.onerror=null; this.parentElement.querySelector('.img-fallback').classList.add('active');"
-            />
-            <div class="img-fallback">
-              <span>📸 Operator Image</span>
-            </div>
+            <img src="https://i.ibb.co/1YsTMFRR/1786272232822.png" alt="Marindany Logistics reliable rider on Nairobi highway during delivery" loading="lazy" decoding="async" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
           </div>
           <figcaption class="text-center">
@@ -478,24 +409,9 @@
           </figcaption>
         </figure>
 
-        <!-- Gallery Image 4 -->
         <figure class="group min-w-0">
           <div class="relative rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 aspect-[4/3] optimized-img-wrapper mb-3">
-            <img 
-              src="https://i.ibb.co/R4GpYkHd/1786271471547.png" 
-              srcset="https://i.ibb.co/R4GpYkHd/1786271471547.png 1x"
-              alt="Marindany Logistics boda boda rider navigating Nairobi traffic with parcel" 
-              loading="lazy" 
-              decoding="async"
-              width="800" 
-              height="600" 
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img"
-              onload="this.classList.add('loaded')"
-              onerror="this.onerror=null; this.parentElement.querySelector('.img-fallback').classList.add('active');"
-            />
-            <div class="img-fallback">
-              <span>📸 Rider Image</span>
-            </div>
+            <img src="https://i.ibb.co/R4GpYkHd/1786271471547.png" alt="Marindany Logistics boda boda rider navigating Nairobi traffic with parcel" loading="lazy" decoding="async" width="800" height="600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 lazy-img" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
           </div>
           <figcaption class="text-center">
@@ -507,7 +423,6 @@
       </div>
     </section>
 
-    <!-- ========== RATES ========== -->
     <section id="rates" class="py-20 bg-zinc-950 border-t border-zinc-900">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mb-12">
@@ -573,7 +488,6 @@
       </div>
     </section>
 
-    <!-- ========== SCHEDULING / CALENDAR ========== -->
     <section id="scheduling" class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <span class="text-brandGold-400 font-semibold tracking-widest text-sm uppercase mb-2 block font-mono">Plan Ahead</span>
@@ -582,7 +496,6 @@
       </div>
 
       <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl max-w-2xl mx-auto min-w-0 overflow-hidden">
-        <!-- Service Type Selector -->
         <div class="mb-6">
           <label for="schedule-service-type" class="block text-sm font-medium text-zinc-400 mb-1.5 font-mono tracking-wide">Service Type</label>
           <select id="schedule-service-type" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-brandLime-500 focus:ring-1 focus:ring-brandLime-500 appearance-none text-base cursor-pointer">
@@ -591,7 +504,6 @@
           </select>
         </div>
 
-        <!-- Calendar -->
         <div class="mb-6">
           <div class="flex items-center justify-between mb-4">
             <h3 id="calendar-month-year" class="font-display text-xl font-bold text-white">January 2026</h3>
@@ -605,7 +517,6 @@
             </div>
           </div>
           <div id="calendar-grid" class="grid grid-cols-7 gap-1 sm:gap-2 text-center">
-            <!-- Days of week -->
             <div class="text-xs font-medium text-zinc-500 py-2">Mon</div>
             <div class="text-xs font-medium text-zinc-500 py-2">Tue</div>
             <div class="text-xs font-medium text-zinc-500 py-2">Wed</div>
@@ -613,16 +524,13 @@
             <div class="text-xs font-medium text-zinc-500 py-2">Fri</div>
             <div class="text-xs font-medium text-zinc-500 py-2">Sat</div>
             <div class="text-xs font-medium text-zinc-500 py-2">Sun</div>
-            <!-- Calendar days will be injected by JS -->
           </div>
         </div>
 
-        <!-- Selected Date Display -->
         <div id="selected-date-display" class="text-center text-zinc-400 text-base mb-4 font-light">
           Please select a date from the calendar
         </div>
 
-        <!-- Time Slots -->
         <div class="mb-6">
           <label class="block text-sm font-medium text-zinc-400 mb-2 font-mono tracking-wide">Choose a Time Slot</label>
           <div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
@@ -637,7 +545,6 @@
           </div>
         </div>
 
-        <!-- Book Button -->
         <button id="schedule-booking-btn" class="w-full btn btn-primary !py-4 rounded-xl text-base font-semibold opacity-50 cursor-not-allowed" disabled>
           📅 Confirm Scheduled Booking
         </button>
@@ -645,7 +552,6 @@
       </div>
     </section>
 
-    <!-- ========== FAQ ========== -->
     <section id="faq" class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-3">Frequently Asked Questions</h2>
@@ -709,7 +615,6 @@
       </div>
     </section>
 
-    <!-- ========== URGENT CONTACT ========== -->
     <section class="bg-zinc-950 py-16 border-t border-zinc-900 text-center px-4">
       <div class="max-w-2xl mx-auto space-y-6 min-w-0">
         <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight">Need Urgent Assistance Right Now?</h2>
@@ -727,7 +632,6 @@
     </section>
   </main>
 
-  <!-- ========== FOOTER ========== -->
   <footer class="bg-black border-t border-zinc-900 py-12 px-4 text-center text-sm text-zinc-500 space-y-4">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-left mb-8 pb-8 border-b border-zinc-900">
       <div>
@@ -755,10 +659,8 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="scripts.js" defer></script>
   
-  <!-- FALLBACK: Overflow detection script (runs automatically) -->
   <script>
     (function() {
       'use strict';
